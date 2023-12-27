@@ -2,34 +2,23 @@
 
 namespace App\Domains\Entities\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Authenticatable
+class Admin extends Model
 {
-    use HasApiTokens;
-    use HasFactory;
-
     protected $table = 'admins';
 
-    protected $fillable = [
-        'name',
-        'email',
-        'username',
-        'password',
-        'phone_number',
-        'status',
-    ];
+    public $timestamps = true;
 
-    protected $casts = [
-        'password' => 'hashed',
-    ];
+    protected $fillable = ['role_id', 'name', 'phone', 'email', 'description'];
 
-    public function findByEmail(string $email): ?Admin
+    public function role()
     {
-        return self::query()
-            ->where('email', $email)
-            ->first();
+        return $this->belongsTo('App\Domains\Entities\Models\Admin');
+    }
+
+    public function chats()
+    {
+        return $this->hasMany('Chat', 'admin_id');
     }
 }

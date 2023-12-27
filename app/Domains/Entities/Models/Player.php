@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Domains\Entities\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Player extends Model
+{
+    protected $table = 'players';
+
+    public $timestamps = true;
+
+    public function healthy_details()
+    {
+        return $this->hasOne('Healthy_detail', 'player_id');
+    }
+
+    public function chats()
+    {
+        return $this->hasMany('Chat', 'chat_id');
+    }
+
+    public function lists()
+    {
+        return $this->hasMany('List', 'list_id');
+    }
+
+    public function subscribe()
+    {
+        return $this->hasMany('Subscribe', 'player_id');
+    }
+
+    public function player_game()
+    {
+        return $this->hasMany('App/Domains/Games/Models\Player_game', 'player_id');
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany('App\Domains\Tasks\Models\Schedule', 'player_Id');
+    }
+
+    public function Tasks()
+    {
+        return $this->hasMany('App\Domains\Tasks\Models\Rate', 'player_id');
+    }
+}
