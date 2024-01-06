@@ -12,7 +12,7 @@ class Subscribe extends Model
 
     public function plan()
     {
-        return $this->hasOne('App/Domains/Plans/Models\Plan', 'plan_id');
+        return $this->hasOne('}Models\Plan', 'plan_id');
     }
 
     public function admin()
@@ -22,11 +22,11 @@ class Subscribe extends Model
 
     public function offer()
     {
-        return $this->hasOne('App/Domains/Plans/Models\Offer', 'offer_id');
+        return $this->hasOne('App\Domains\Entities\Models\Offer', 'offer_id');
     }
 
     public function payment()
     {
-        return $this->hasOne('App/Domains/Plans/Models\Payment', 'subscribe_id');
+        return $this->hasOne('App\Domains\Plans\Models\Payment', 'subscribe_id');
     }
 }
