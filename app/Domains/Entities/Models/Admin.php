@@ -2,10 +2,15 @@
 
 namespace App\Domains\Entities\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Admin extends Model
+class Admin extends  Authenticatable
 {
+    use HasApiTokens, HasFactory, Notifiable;
+
     protected $table = 'admins';
 
     public $timestamps = true;
@@ -20,5 +25,13 @@ class Admin extends Model
     public function chats()
     {
         return $this->hasMany('Chat', 'admin_id');
+    }
+
+    // Start Helper Function
+    public function findByEmail(string $email): ?Admin
+    {
+        return self::query()
+            ->where('email', $email)
+            ->first();
     }
 }

@@ -2,6 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:sanctum')->get('/admin', function () {
-    return 'test';
-});
+use App\Src\Admin\Entities\Controllers\AuthController;
+
+Route::prefix('auth')
+    ->name('auth.')
+    ->controller(AuthController::class)
+    ->group(function () {
+        Route::post('login', 'login')->name('login');
+        Route::delete('logout', 'logout')->name('logout')->middleware('auth:admin');
+        Route::get('user', 'user')->name('user')->middleware('auth:admin');
+    });
