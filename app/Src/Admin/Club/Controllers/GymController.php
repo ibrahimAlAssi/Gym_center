@@ -2,82 +2,61 @@
 
 namespace App\Src\Admin\Club\Controllers;
 
+use App\Domains\Club\Models\Gym;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Src\Admin\Club\Requests\StoreGymRequest;
+use App\Src\Admin\Club\Requests\UpdateGymRequest;
+use Illuminate\Support\Facades\Log;
 
 class GymController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function __construct(protected Gym $gym)
+    {
+    }
+
     public function index()
     {
+        $gym = $this->gym->first();
 
+        return $this->successResponse($gym, 'success');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function store(StoreGymRequest $request)
     {
+        try {
+            $addGym = $this->gym->create($request->validated());
 
+            return $this->createdResponse($addGym, 'success');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
+    public function update(UpdateGymRequest $request, Gym $gym)
     {
+        try {
+            $gym->update($request->validated());
 
+            return $this->successResponse($gym, 'success');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function destroy(Gym $gym)
     {
+        try {
+            $gym->delete();
 
-    }
+            return $this->deletedResponse('deleted');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 }

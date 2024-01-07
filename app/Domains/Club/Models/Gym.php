@@ -8,6 +8,8 @@ class Gym extends Model
 {
     protected $table = 'gym';
 
+    protected $fillable = ['name', 'location', 'description'];
+
     public $timestamps = true;
 
     public function contact_info()

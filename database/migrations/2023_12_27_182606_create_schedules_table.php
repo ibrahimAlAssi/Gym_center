@@ -9,7 +9,7 @@ class CreateSchedulesTable extends Migration
     public function up()
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->bigInteger('player_id')->unsigned();
             $table->tinyInteger('day')->unsigned();

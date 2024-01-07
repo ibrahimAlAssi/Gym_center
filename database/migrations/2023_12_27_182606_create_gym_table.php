@@ -9,11 +9,11 @@ class CreateGymTable extends Migration
     public function up()
     {
         Schema::create('gym', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->id();
             $table->string('name');
             $table->string('location');
-            $table->text('description');
+            $table->text('description')->nullable();
+            $table->timestamps();
         });
     }
 

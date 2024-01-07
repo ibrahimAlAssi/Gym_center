@@ -2,14 +2,14 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Domains\Entities\Models\Admin;
+use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
 use App\Src\Admin\Entities\Resources\AdminResource;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
