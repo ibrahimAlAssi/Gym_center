@@ -23,7 +23,8 @@ class StoreGymRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'location' => ['required', 'string'],
+            'location.latitude' => ['required', 'numeric'],
+            'location.longitude' => ['required', 'numeric'],
             'description' => ['nullable', 'string'],
         ];
     }

@@ -5,7 +5,7 @@ namespace App\Src\Admin\Club\Controllers;
 use App\Domains\Club\Models\Gym;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Club\Requests\StoreGymRequest;
-use App\Src\Admin\Club\Requests\UpdateGymRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class GymController extends Controller
@@ -16,7 +16,7 @@ class GymController extends Controller
 
     public function index()
     {
-        $gym = $this->gym->first();
+        $gym = $this->gym->first()->selectRaw('*, ASText(location) as location');
 
         return $this->successResponse($gym, 'success');
     }
@@ -24,35 +24,13 @@ class GymController extends Controller
     public function store(StoreGymRequest $request)
     {
         try {
-            $addGym = $this->gym->create($request->validated());
+            $latitude = $request->input('location.latitude');
+            $longitude = $request->input('location.longitude');
+            $point = DB::raw("POINT($latitude, $longitude)");
+            $name = $this->gym->first()?->name;
+            $data = $this->gym->updateOrCreate(['name' => $name], array_merge($request->validated(), ['location' => $point]));
 
-            return $this->createdResponse($addGym, 'success');
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-
-            return $this->failedResponse(__('An error occurred. Please try again later.'));
-        }
-    }
-
-    public function update(UpdateGymRequest $request, Gym $gym)
-    {
-        try {
-            $gym->update($request->validated());
-
-            return $this->successResponse($gym, 'success');
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-
-            return $this->failedResponse(__('An error occurred. Please try again later.'));
-        }
-    }
-
-    public function destroy(Gym $gym)
-    {
-        try {
-            $gym->delete();
-
-            return $this->deletedResponse('deleted');
+            return $this->createdResponse($data, 'success');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
