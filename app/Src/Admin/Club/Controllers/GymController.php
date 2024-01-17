@@ -16,7 +16,7 @@ class GymController extends Controller
 
     public function index()
     {
-        $gym = $this->gym->first()->selectRaw('*, ASText(location) as location');
+        $gym = $this->gym->metaData();
 
         return $this->successResponse($gym, 'success');
     }
@@ -28,7 +28,8 @@ class GymController extends Controller
             $longitude = $request->input('location.longitude');
             $point = DB::raw("POINT($latitude, $longitude)");
             $name = $this->gym->first()?->name;
-            $data = $this->gym->updateOrCreate(['name' => $name], array_merge($request->validated(), ['location' => $point]));
+            $this->gym->updateOrCreate(['name' => $name], array_merge($request->validated(), ['location' => $point]));
+            $data = $this->gym->metaData();
 
             return $this->createdResponse($data, 'success');
         } catch (\Throwable $th) {
