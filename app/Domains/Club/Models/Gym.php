@@ -35,6 +35,5 @@ class Gym extends Model
             DB::raw('ST_X(location) AS latitude'),
             DB::raw('ST_Y(location) AS longitude'),
         ])->first();
-
     }
 }
