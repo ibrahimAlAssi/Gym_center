@@ -9,7 +9,7 @@ class CreateListsTable extends Migration
     public function up()
     {
         Schema::create('lists', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->bigInteger('listable_id')->unsigned();
             $table->string('listable_type');

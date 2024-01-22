@@ -9,7 +9,7 @@ class CreateNutritionalValuesTable extends Migration
     public function up()
     {
         Schema::create('nutritional_values', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->bigInteger('food_id')->unsigned();
             $table->string('name');

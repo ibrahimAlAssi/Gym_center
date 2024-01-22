@@ -2,82 +2,40 @@
 
 namespace App\Src\Admin\Club\Controllers;
 
+use App\Domains\Club\Models\Gym;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Src\Admin\Club\Requests\StoreGymRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class GymController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function __construct(protected Gym $gym)
+    {
+    }
+
     public function index()
     {
+        $gym = $this->gym->metaData();
 
+        return $this->successResponse($gym, 'success');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function store(StoreGymRequest $request)
     {
+        try {
+            $latitude = $request->input('location.latitude');
+            $longitude = $request->input('location.longitude');
+            $point = DB::raw("POINT($latitude, $longitude)");
+            $name = $this->gym->first()?->name;
+            $this->gym->updateOrCreate(['name' => $name], array_merge($request->validated(), ['location' => $point]));
+            $data = $this->gym->metaData();
 
-    }
+            return $this->createdResponse($data, 'success');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 }
