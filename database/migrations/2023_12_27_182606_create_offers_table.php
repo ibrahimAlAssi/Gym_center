@@ -9,7 +9,7 @@ class CreateOffersTable extends Migration
     public function up()
     {
         Schema::create('offers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->bigInteger('gym_id')->unsigned();
             $table->date('start_date');

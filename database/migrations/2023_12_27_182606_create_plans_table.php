@@ -9,7 +9,7 @@ class CreatePlansTable extends Migration
     public function up()
     {
         Schema::create('plans', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->tinyInteger('type')->unsigned();
             $table->double('cost');

@@ -8,18 +8,14 @@ class CreateForeignKeys extends Migration
 {
     public function up()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->foreign('role_id')->references('id')->on('roles')
-                ->onDelete('restrict')
-                ->onUpdate('restrict');
-        });
+
         Schema::table('healthy_details', function (Blueprint $table) {
             $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
         Schema::table('chats', function (Blueprint $table) {
-            $table->foreign('palyer_id')->references('id')->on('players')
+            $table->foreign('player_id')->references('id')->on('players')
                 ->onDelete('cascade')
                 ->onUpdate('restrict');
         });
@@ -132,9 +128,7 @@ class CreateForeignKeys extends Migration
 
     public function down()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->dropForeign('admins_role_id_foreign');
-        });
+
         Schema::table('healthy_details', function (Blueprint $table) {
             $table->dropForeign('healthy_details_player_id_foreign');
         });
@@ -180,9 +174,6 @@ class CreateForeignKeys extends Migration
         Schema::table('player_game', function (Blueprint $table) {
             $table->dropForeign('player_game_player_id_foreign');
         });
-        Schema::table('player_game', function (Blueprint $table) {
-            $table->dropForeign('player_game_game_id_foreign');
-        });
         Schema::table('levels', function (Blueprint $table) {
             $table->dropForeign('levels_game_id_foreign');
         });
@@ -200,9 +191,6 @@ class CreateForeignKeys extends Migration
         });
         Schema::table('rates', function (Blueprint $table) {
             $table->dropForeign('rates_task_id_foreign');
-        });
-        Schema::table('rates', function (Blueprint $table) {
-            $table->dropForeign('rates_player_id_foreign');
         });
     }
 }

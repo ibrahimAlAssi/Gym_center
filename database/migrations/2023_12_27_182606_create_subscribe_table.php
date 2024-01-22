@@ -9,7 +9,7 @@ class CreateSubscribeTable extends Migration
     public function up()
     {
         Schema::create('subscribe', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->timestamps();
             $table->bigInteger('player_id')->unsigned();
             $table->bigInteger('plan_id')->unsigned();
