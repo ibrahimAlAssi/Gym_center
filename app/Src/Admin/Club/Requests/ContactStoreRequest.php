@@ -23,8 +23,8 @@ class ContactStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'gym_id' => ['required', Rule::exists('gym')],
-            'platform' => ['required', 'string', 'unique:contact_infos,platform'],
+            'gym_id' => ['required', Rule::exists('gym', 'id')],
+            'platform' => ['required', 'string', 'unique:contacts,platform'],
             'contact' => ['required', 'string'],  // OR URL
         ];
     }

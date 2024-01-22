@@ -16,9 +16,9 @@ class Gym extends Model
 
     public $timestamps = true;
 
-    public function contact_info()
+    public function contact()
     {
-        return $this->hasMany('Contact_info', 'gym_id');
+        return $this->hasMany('Contact', 'gym_id');
     }
 
     public function works()

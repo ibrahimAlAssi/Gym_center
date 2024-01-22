@@ -4,14 +4,14 @@ namespace App\Src\Admin\Club\Controllers;
 
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Domains\Club\Models\Contact_info;
+use App\Domains\Club\Models\Contact;
 use App\Src\Admin\Club\Resources\ContactResource;
 use App\Src\Admin\Club\Requests\ContactStoreRequest;
 use App\Src\Admin\Club\Requests\ContactUpdateRequest;
 
 class ContactController extends Controller
 {
-    public function __construct(protected Contact_info $contact)
+    public function __construct(protected Contact $contact)
     {
     }
 
@@ -26,8 +26,7 @@ class ContactController extends Controller
     {
         try {
             $contact = $this->contact->create($request->validated());
-
-            return $this->createdResponse(new ContactResource($contact), 'created');
+            return $this->createdResponse(new ContactResource($contact->load('gym')), 'created');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
@@ -35,12 +34,12 @@ class ContactController extends Controller
         }
     }
 
-    public function show(Contact_info $contact)
+    public function show(Contact $contact)
     {
         return $this->successResponse(new ContactResource($contact->load('gym')), 'success');
     }
 
-    public function update(ContactUpdateRequest $request, Contact_info $contact)
+    public function update(ContactUpdateRequest $request, Contact $contact)
     {
         try {
             $contact->update($request->validated());
@@ -52,7 +51,7 @@ class ContactController extends Controller
         }
     }
 
-    public function destroy(Contact_info $contact)
+    public function destroy(Contact $contact)
     {
         try {
             $contact->delete();

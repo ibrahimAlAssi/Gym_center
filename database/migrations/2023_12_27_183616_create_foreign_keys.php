@@ -59,7 +59,7 @@ class CreateForeignKeys extends Migration
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
-        Schema::table('contact_infos', function (Blueprint $table) {
+        Schema::table('contacts', function (Blueprint $table) {
             $table->foreign('gym_id')->references('id')->on('gym')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
@@ -159,8 +159,8 @@ class CreateForeignKeys extends Migration
         Schema::table('payments', function (Blueprint $table) {
             $table->dropForeign('payments_subscribe_id_foreign');
         });
-        Schema::table('contact_infos', function (Blueprint $table) {
-            $table->dropForeign('contact_infos_gym_id_foreign');
+        Schema::table('contacts', function (Blueprint $table) {
+            $table->dropForeign('contacts_gym_id_foreign');
         });
         Schema::table('work', function (Blueprint $table) {
             $table->dropForeign('work_gym_id_foreign');

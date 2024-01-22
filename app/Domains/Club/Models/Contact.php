@@ -3,12 +3,14 @@
 namespace App\Domains\Club\Models;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Contact_info extends Model
+class Contact extends Model
 {
-    protected $table = 'contact_infos';
+    use HasFactory;
+    protected $table = 'contacts';
     protected $fillable = ['gym_id', 'platform', 'contact'];
 
     public $timestamps = true;
@@ -21,7 +23,7 @@ class Contact_info extends Model
     //  Helper Methods
     public function getForGrid()
     {
-        return QueryBuilder::for(Contact_info::class)
+        return QueryBuilder::for(Contact::class)
             ->allowedFilters(['platform', 'contact'])
             ->get();
     }
