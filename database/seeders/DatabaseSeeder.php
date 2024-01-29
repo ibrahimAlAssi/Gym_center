@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         Admin::factory()->create();
         Gym::factory()->create();
+        $this->call(PermissionsSeeder::class);
     }
 }

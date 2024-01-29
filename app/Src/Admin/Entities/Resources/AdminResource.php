@@ -19,6 +19,8 @@ class AdminResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'image' => 'image url',
+            'role'  => $this->roles,
             'description' => $this->description,
         ];
     }
