@@ -4,6 +4,7 @@ namespace App\Domains\Club\Models;
 
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,7 +25,9 @@ class Contact extends Model
     public function getForGrid()
     {
         return QueryBuilder::for(Contact::class)
-            ->allowedFilters(['platform', 'contact'])
+            ->allowedFilters([
+                AllowedFilter::exact('platform'),
+            ])
             ->get();
     }
 }

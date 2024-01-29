@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Domains\Club\Models\Contact;
 use App\Src\Admin\Club\Resources\ContactResource;
-use App\Src\Admin\Club\Requests\ContactStoreRequest;
-use App\Src\Admin\Club\Requests\ContactUpdateRequest;
+use App\Src\Admin\Club\Requests\StoreContactRequest;
+use App\Src\Admin\Club\Requests\UpdateContactRequest;
 
 class ContactController extends Controller
 {
@@ -22,7 +22,7 @@ class ContactController extends Controller
         return $this->successResponse(ContactResource::collection($contact), 'success');
     }
 
-    public function store(ContactStoreRequest $request)
+    public function store(StoreContactRequest $request)
     {
         try {
             $contact = $this->contact->create($request->validated());
@@ -39,7 +39,7 @@ class ContactController extends Controller
         return $this->successResponse(new ContactResource($contact->load('gym')), 'success');
     }
 
-    public function update(ContactUpdateRequest $request, Contact $contact)
+    public function update(UpdateContactRequest $request, Contact $contact)
     {
         try {
             $contact->update($request->validated());

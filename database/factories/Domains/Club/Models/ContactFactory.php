@@ -21,15 +21,9 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::first()->id,
-            'platform' => $this->getRandomSocialMedia(),
-            'contact' => "link",
+            'gym_id'   => Gym::factory(),
+            'platform' => fake()->randomElement(["WhatsApp", "Telegram", "Facebook"]),
+            'contact'  => 'link',
         ];
-    }
-
-    private function getRandomSocialMedia()
-    {
-        $socialMedias = ["WhatsApp", "Telegram", "Facebook"];
-        return $socialMedias[array_rand($socialMedias)];
     }
 }
