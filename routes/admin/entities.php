@@ -9,7 +9,7 @@ Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
 Route::middleware('auth:admin')->group(function () {
     Route::prefix('auth')
     ->name('auth.')
-    ->uses([AuthController::class])
+    ->controller(AuthController::class)
     ->group(function () {
         Route::delete('logout', 'logout')->name('logout');
         Route::get('user', 'user')->name('user');
