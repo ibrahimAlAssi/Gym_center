@@ -38,11 +38,12 @@ description<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Model
     <node id="n1">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="201.8226382978724" width="111.0" x="1067.7227200000002" y="129.16384000000028"/>
+          <y:Geometry height="210.62015999999977" width="111.0" x="1067.7227200000002" y="122.21590507311913"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="36.68359375" x="37.158203125" xml:space="preserve" y="4.0">player</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="165.712890625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="95.40625" x="2.0" xml:space="preserve" y="30.701171875">id
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="180.4140625" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="95.40625" x="2.0" xml:space="preserve" y="30.701171875">id
+gym_id
 diet_id
 name
 email
@@ -638,7 +639,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e0" source="n1" target="n4">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:Path sx="-0.4796788652474788" sy="4.931934926881183" tx="0.0" ty="0.0"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="none"/>
           <y:BendStyle smoothed="false"/>
@@ -753,7 +754,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e11" source="n9" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="1.3959999999999582" ty="-93.10126914673953"/>
+          <y:Path sx="0.0" sy="0.0" tx="1.3959999999999582" ty="-97.15958709720245"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="crows_foot_many" target="none"/>
           <y:BendStyle smoothed="false"/>
@@ -763,7 +764,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e12" source="n12" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="-4.900906808510626" sy="-29.98482047872335" tx="4.501918297872862" ty="-66.74154212765998"/>
+          <y:Path sx="-4.900906808510626" sy="-29.98482047872335" tx="4.358902695036022" ty="-64.19236805184252"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="crows_foot_many" target="none"/>
           <y:BendStyle smoothed="false"/>
@@ -796,7 +797,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e15" source="n15" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="-47.713436180371446" ty="62.23547025417344">
+          <y:Path sx="0.0" sy="0.0" tx="-47.713436180371446" ty="64.9483368821238">
             <y:Point x="762.5370400000007" y="382.53281249999986"/>
             <y:Point x="1026.0908657990717" y="382.53281249999986"/>
             <y:Point x="1026.0908657990717" y="292.31062940310994"/>
@@ -810,7 +811,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e16" source="n7" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="-29.315558196286702" ty="-84.80725463965265">
+          <y:Path sx="0.0" sy="0.0" tx="-37.25289872340363" ty="-82.2580805638352">
             <y:Point x="762.5370400000006" y="145.26790450928382"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -889,7 +890,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e23" source="n25" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="46.29931124999905" sy="0.4229433795103432" tx="2.0339987499999097" ty="33.630646715535015">
+          <y:Path sx="46.29931124999905" sy="0.4229433795103432" tx="2.0339987499999097" ty="35.09661875331913">
             <y:Point x="1047.3220312499998" y="558.7909765625"/>
             <y:Point x="1047.3220312499998" y="263.7058058644715"/>
           </y:Path>
@@ -922,7 +923,7 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e26" source="n28" target="n1">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="43.536811249999346" ty="58.48022373592074">
+          <y:Path sx="0.0" sy="0.0" tx="43.536811249999346" ty="61.02939781173823">
             <y:Point x="1214.7595312499996" y="594.5075744680852"/>
             <y:Point x="1214.7595312499996" y="288.55538288485724"/>
           </y:Path>
@@ -985,10 +986,10 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
     <edge id="e32" source="n1" target="n32">
       <data key="d10">
         <y:PolyLineEdge>
-          <y:Path sx="28.379365106383602" sy="79.67681040830814" tx="0.6562022066245845" ty="36.76122473758841"/>
+          <y:Path sx="28.379365106383602" sy="83.14995135342267" tx="0.6562022066245845" ty="36.76122473758841"/>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
           <y:Arrows source="none" target="crows_foot_optional"/>
-          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="227.23615747278018" y="28.331071085975395">
+          <y:EdgeLabel alignment="center" configuration="AutoFlippingLabel" distance="2.0" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" preferredPlacement="anywhere" ratio="0.5" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="227.2888159560639" y="27.92865147656221">
             <y:LabelModel>
               <y:SmartEdgeLabelModel autoRotationEnabled="false" defaultAngle="0.0" defaultDistance="10.0"/>
             </y:LabelModel>
@@ -997,6 +998,19 @@ allowed_food<y:LabelModel><y:ErdAttributesNodeLabelModel/></y:LabelModel><y:Mode
             </y:ModelParameter>
             <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" frozen="true" placement="anywhere" side="anywhere" sideReference="relative_to_edge_flow"/>
           </y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e33" source="n1" target="n6">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="-29.51116822694985" sy="-79.18735713302263" tx="36.02102695035546" ty="20.272211063829445">
+            <y:Point x="1093.7115517730504" y="42.9080510638297"/>
+          </y:Path>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
           <y:BendStyle smoothed="false"/>
         </y:PolyLineEdge>
       </data>

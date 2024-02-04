@@ -2,6 +2,7 @@
 
 namespace App\Domains\Entities\Models;
 
+use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
@@ -9,6 +10,11 @@ class Player extends Model
     protected $table = 'players';
 
     public $timestamps = true;
+
+    public function gym()
+    {
+        return $this->belongsTo(Gym::class, 'gym_id');
+    }
 
     public function healthy_details()
     {
