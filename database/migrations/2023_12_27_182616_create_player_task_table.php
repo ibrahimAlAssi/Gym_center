@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChatsTable extends Migration
+class CreateListsTable extends Migration
 {
     public function up()
     {
-        Schema::create('chats', function (Blueprint $table) {
+        Schema::create('player_task', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('player_id')->constrained();
+            $table->foreignId('task_id')->constrained();
             $table->timestamps();
-            $table->bigInteger('player_id')->unsigned();
-            $table->bigInteger('admin_id')->unsigned();
         });
     }
 
     public function down()
     {
-        Schema::drop('chats');
+        Schema::drop('lists');
     }
 }

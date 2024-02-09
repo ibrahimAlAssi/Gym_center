@@ -10,9 +10,9 @@ class CreateHealthyDetailsTable extends Migration
     {
         Schema::create('healthy_details', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('player_id')->unsigned();
+            $table->foreignId('player_id')->constrained();
             $table->text('description');
+            $table->timestamps();
         });
     }
 

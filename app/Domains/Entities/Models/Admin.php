@@ -17,7 +17,15 @@ class Admin extends Authenticatable
 
     public $timestamps = true;
 
-    protected $fillable = ['role_id', 'name', 'phone', 'email', 'description'];
+    protected $fillable = [
+        'role_id',
+        'gym_id',
+        'name',
+        'image',
+        'phone',
+        'email',
+        'description'
+    ];
 
     public function role()
     {

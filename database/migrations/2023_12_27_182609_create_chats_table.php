@@ -4,21 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateChatsTable extends Migration
 {
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
+        Schema::create('chats', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->string('image');
-            $table->bigInteger('game_id')->unsigned();
+            $table->foreignId('player_id')->constrained();
+            $table->foreignId('admin_id')->constrained();
         });
     }
 
     public function down()
     {
-        Schema::drop('levels');
+        Schema::drop('chats');
     }
 }

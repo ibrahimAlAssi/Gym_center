@@ -10,12 +10,12 @@ class CreateScheduleTaskTable extends Migration
     {
         Schema::create('schedule_task', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('schedule_id')->unsigned();
-            $table->bigInteger('task_id')->unsigned();
-            $table->integer('repeat')->unsigned();
+            $table->foreignId('schedule_id')->constrained();
+            $table->foreignId('task_id')->constrained();
+            $table->unsignedInteger('repeat');
             $table->double('weight');
             $table->boolean('complete');
+            $table->timestamps();
         });
     }
 

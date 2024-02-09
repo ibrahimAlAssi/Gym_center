@@ -10,11 +10,10 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('plan_id')->unsigned();
+            $table->foreignId('gym_id')->constrained()->index();
             $table->string('name');
             $table->text('description');
-            $table->string('permission_name');
+            $table->timestamps();
         });
     }
 

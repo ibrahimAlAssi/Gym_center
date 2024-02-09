@@ -10,11 +10,11 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('subscribe_id')->unsigned();
+            $table->foreignId('subscribe_id')->constrained();
             $table->string('payment_method');
             $table->string('transation_data');
             $table->bigInteger('transaction_id');
+            $table->timestamps();
         });
     }
 

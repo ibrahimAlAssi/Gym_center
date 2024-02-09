@@ -10,11 +10,12 @@ class CreateTaskTable extends Migration
     {
         Schema::create('task', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('type_id')->constrained();
             $table->string('name');
             $table->integer('number');
-            $table->bigInteger('type_id')->unsigned();
             $table->text('description');
+            $table->timestamps();
         });
     }
 

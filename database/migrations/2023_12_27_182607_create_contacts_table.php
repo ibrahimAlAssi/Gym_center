@@ -10,15 +10,10 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->unsigned()->index();
+            $table->foreignId('gym_id')->constrained()->index();
             $table->string('platform')->unique();
-            $table->string('contact');
+            $table->string('contact'); // link
             $table->timestamps();
-
-            // $table->foreign('gym_id')
-            //     ->references('id')
-            //     ->on('gyms')
-            //     ->onDelete('cascade');
         });
     }
 

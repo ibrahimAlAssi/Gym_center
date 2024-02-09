@@ -8,14 +8,14 @@ class CreateOffersTable extends Migration
 {
     public function up()
     {
-        Schema::create('offers', function (Blueprint $table) {
+        Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('gym_id')->unsigned();
+            $table->foreignId('gym_id')->constrained();
             $table->date('start_date');
             $table->date('end_date');
             $table->tinyInteger('type');
             $table->double('value');
+            $table->timestamps();
         });
     }
 

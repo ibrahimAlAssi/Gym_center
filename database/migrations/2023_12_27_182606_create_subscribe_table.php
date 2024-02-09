@@ -10,7 +10,6 @@ class CreateSubscribeTable extends Migration
     {
         Schema::create('subscribe', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('player_id')->unsigned();
             $table->bigInteger('plan_id')->unsigned();
             $table->bigInteger('coach_Id')->unsigned();
@@ -20,6 +19,7 @@ class CreateSubscribeTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('closet_number')->unsigned();
+            $table->timestamps();
         });
     }
 

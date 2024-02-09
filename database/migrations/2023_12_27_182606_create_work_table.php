@@ -10,13 +10,13 @@ class CreateWorkTable extends Migration
     {
         Schema::create('work', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->bigInteger('gym_id')->unsigned();
-            $table->tinyInteger('type');
+            $table->tinyInteger('type'); //male of female
             $table->tinyInteger('day')->unsigned();
             $table->boolean('working');
             $table->time('from');
             $table->time('to');
+            $table->timestamps();
         });
     }
 

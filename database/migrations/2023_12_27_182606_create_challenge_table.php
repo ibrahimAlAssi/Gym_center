@@ -8,16 +8,18 @@ class CreateGameTable extends Migration
 {
     public function up()
     {
-        Schema::create('game', function (Blueprint $table) {
+        Schema::create('challenge', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('gym_id')->constrained();
             $table->string('title');
             $table->text('description');
-            $table->double('cost');
-            $table->string('game');
+            $table->integer('cost');
             $table->date('start_date');
-            $table->tinyInteger('type');
-            $table->string('gift_value');
+            $table->date('end_date');
+            $table->string('image_before');
+            $table->string('image_after');
+            $table->integer('gift_value');
+            $table->timestamps();
         });
     }
 

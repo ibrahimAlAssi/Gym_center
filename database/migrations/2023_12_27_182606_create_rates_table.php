@@ -10,11 +10,11 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->bigInteger('task_id')->unsigned();
-            $table->bigInteger('player_id')->unsigned();
+            $table->foreignId('task_id')->constrained();
+            $table->foreignId('player_id')->constrained();
             $table->string('content');
-            $table->tinyInteger('rating');
+            $table->enum('rating', ['1', '2', '3', '4', '5']);
+            $table->timestamps();
         });
     }
 
