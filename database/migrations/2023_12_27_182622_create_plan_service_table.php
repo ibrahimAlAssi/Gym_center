@@ -4,20 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayerGameTable extends Migration
+class CreatePlanServiceTable extends Migration
 {
     public function up()
     {
-        Schema::create('player_challenge', function (Blueprint $table) {
+        Schema::create('plan_service', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained();
-            $table->foreignId('coach_id')->constrained();
+            $table->foreignId('plan_id')->constrained();
+            $table->foreignId('service_id')->constrained();
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('player_game');
+        Schema::drop('plan_service');
     }
 }

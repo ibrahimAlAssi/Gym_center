@@ -10,7 +10,7 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained()->index();
+            $table->foreignId('gym_id')->constrained();
             $table->string('platform')->unique();
             $table->string('contact'); // link
             $table->timestamps();

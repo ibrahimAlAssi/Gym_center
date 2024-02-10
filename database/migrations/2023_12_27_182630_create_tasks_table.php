@@ -4,23 +4,23 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOffersTable extends Migration
+class CreateTasksTable extends Migration
 {
     public function up()
     {
-        Schema::create('discounts', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('gym_id')->constrained();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->tinyInteger('type');
-            $table->double('value');
+            $table->foreignId('type_id')->constrained();
+            $table->string('name');
+            $table->integer('number');
+            $table->text('description');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('offers');
+        Schema::drop('task');
     }
 }

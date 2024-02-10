@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Admin::factory()->create();
-        // Gym::factory()->create();
+        Gym::factory()->create([
+            'name' => 'default gym',
+        ]);
+        $this->call(PermissionsSeeder::class);
         Contact::factory()->create();
     }
 }

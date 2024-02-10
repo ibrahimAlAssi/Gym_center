@@ -5,7 +5,7 @@ namespace App\Src\Admin\Entities\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminResource extends JsonResource
+class AdminGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +17,8 @@ class AdminResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'email' => $this->email,
             'phone' => $this->phone,
             'image' => 'image url',
-            'role'  => $this->whenLoaded('roles', fn () => $this->roles),
-            'description' => $this->description,
         ];
     }
 }

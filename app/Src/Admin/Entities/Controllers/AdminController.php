@@ -2,82 +2,65 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Domains\Entities\Models\Admin;
+use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Src\Admin\Entities\Requests\StoreAdminRequest;
+use App\Src\Admin\Entities\Requests\UpdateAdminRequest;
+use App\Src\Admin\Entities\Resources\AdminGridResource;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function __construct(protected Admin $admin)
+    {
+    }
+
     public function index()
     {
+        $admins = $this->admin->getForGrid();
 
+        return $this->successResponse(AdminGridResource::collection($admins), 'success');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function store(StoreAdminRequest $request)
     {
+        try {
+            $admin = $this->admin->create($request->validated());
+            return $this->createdResponse(new AdminResource($admin), 'created');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
 
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
+    public function show(Admin $admin)
     {
-
+        return $this->successResponse(new AdminResource($admin->load('roles')), 'success');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function update(UpdateAdminRequest $request, Admin $admin)
     {
+        try {
+            $admin->update($request->validated());
 
+            return $this->successResponse(new AdminResource($admin), 'updated');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function destroy(Admin $admin)
     {
+        try {
+            $admin->delete();
 
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-
+            return $this->deletedResponse('deleted');
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateListsTable extends Migration
+class CreatePlayerTaskTable extends Migration
 {
     public function up()
     {
@@ -18,6 +18,6 @@ class CreateListsTable extends Migration
 
     public function down()
     {
-        Schema::drop('lists');
+        Schema::drop('player_task');
     }
 }

@@ -4,11 +4,11 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubscribeTable extends Migration
+class CreateSubscribesTable extends Migration
 {
     public function up()
     {
-        Schema::create('subscribe', function (Blueprint $table) {
+        Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('player_id')->unsigned();
             $table->bigInteger('plan_id')->unsigned();
