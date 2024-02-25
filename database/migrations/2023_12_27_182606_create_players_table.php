@@ -17,9 +17,7 @@ class CreatePlayersTable extends Migration
             $table->string('password');
             $table->integer('phone');
             $table->boolean('active');
-            $table->float('wallet_value');
-            $table->enum('gender', ['0', '1']);
-            $table->string('description');
+            $table->boolean('gender');
             $table->integer('attendance_days');
             $table->timestamps();
         });

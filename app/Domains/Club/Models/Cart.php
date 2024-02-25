@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Domains\Tasks\Models;
+namespace App\Domains\Club\Models;
 
 use App\Domains\Entities\Models\Player;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Rate extends Model
+class Cart extends Model
 {
-    protected $table = 'rates';
+    use HasFactory;
 
-    public $timestamps = true;
+    protected $table = 'carts';
 
     protected $fillable = [
-        'task_id',
+        'product_id',
         'player_id',
-        'content',
-        'rating',
+        'quantity',
     ];
 
     protected $cast = [
-        'rating' => 'integer',
+        'quantity' => 'integer',
     ];
 
-    public function task(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Task::class);
+        return $this->belongsTo(Product::class);
     }
 
     public function player(): BelongsTo

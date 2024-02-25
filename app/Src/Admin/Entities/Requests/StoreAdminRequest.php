@@ -25,11 +25,11 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'role_id' => ['required', Rule::exists('roles', 'id')],
-            'gym_id'  => ['required', Rule::exists('gyms', 'id')],
-            'name'    => ['required', 'string'],
-            'email'   => ['required', 'string', 'unique:admins,email'],
-            'password'=> ['required', 'string', Password::min(8)],
-            'phone'   => ['required', 'string', 'unique:admins,phone'],
+            'gym_id' => ['required', Rule::exists('gyms', 'id')],
+            'name' => ['required', 'string'],
+            'email' => ['required', 'string', 'unique:admins,email'],
+            'password' => ['required', 'string', Password::min(8)],
+            'phone' => ['required', 'string', 'unique:admins,phone'],
             'image' => [
                 'sometimes',
                 'file',

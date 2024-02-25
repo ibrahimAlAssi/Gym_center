@@ -2,8 +2,11 @@
 
 namespace App\Domains\Club\Models;
 
+use App\Domains\Entities\Models\Admin;
+use App\Domains\Plans\Models\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 
 class Gym extends Model
@@ -16,14 +19,29 @@ class Gym extends Model
 
     public $timestamps = true;
 
-    public function contact()
+    public function contacts(): HasMany
     {
-        return $this->hasMany('Contact', 'gym_id');
+        return $this->hasMany(Contact::class);
     }
 
-    public function works()
+    public function works(): HasMany
     {
-        return $this->hasMany('Work', 'gym_id');
+        return $this->hasMany(Work::class);
+    }
+
+    public function foods(): HasMany
+    {
+        return $this->hasMany(Food::class);
+    }
+
+    public function admins(): HasMany
+    {
+        return $this->hasMany(Admin::class);
+    }
+
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
     }
 
     public function metaData()

@@ -11,9 +11,9 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('chat_id')->constrained();
+            $table->morphs('sender');
             $table->string('message');
-            $table->bigInteger('owner_id')->unsigned();
-            $table->string('owner_model');
+            $table->dateTime('read_at')->nullable();
             $table->timestamps();
         });
     }

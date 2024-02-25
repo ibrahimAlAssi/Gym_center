@@ -21,9 +21,9 @@ class ContactFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id'   => Gym::factory(),
-            'platform' => fake()->randomElement(["WhatsApp", "Telegram", "Facebook"]),
-            'contact'  => 'link',
+            'gym_id' => Gym::factory(),
+            'platform' => fake()->randomElement(['WhatsApp', 'Telegram', 'Facebook']),
+            'contact' => 'link',
         ];
     }
 }

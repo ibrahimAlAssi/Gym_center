@@ -6,7 +6,6 @@ namespace Database\Seeders;
 
 use App\Domains\Club\Models\Contact;
 use App\Domains\Club\Models\Gym;
-use App\Domains\Entities\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
