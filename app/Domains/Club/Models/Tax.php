@@ -16,6 +16,7 @@ class Tax extends Model
     protected $fillable = [
         'name',
         'value',
+        'gym_id',
     ];
 
     protected $cast = [

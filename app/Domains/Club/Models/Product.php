@@ -2,11 +2,9 @@
 
 namespace App\Domains\Club\Models;
 
-use App\Domains\Entities\Models\WishList;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
@@ -19,6 +17,7 @@ class Product extends Model
     protected $fillable = [
         'name',
         'price',
+        'gym_id',
     ];
 
     protected $cast = [
@@ -28,10 +27,5 @@ class Product extends Model
     public function carts(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
-    }
-
-    public function WishLists(): HasMany
-    {
-        return $this->hasMany(WishList::class);
     }
 }

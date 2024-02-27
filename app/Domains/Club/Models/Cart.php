@@ -17,10 +17,12 @@ class Cart extends Model
         'product_id',
         'player_id',
         'quantity',
+        'favorite',
     ];
 
     protected $cast = [
         'quantity' => 'integer',
+        'favorite' => 'boolean',
     ];
 
     public function product(): BelongsTo

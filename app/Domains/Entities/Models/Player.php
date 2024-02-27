@@ -20,6 +20,8 @@ class Player extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
+        'diet_id',
         'name',
         'email',
         'password',
@@ -73,11 +75,6 @@ class Player extends Model
     public function carts(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
-    }
-
-    public function WishLists(): HasMany
-    {
-        return $this->hasMany(WishList::class);
     }
 
     public function rates(): HasMany

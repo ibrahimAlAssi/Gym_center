@@ -27,11 +27,11 @@ class Food extends Model
 
     public function diets(): BelongsToMany
     {
-        return $this->belongsToMany(Diet::class, 'Diet_food');
+        return $this->belongsToMany(Diet::class, 'diet_food');
     }
 
-    public function DietFood(): HasMany
+    public function dietFood(): HasMany
     {
-        return $this->hasMany(DietFood::class, 'Diet_food');
+        return $this->hasMany(DietFood::class, 'diet_food');
     }
 }

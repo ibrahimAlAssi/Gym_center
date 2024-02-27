@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained();
             $table->foreignId('player_id')->constrained();
+            $table->boolean('favorite');
             $table->timestamps();
         });
     }

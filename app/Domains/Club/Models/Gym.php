@@ -3,6 +3,7 @@
 namespace App\Domains\Club\Models;
 
 use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Plans\Models\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,11 @@ class Gym extends Model
     public function admins(): HasMany
     {
         return $this->hasMany(Admin::class);
+    }
+
+    public function coaches(): HasMany
+    {
+        return $this->hasMany(Coach::class);
     }
 
     public function services(): HasMany

@@ -10,7 +10,7 @@ class DietFood extends Model
 {
     use HasFactory;
 
-    protected $table = 'Diet_food';
+    protected $table = 'diet_food';
 
     protected $fillable = [
         'diet_id',
