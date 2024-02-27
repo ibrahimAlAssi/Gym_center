@@ -62,7 +62,7 @@ class Player extends Model
         return $this->hasMany(Schedule::class);
     }
 
-    public function Tasks(): HasMany
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }

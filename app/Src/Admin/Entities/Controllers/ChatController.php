@@ -14,7 +14,6 @@ class ChatController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -24,7 +23,6 @@ class ChatController extends Controller
      */
     public function create()
     {
-
     }
 
     /**
@@ -34,7 +32,6 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -45,7 +42,6 @@ class ChatController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -56,7 +52,6 @@ class ChatController extends Controller
      */
     public function edit($id)
     {
-
     }
 
     /**
@@ -67,7 +62,6 @@ class ChatController extends Controller
      */
     public function update($id)
     {
-
     }
 
     /**
@@ -78,6 +72,5 @@ class ChatController extends Controller
      */
     public function destroy($id)
     {
-
     }
 }
