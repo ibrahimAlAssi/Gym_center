@@ -24,7 +24,7 @@ class Product extends Model
         'price' => 'decimal:2',
     ];
 
-    public function carts(): BelongsTo
+    public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
     }
