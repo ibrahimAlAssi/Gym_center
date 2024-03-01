@@ -6,23 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Provider extends Model
+class Feedback extends Model
 {
     use HasFactory;
 
-    protected $table = 'providers';
+    protected $table = 'feedbacks';
 
     protected $fillable = [
-        'user_id',
-        'provider',
-        'provider_id',
-        'provider_token',
+        'player_id',
+        'message',
+        'type',
     ];
 
-    protected $casts = [];
+    protected $cast = [
+        'type' => 'boolean',
+    ];
 
-    public function user(): BelongsTo
+    public function player(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Player::class);
     }
 }

@@ -18,8 +18,10 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'phone_number' => $this->phone_number,
-            'status' => $this->status,
+            'phone' => $this->phone,
+            'image' => 'image url',
+            'role' => $this->whenLoaded('roles', fn () => $this->roles),
+            'description' => $this->description,
         ];
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
 use App\Src\Admin\Entities\Resources\AdminResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,5 +42,10 @@ class AuthController extends Controller
         $admin->currentAccessToken()->delete();
 
         return $this->successResponse(message: __('admin.response_messages.logout_success'));
+    }
+
+    public function user(Request $request)
+    {
+        return response()->json(AdminResource::make($request->user()));
     }
 }
