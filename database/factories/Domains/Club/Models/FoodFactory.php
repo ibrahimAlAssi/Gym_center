@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Domains\Club\Models;
 
-use App\Domains\Club\Models\Gym;
+use App\Domains\Club\Models\Food;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,10 +15,10 @@ class FoodFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    public $model = Food::class;
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::inRandomOrder()->first()->id,
             'name'   => $this->faker->name,
         ];
     }

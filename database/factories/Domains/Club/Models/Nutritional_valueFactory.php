@@ -3,6 +3,7 @@
 namespace Database\Factories\Domains\Club\Models;
 
 use App\Domains\Club\Models\Food;
+use App\Domains\Club\Models\Nutritional_value;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -15,6 +16,7 @@ class Nutritional_valueFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    public $model = Nutritional_value::class;
     public function definition(): array
     {
         return [

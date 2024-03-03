@@ -19,10 +19,9 @@ class WorkFactory extends Factory
     {
         try {
             return [
-                'gym_id' => $this->faker->randomNumber(), // Assuming gym_id is a foreign key
-                'type' => $this->faker->randomElement(['male', 'female']),
+                'type' => $this->faker->numberBetween(0, 1),
                 'day' => $this->faker->dayOfWeek(),
-                'working' => $this->faker->randomElement(['on', 'off']),
+                'working' => $this->faker->numberBetween(0, 1),
                 'from' => $this->faker->time(),
                 'to' => $this->faker->time(),
             ];

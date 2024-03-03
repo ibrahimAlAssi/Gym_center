@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domains\Entities\Models;
+namespace App\Domains\Plans\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Message extends Model
+class Discount extends Model
 {
     use HasFactory;
-    protected $table = 'messages';
+    protected $table = 'discounts';
 
     public $timestamps = true;
 }
