@@ -2,12 +2,12 @@
 
 namespace App\Src\Admin\Club\Controllers;
 
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Club\Models\Contact;
-use App\Src\Admin\Club\Resources\ContactResource;
+use App\Http\Controllers\Controller;
 use App\Src\Admin\Club\Requests\StoreContactRequest;
 use App\Src\Admin\Club\Requests\UpdateContactRequest;
+use App\Src\Admin\Club\Resources\ContactResource;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -26,6 +26,7 @@ class ContactController extends Controller
     {
         try {
             $contact = $this->contact->create($request->validated());
+
             return $this->createdResponse(new ContactResource($contact->load('gym')), 'created');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -47,6 +48,7 @@ class ContactController extends Controller
             return $this->successResponse(new ContactResource($contact), 'updated');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
+
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }
@@ -59,6 +61,7 @@ class ContactController extends Controller
             return $this->deletedResponse('deleted');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
+
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }

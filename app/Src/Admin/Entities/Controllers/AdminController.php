@@ -2,13 +2,13 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Admin;
-use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\StoreAdminRequest;
 use App\Src\Admin\Entities\Requests\UpdateAdminRequest;
 use App\Src\Admin\Entities\Resources\AdminGridResource;
+use App\Src\Admin\Entities\Resources\AdminResource;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -27,6 +27,7 @@ class AdminController extends Controller
     {
         try {
             $admin = $this->admin->create($request->validated());
+
             return $this->createdResponse(new AdminResource($admin), 'created');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -48,6 +49,7 @@ class AdminController extends Controller
             return $this->successResponse(new AdminResource($admin), 'updated');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
+
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }
@@ -60,6 +62,7 @@ class AdminController extends Controller
             return $this->deletedResponse('deleted');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
+
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }

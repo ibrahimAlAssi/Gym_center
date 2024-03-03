@@ -3,13 +3,14 @@
 namespace App\Exceptions;
 
 use App\Src\Shared\Traits\ApiResponseHelper;
-use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
     use ApiResponseHelper;
+
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *

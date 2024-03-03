@@ -2,23 +2,25 @@
 
 namespace App\Domains\Club\Models;
 
-use Illuminate\Support\Facades\DB;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\QueryBuilder\AllowedFilter;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Contact extends Model
 {
     use HasFactory;
+
     protected $table = 'contacts';
+
     protected $fillable = ['gym_id', 'platform', 'contact'];
 
     public $timestamps = true;
 
-    public function gym()
+    public function gym(): BelongsTo
     {
-        return $this->belongsTo('App\Domains\Club\Models\Gym');
+        return $this->belongsTo(Gym::class);
     }
 
     //  Helper Methods

@@ -3,9 +3,9 @@
 namespace Database\Factories\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Gym;
-use Spatie\Permission\Models\Role;
 use App\Domains\Entities\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Spatie\Permission\Models\Role;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -22,7 +22,7 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id'  => Gym::first()->id,
+            'gym_id' => Gym::first()->id,
             // 'role_id' => Role::latest()->first()->id,
             'name' => fake()->name(),
             'phone' => fake()->phoneNumber(),

@@ -25,7 +25,8 @@
         "nunomaduro/collision": "^7.0",
         "phpro/grumphp": "^2.4",
         "phpunit/phpunit": "^10.1",
-        "spatie/laravel-ignition": "^2.0"
+        "spatie/laravel-ignition": "^2.0",
+        "squizlabs/php_codesniffer": "^3.9"
     },
     "autoload": {
         "psr-4": {
@@ -66,7 +67,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
-            "phpro/grumphp-shim": true,
             "phpro/grumphp": true
         }
     },

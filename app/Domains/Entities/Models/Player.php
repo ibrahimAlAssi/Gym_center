@@ -2,8 +2,16 @@
 
 namespace App\Domains\Entities\Models;
 
+use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Gym;
+use App\Domains\Plans\Models\Subscribe;
+use App\Domains\Tasks\Models\Rate;
+use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Player extends Model
 {
@@ -11,43 +19,71 @@ class Player extends Model
 
     public $timestamps = true;
 
+    protected $fillable = [
+        'gym_id',
+        'diet_id',
+        'name',
+        'email',
+        'password',
+        'phone',
+        'active',
+        'gender',
+        'attendance_days',
+    ];
+
+    protected $cast = [
+        'password' => 'hashed',
+        'active' => 'boolean',
+        'gender' => 'boolean',
+        'attendance_days' => 'integer',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
     public function gym()
     {
-        return $this->belongsTo(Gym::class, 'gym_id');
+        return $this->belongsTo(Gym::class);
     }
 
-    public function healthy_details()
+    public function healthyDetail(): HasOne
     {
-        return $this->hasOne('Healthy_detail', 'player_id');
+        return $this->hasOne(HealthyDetail::class);
     }
 
-    public function chats()
+    public function subscribe(): HasMany
     {
-        return $this->hasMany('Chat', 'chat_id');
+        return $this->hasMany(Subscribe::class);
     }
 
-    public function lists()
+    public function schedules(): HasMany
     {
-        return $this->hasMany('List', 'list_id');
+        return $this->hasMany(Schedule::class);
     }
 
-    public function subscribe()
+    public function tasks(): HasMany
     {
-        return $this->hasMany('Subscribe', 'player_id');
+        return $this->hasMany(Task::class);
     }
 
-    public function player_game()
+    public function chats(): HasMany
     {
-        return $this->hasMany('App/Domains/Games/Models\Player_game', 'player_id');
+        return $this->hasMany(Chat::class);
     }
 
-    public function schedules()
+    public function carts(): BelongsTo
     {
-        return $this->hasMany('App\Domains\Tasks\Models\Schedule', 'player_Id');
+        return $this->belongsTo(Cart::class);
     }
 
-    public function Tasks()
+    public function rates(): HasMany
     {
-        return $this->hasMany('App\Domains\Tasks\Models\Rate', 'player_id');
+        return $this->hasMany(Rate::class);
+    }
+
+    public function feedbacks(): HasMany
+    {
+        return $this->hasMany(Feedback::class);
     }
 }

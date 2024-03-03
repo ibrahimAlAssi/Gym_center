@@ -14,7 +14,7 @@ class CreateSubscribesTable extends Migration
             $table->bigInteger('plan_id')->unsigned();
             $table->bigInteger('coach_Id')->unsigned();
             $table->bigInteger('offer_id')->unsigned();
-            $table->double('cost');
+            $table->decimal('cost', 10, 2);
             $table->text('description');
             $table->date('start_date');
             $table->date('end_date');
