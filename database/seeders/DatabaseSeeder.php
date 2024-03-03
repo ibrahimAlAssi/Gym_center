@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
         Contact::factory()->for($gym)->create();
-        //Food::factory()->for($gym)->create();
-        NutritionalValueFactory::factory()->create();
+        $food=Food::factory()->for($gym)->create();
+        NutritionalValueFactory::factory()->for($food)->create();
     }
 }

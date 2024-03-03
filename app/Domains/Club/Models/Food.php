@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Food extends Model
 {
     use HasFactory;
-    protected $table = 'foods';
+    protected $table = 'food';
 
     protected $fillable = ['gym_id', 'name'];
 

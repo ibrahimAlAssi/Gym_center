@@ -10,9 +10,9 @@ class CreateNutritionalValuesTable extends Migration
     {
         Schema::create('nutritional_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('food_id')->references('id')->on('foods');
+            $table->foreignId('food_id');
             $table->string('name');
-            $table->double('value'); // per gram
+            $table->double('value');
             $table->timestamps();
         });
     }
