@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domains\Club\Models;
+namespace App\Domains\Entities\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Nutritional_value extends Model
+class HealthyDetail extends Model
 {
     use HasFactory;
-    protected $table = 'nutritional_values';
+    protected $table = 'healthy_details';
 
     public $timestamps = true;
 }

@@ -7,7 +7,7 @@ namespace Database\Seeders;
 use App\Domains\Club\Models\Contact;
 use App\Domains\Club\Models\Food;
 use App\Domains\Club\Models\Gym;
-use Database\Factories\Domains\Club\Models\Nutritional_valueFactory;
+use Database\Factories\Domains\Club\Models\NutritionalValueFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,6 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsSeeder::class);
         Contact::factory()->for($gym)->create();
         //Food::factory()->for($gym)->create();
-        Nutritional_valueFactory::factory(5)->create();
+        NutritionalValueFactory::factory(5)->create();
     }
 }

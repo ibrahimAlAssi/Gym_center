@@ -18,9 +18,9 @@ class Player extends Model
         return $this->belongsTo(Gym::class, 'gym_id');
     }
 
-    public function healthy_details()
+    public function healthyDetails()
     {
-        return $this->hasOne('Healthy_detail', 'player_id');
+        return $this->hasOne(HealthyDetail::class, 'player_id');
     }
 
     public function chats()
@@ -38,17 +38,12 @@ class Player extends Model
         return $this->hasMany('Subscribe', 'player_id');
     }
 
-    public function player_game()
-    {
-        return $this->hasMany('App/Domains/Games/Models\Player_game', 'player_id');
-    }
-
     public function schedules()
     {
         return $this->hasMany('App\Domains\Tasks\Models\Schedule', 'player_Id');
     }
 
-    public function Tasks()
+    public function tasks()
     {
         return $this->hasMany('App\Domains\Tasks\Models\Rate', 'player_id');
     }

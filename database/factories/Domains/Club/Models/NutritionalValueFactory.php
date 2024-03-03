@@ -3,20 +3,20 @@
 namespace Database\Factories\Domains\Club\Models;
 
 use App\Domains\Club\Models\Food;
-use App\Domains\Club\Models\Nutritional_value;
+use App\Domains\Club\Models\NutritionalValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class Nutritional_valueFactory extends Factory
+class NutritionalValueFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public $model = Nutritional_value::class;
+    public $model = NutritionalValue::class;
     public function definition(): array
     {
         return [

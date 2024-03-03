@@ -12,8 +12,8 @@ class Food extends Model
 
     public $timestamps = true;
 
-    public function nutritional_values()
+    public function nutritionalValues()
     {
-        return $this->hasMany('App/Domains/Club/Models\Nutritional_value', 'food_id');
+        return $this->hasMany(NutritionalValue::class, 'food_id');
     }
 }
