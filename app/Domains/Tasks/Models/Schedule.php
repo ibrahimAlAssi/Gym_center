@@ -3,6 +3,8 @@
 namespace App\Domains\Tasks\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Schedule extends Model
 {
@@ -10,8 +12,23 @@ class Schedule extends Model
 
     public $timestamps = true;
 
-    public function schedule_task()
+    protected $fillable = [
+        'player_id',
+        'day',
+        'complete',
+    ];
+
+    protected $cast = [
+        'complete' => 'boolean',
+    ];
+
+    public function scheduleTasks(): HasMany
     {
-        return $this->hasMany('App\Domains\Tasks\Models\Schedule_task', 'schedule_id');
+        return $this->hasMany(ScheduleTask::class);
+    }
+
+    public function tasks(): BelongsToMany
+    {
+        return $this->belongsToMany(Task::class, 'schedule_task');
     }
 }

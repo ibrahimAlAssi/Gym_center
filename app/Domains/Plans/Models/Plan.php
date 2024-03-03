@@ -3,7 +3,7 @@
 namespace App\Domains\Plans\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Plan extends Model
 {
@@ -12,8 +12,17 @@ class Plan extends Model
 
     public $timestamps = true;
 
-    public function services()
+    protected $fillable = [
+        'type',
+        'cost',
+    ];
+
+    protected $cast = [
+        'cost' => 'double',
+    ];
+
+    public function services(): HasMany
     {
-        return $this->hasMany('Service', 'service_id');
+        return $this->hasMany(Service::class);
     }
 }

@@ -20,7 +20,7 @@ class AdminResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'image' => 'image url',
-            'role'  => $this->whenLoaded('roles', fn () => $this->roles),
+            'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'description' => $this->description,
         ];
     }

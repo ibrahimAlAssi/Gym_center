@@ -67,7 +67,6 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
-            "phpro/grumphp-shim": true,
             "phpro/grumphp": true
         }
     },

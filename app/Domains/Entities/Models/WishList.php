@@ -12,3 +12,4 @@ class WishList extends Model
 
     public $timestamps = true;
 }
+

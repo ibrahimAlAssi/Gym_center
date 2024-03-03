@@ -24,7 +24,7 @@ class UpdateContactRequest extends FormRequest
     {
         return [
             'gym_id' => ['required', Rule::exists('gyms', 'id')],
-            'platform' => ['required', 'string', 'unique:contacts,platform,' . $this->route('contact')->id],
+            'platform' => ['required', 'string', 'unique:contacts,platform,'.$this->route('contact')->id],
             'contact' => ['required', 'string'],
         ];
     }

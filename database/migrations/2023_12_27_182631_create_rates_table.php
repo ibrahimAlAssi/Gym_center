@@ -12,7 +12,7 @@ class CreateRatesTable extends Migration
             $table->id();
             $table->foreignId('task_id')->constrained();
             $table->foreignId('player_id')->constrained();
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->enum('rating', ['1', '2', '3', '4', '5']);
             $table->timestamps();
         });

@@ -2,26 +2,48 @@
 
 namespace App\Domains\Tasks\Models;
 
+use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Task extends Model
 {
-    protected $table = 'task';
+    protected $table = 'tasks';
 
     public $timestamps = true;
 
-    public function schedule_task()
+    protected $fillable = [
+        'gym_id',
+        'type_id',
+        'name',
+        'number',
+        'description',
+    ];
+
+    public function scheduleTasks(): HasMany
     {
-        return $this->hasMany('App\Domains\Tasks\Models\Schedule_task', 'task_id');
+        return $this->hasMany(ScheduleTask::class);
     }
 
-    public function types()
+    public function type(): BelongsTo
     {
-        return $this->belongsTo('App\Domains\Tasks\Models\Type', 'type_id');
+        return $this->belongsTo(Type::class);
     }
 
-    public function rate()
+    public function rates(): HasMany
     {
-        return $this->hasOne('App\Domains\Tasks\Models\Rate', 'task_id');
+        return $this->hasMany(Rate::class);
+    }
+
+    public function schedule(): BelongsToMany
+    {
+        return $this->belongsToMany(Schedule::class, 'schedule_task');
+    }
+
+    public function gym(): BelongsTo
+    {
+        return $this->belongsTo(Gym::class);
     }
 }
