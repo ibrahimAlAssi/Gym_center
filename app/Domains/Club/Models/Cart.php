@@ -16,14 +16,13 @@ class Cart extends Model
     protected $fillable = [
         'product_id',
         'player_id',
-        'payment_id',
         'quantity',
-        'favorite',
+        'is_favorite',
     ];
 
     protected $cast = [
-        'quantity' => 'integer',
-        'favorite' => 'boolean',
+        'quantity'    => 'integer',
+        'is_favorite' => 'boolean',
     ];
 
     public function product(): BelongsTo

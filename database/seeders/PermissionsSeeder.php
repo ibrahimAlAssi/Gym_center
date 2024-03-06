@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -56,7 +57,7 @@ class PermissionsSeeder extends Seeder
         $role2->givePermissionTo('update user');
         $role2->givePermissionTo('delete user');
 
-        $role3 = Role::create(['name' => 'coach', 'guard_name' => 'admin']);
+        $role3 = Role::create(['name' => 'coach', 'guard_name' => 'coach']);
         $role3->givePermissionTo('add task');
         $role3->givePermissionTo('update task');
 
@@ -82,7 +83,7 @@ class PermissionsSeeder extends Seeder
         ]);
         $admin->assignRole($role2);
 
-        $coach = Admin::factory()->create([
+        $coach = Coach::factory()->create([
             'name' => 'Example coach',
             'email' => 'coach@example.com',
         ]);

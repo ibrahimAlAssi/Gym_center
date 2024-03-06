@@ -15,9 +15,9 @@ class Product extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
         'name',
         'price',
-        'gym_id',
     ];
 
     protected $cast = [

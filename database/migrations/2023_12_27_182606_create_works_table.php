@@ -11,9 +11,9 @@ class CreateWorksTable extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
             $table->foreignId('gym_id')->constrained();
-            $table->boolean('type')->comment('0 for male, 1 for female'); //male or female
+            $table->string('type')->comment('for male, female'); //male or female
             $table->tinyInteger('day')->unsigned();
-            $table->boolean('working');
+            $table->boolean('is_working');
             $table->time('from');
             $table->time('to');
             // Add a composite unique index on 'day' and 'type'

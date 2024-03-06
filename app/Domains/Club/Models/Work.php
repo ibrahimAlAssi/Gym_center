@@ -15,15 +15,15 @@ class Work extends Model
         'gym_id',
         'type',
         'day',
-        'working',
+        'is_working',
         'from',
         'to',
     ];
 
     protected $cast = [
-        'from' => 'time',
-        'to' => 'time',
-        'working' => 'boolean',
+        'from'       => 'time',
+        'to'         => 'time',
+        'is_working' => 'boolean',
     ];
 
     protected function gym(): BelongsTo

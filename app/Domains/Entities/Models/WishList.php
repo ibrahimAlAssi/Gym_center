@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class WishList extends Model
 {
     use HasFactory;
-    protected $table = 'Wish_list';
+    protected $table = 'wish_lists';
 
     public $timestamps = true;
 }
-
