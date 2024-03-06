@@ -22,7 +22,7 @@ class TaxFactory extends Factory
         return [
             'gym_id' => Gym::factory(),
             'name'   => fake()->name(),
-            'value'  => fake()->rand(100, 2000),
+            'value'  => fake()->numberBetween(100, 2000),
         ];
     }
 }

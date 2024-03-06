@@ -9,7 +9,6 @@ use App\Domains\Tasks\Models\Task;
 use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Plans\Models\Subscribe;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,11 +46,6 @@ class Player extends Model
     public function gym()
     {
         return $this->belongsTo(Gym::class);
-    }
-
-    public function healthyDetail(): HasOne
-    {
-        return $this->hasOne(HealthyDetail::class);
     }
 
     public function subscribe(): HasMany

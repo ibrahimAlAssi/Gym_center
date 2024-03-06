@@ -22,7 +22,7 @@ class ProductFactory extends Factory
         return [
             'gym_id' => Gym::factory(),
             'name'   => fake()->name(),
-            'price'  => fake()->rand(100, 2000),
+            'price'  => fake()->numberBetween(100, 2000),
         ];
     }
 }

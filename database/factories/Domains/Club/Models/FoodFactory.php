@@ -22,7 +22,7 @@ class FoodFactory extends Factory
     {
         return [
             'gym_id' => Gym::factory(),
-            'name'   => $this->faker->name,
+            'name'   => fake()->name(),
         ];
     }
 }

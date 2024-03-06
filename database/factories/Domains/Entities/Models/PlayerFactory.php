@@ -30,7 +30,7 @@ class PlayerFactory extends Factory
             'phone' => fake()->phoneNumber(),
             'active' => true,
             'gender' => fake()->randomElement(['male', 'female']),
-            'attendance_days' => rand(3, 30),
+            'attendance_days' => fake()->numberBetween(3, 30),
         ];
     }
 }

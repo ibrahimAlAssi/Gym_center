@@ -44,6 +44,14 @@ return [
             'driver' => 'sanctum',
             'provider' => 'admins',
         ],
+        'player' => [
+            'driver' => 'sanctum',
+            'provider' => 'players',
+        ],
+        'coach' => [
+            'driver' => 'sanctum',
+            'provider' => 'coaches',
+        ],
     ],
 
     /*
@@ -64,13 +72,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\User::class,
-        ],
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Domains\Entities\Models\Admin::class,
+        ],
+        'players' => [
+            'driver' => 'eloquent',
+            'model' => App\Domains\Entities\Models\Player::class,
+        ],
+        'coaches' => [
+            'driver' => 'eloquent',
+            'model' => App\Domains\Entities\Models\Coach::class,
         ],
 
         // 'users' => [

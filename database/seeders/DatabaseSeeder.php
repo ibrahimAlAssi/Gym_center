@@ -30,12 +30,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'default gym',
         ]);
         $this->call(PermissionsSeeder::class);
-        Player::factory()->for($gym)->create();
-        Product::factory()->for($gym)->create();
-        Contact::factory()->for($gym)->create();
+
         Food::factory()->for($gym)->create();
         Diet::factory()->create();
         DietFood::factory()->create();
+
+        Player::factory()->create();
+        // Product::factory()->for($gym)->create();
+        Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
         Tax::factory()->create();
         Work::factory()->for($gym)->create();

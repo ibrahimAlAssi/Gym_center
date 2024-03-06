@@ -15,9 +15,9 @@ class CreatePlayersTable extends Migration
             $table->string('name', 70);
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('phone');
+            $table->string('phone', 25)->nullable();
             $table->boolean('active');
-            $table->boolean('gender');
+            $table->string('gender');
             $table->integer('attendance_days');
             $table->timestamps();
         });
