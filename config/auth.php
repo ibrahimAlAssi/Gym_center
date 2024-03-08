@@ -1,5 +1,9 @@
 <?php
 
+use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
+use App\Domains\Entities\Models\Player;
+
 return [
 
     /*
@@ -74,15 +78,15 @@ return [
     'providers' => [
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\Admin::class,
+            'model' => Admin::class,
         ],
         'players' => [
             'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\Player::class,
+            'model' => Player::class,
         ],
         'coaches' => [
             'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\Coach::class,
+            'model' => Coach::class,
         ],
 
         // 'users' => [

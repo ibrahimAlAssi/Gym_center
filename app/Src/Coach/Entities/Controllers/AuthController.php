@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Src\Admin\Entities\Controllers;
+namespace App\Src\Coach\Entities\Controllers;
 
-use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
-use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Src\Coach\Entities\Resources\CoachResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,23 +13,23 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct(protected Admin $admin)
+    public function __construct(protected Coach $coach)
     {
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $admin = $this->admin->findByEmail($request->get('email'));
-        if (empty($admin) || Hash::check($request->get('password'), $admin->password) === false) {
-            return $this->failedResponse(__('admin.response_messages.invalid_credentials'));
+        $coach = $this->coach->findByEmail($request->get('email'));
+        if (empty($coach) || Hash::check($request->get('password'), $coach->password) === false) {
+            return $this->failedResponse(__('shared.response_messages.invalid_credentials'));
         }
 
         return $this->successResponse(
             [
-                'admin' => AdminResource::make($admin),
-                'token' => $admin->createToken('admin')->plainTextToken,
+                'coach' => CoachResource::make($coach),
+                'token' => $coach->createToken('player')->plainTextToken,
             ],
-            message: __('admin.response_messages.login_success')
+            message: __('shared.response_messages.login_success')
         );
     }
 
@@ -47,7 +47,7 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return $this->successResponse(
-            AdminResource::make($request->user()),
+            CoachResource::make($request->user()),
             __('shared.response_messages.success')
         );
     }
