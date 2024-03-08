@@ -23,7 +23,7 @@ class ChatFactory extends Factory
     {
         return [
             'player_id' => Player::inRandomOrder()->first()->id,
-            'coach_id'  => Coach::inRandomOrder()->first()->id,
+            'coach_id' => Coach::inRandomOrder()->first()->id,
         ];
     }
 }

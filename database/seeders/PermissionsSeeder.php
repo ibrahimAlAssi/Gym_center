@@ -32,7 +32,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update user', 'guard_name' => 'admin']);
         Permission::create(['name' => 'delete user', 'guard_name' => 'admin']);
 
-        Permission::create(['name' => 'add task', 'guard_name'    => 'coach']);
+        Permission::create(['name' => 'add task', 'guard_name' => 'coach']);
         Permission::create(['name' => 'update task', 'guard_name' => 'coach']);
         Permission::create(['name' => 'delete task', 'guard_name' => 'coach']);
 

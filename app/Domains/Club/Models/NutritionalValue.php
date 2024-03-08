@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class NutritionalValue extends Model
 {
     use HasFactory;
+
     protected $table = 'nutritional_values';
 
     public $timestamps = true;

@@ -17,12 +17,13 @@ class ProductFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = Product::class;
+
     public function definition(): array
     {
         return [
             'gym_id' => Gym::factory(),
-            'name'   => fake()->name(),
-            'price'  => fake()->numberBetween(100, 2000),
+            'name' => fake()->name(),
+            'price' => fake()->numberBetween(100, 2000),
         ];
     }
 }

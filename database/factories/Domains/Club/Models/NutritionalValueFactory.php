@@ -17,12 +17,13 @@ class NutritionalValueFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = NutritionalValue::class;
+
     public function definition(): array
     {
         return [
             'food_id' => Food::factory(),
-            'name'    => $this->faker->name,
-            'value'   => $this->faker->numberBetween(10, 25), // Generates a random number between 10 and 25
+            'name' => $this->faker->name,
+            'value' => $this->faker->numberBetween(10, 25), // Generates a random number between 10 and 25
         ];
     }
 }

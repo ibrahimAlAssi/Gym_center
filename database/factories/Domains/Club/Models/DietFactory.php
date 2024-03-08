@@ -16,10 +16,11 @@ class DietFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = Diet::class;
+
     public function definition(): array
     {
         return [
-            'name'    => $this->faker->name,
+            'name' => $this->faker->name,
             'is_free' => $this->faker->randomElement([true, false]),
         ];
     }

@@ -21,7 +21,7 @@ class Cart extends Model
     ];
 
     protected $cast = [
-        'quantity'    => 'integer',
+        'quantity' => 'integer',
         'is_favorite' => 'boolean',
     ];
 

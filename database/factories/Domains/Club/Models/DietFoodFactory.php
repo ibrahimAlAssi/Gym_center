@@ -18,11 +18,12 @@ class DietFoodFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = DietFood::class;
+
     public function definition(): array
     {
         return [
-            'diet_id'    => Diet::inRandomOrder()->first()->id,
-            'food_id'    => Food::inRandomOrder()->first()->id,
+            'diet_id' => Diet::inRandomOrder()->first()->id,
+            'food_id' => Food::inRandomOrder()->first()->id,
             'allowed_food' => $this->faker->randomElement([true, false]),
         ];
     }

@@ -17,12 +17,13 @@ class TaxFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = Tax::class;
+
     public function definition(): array
     {
         return [
             'gym_id' => Gym::factory(),
-            'name'   => fake()->name(),
-            'value'  => fake()->numberBetween(100, 2000),
+            'name' => fake()->name(),
+            'value' => fake()->numberBetween(100, 2000),
         ];
     }
 }
