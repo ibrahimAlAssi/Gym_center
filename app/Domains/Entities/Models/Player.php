@@ -49,7 +49,7 @@ class Player extends Model
         return $this->belongsTo(Gym::class);
     }
 
-    public function subscribe(): HasMany
+    public function subscribes(): HasMany
     {
         return $this->hasMany(Subscribe::class);
     }

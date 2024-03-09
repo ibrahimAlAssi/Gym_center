@@ -2,8 +2,11 @@
 
 namespace App\Domains\Plans\Models;
 
+use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Plan extends Model
 {
@@ -14,6 +17,7 @@ class Plan extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
         'type',
         'cost',
     ];
@@ -25,5 +29,10 @@ class Plan extends Model
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);
+    }
+
+    public function gym(): BelongsTo
+    {
+        return $this->belongsTo(Gym::class);
     }
 }

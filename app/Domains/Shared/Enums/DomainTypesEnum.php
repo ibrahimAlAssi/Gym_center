@@ -13,4 +13,6 @@ final class DomainTypesEnum extends Enum
     public const CLUBS = 'club';
 
     public const PLANS = 'plans';
+
+    public const TASKS = 'tasks';
 }

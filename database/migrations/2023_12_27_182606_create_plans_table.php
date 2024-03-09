@@ -10,7 +10,8 @@ class CreatePlansTable extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('type')->unsigned();
+            $table->foreignId('gym_id')->constrained();
+            $table->string('type');
             $table->double('cost');
             $table->timestamps();
         });

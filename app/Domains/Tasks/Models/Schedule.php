@@ -3,11 +3,13 @@
 namespace App\Domains\Tasks\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Schedule extends Model
 {
+    use HasFactory;
     protected $table = 'schedules';
 
     public $timestamps = true;
@@ -15,7 +17,7 @@ class Schedule extends Model
     protected $fillable = [
         'player_id',
         'day',
-        'complete',
+        'is_complete',
     ];
 
     protected $cast = [

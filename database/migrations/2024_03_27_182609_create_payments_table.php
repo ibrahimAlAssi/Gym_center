@@ -10,8 +10,9 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subscribe_id')->constrained();
-            $table->foreignId('cart_id')->constrained();
+            $table->foreignId('gym_id')->nullable()->constrained();
+            $table->foreignId('subscribe_id')->nullable()->constrained();
+            $table->foreignId('player_id')->nullable()->constrained();
             $table->string('payment_method');
             $table->json('transaction_data');
             $table->bigInteger('transaction_id');
