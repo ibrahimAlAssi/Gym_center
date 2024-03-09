@@ -12,7 +12,7 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->foreignId('player_id')->constrained();
             $table->tinyInteger('day')->unsigned();
-            $table->boolean('complete');
+            $table->boolean('is_complete');
             $table->timestamps();
         });
     }

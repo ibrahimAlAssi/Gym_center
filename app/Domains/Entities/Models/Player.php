@@ -53,7 +53,7 @@ class Player extends Model implements HasMedia
         return $this->belongsTo(Gym::class);
     }
 
-    public function subscribe(): HasMany
+    public function subscribes(): HasMany
     {
         return $this->hasMany(Subscribe::class);
     }

@@ -10,10 +10,11 @@ class CreateSubscribesTable extends Migration
     {
         Schema::create('subscribes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('player_id')->unsigned();
-            $table->bigInteger('plan_id')->unsigned();
-            $table->bigInteger('coach_Id')->unsigned();
-            $table->bigInteger('offer_id')->unsigned();
+            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('player_id')->constrained();
+            $table->foreignId('plan_id')->constrained();
+            $table->foreignId('coach_id')->constrained();
+            $table->foreignId('discount_id')->constrained();
             $table->decimal('cost', 10, 2);
             $table->text('description');
             $table->date('start_date');
