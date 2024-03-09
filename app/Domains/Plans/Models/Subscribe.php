@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Subscribe extends Model
 {
     use HasFactory;
+
     protected $table = 'subscribe';
 
     public $timestamps = true;

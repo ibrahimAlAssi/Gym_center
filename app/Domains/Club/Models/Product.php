@@ -28,4 +28,9 @@ class Product extends Model
     {
         return $this->belongsTo(Cart::class);
     }
+
+    public function gym(): BelongsTo
+    {
+        return $this->belongsTo(Gym::class);
+    }
 }

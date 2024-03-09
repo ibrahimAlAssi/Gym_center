@@ -2,8 +2,8 @@
 
 namespace Database\Factories\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\Diet;
+use App\Domains\Club\Models\Gym;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 

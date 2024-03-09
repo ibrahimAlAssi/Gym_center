@@ -18,13 +18,14 @@ class CartFactory extends Factory
      * @return array<string, mixed>
      */
     public $model = Cart::class;
+
     public function definition(): array
     {
         return [
             'product_id' => Product::inRandomOrder()->first()->id,
-            'player_id'  => Player::inRandomOrder()->first()->id,
-            'quantity'   => fake()->numberBetween(1, 3),
-            'is_favorite'   => fake()->numberBetween([true, false]),
+            'player_id' => Player::inRandomOrder()->first()->id,
+            'quantity' => fake()->numberBetween(1, 3),
+            'is_favorite' => fake()->numberBetween([true, false]),
         ];
     }
 }

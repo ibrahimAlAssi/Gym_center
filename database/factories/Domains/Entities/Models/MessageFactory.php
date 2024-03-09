@@ -26,7 +26,7 @@ class MessageFactory extends Factory
             'senderable_id' => Player::inRandomOrder()->first()->id,
             'senderable_type' => 'App\Domains\Entities\Models\Player',
             'message' => fake()->title(),
-            'read_at' => false,
+            'read_at' => $this->faker->dateTime(),
         ];
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Domains\Club\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Work extends Model
 {
+    use HasFactory;
+
     protected $table = 'works';
 
     public $timestamps = true;
@@ -21,12 +24,12 @@ class Work extends Model
     ];
 
     protected $cast = [
-        'from'       => 'time',
-        'to'         => 'time',
+        'from' => 'time',
+        'to' => 'time',
         'is_working' => 'boolean',
     ];
 
-    protected function gym(): BelongsTo
+    public function gym(): BelongsTo
     {
         return $this->belongsTo(Gym::class);
     }

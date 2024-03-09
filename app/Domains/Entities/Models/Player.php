@@ -2,20 +2,21 @@
 
 namespace App\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\Cart;
-use App\Domains\Tasks\Models\Rate;
-use App\Domains\Tasks\Models\Task;
-use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Club\Models\Gym;
 use App\Domains\Plans\Models\Subscribe;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Domains\Tasks\Models\Rate;
+use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Player extends Model
 {
     use HasFactory;
+
     protected $table = 'players';
 
     public $timestamps = true;
