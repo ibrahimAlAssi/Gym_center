@@ -78,26 +78,26 @@ class PermissionsSeeder extends Seeder
         $superAdmin->assignRole($role1);
 
         $admin = Admin::factory()->create([
-            'name' => 'Example admin',
-            'email' => 'admin@example.com',
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
         ]);
         $admin->assignRole($role2);
 
         $coach = Coach::factory()->create([
-            'name' => 'Example coach',
-            'email' => 'coach@example.com',
+            'name' => 'coach',
+            'email' => 'coach@gmail.com',
         ]);
         $coach->assignRole($role3);
 
         $accountant = Admin::factory()->create([
-            'name' => 'Example accountant',
-            'email' => 'accountant@example.com',
+            'name' => 'accountant',
+            'email' => 'accountant@gmail.com',
         ]);
         $accountant->assignRole($role4);
 
         $specialist = Admin::factory()->create([
-            'name' => 'Example specialist',
-            'email' => 'specialist@example.com',
+            'name' => 'specialist',
+            'email' => 'specialist@gmail.com',
         ]);
         $specialist->assignRole($role5);
     }
