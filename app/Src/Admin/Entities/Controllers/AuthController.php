@@ -29,7 +29,7 @@ class AuthController extends Controller
                 'admin' => AdminResource::make($admin),
                 'token' => $admin->createToken('admin')->plainTextToken,
             ],
-            message: __('admin.response_messages.login_success')
+            message: __('shared.response_messages.login_success')
         );
     }
 
@@ -38,10 +38,10 @@ class AuthController extends Controller
         /**
          * @var App\Domains\Entities\Models\Admin $admin
          */
-        $admin = Auth::guard('sanctum')->user();
+        $admin = Auth::guard('admin')->user();
         $admin->currentAccessToken()->delete();
 
-        return $this->successResponse(message: __('admin.response_messages.logout_success'));
+        return $this->successResponse(message: __('shared.response_messages.success'));
     }
 
     public function user(Request $request)

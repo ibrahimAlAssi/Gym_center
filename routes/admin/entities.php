@@ -15,6 +15,3 @@ Route::middleware('auth:admin')->group(function () {
         });
     Route::apiResource('admins', AdminController::class);
 });
-Route::get('/test', function () {
-    return 'hi';
-});

@@ -6,8 +6,8 @@ use App\Domains\Entities\Models\Player;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
 use App\Src\Player\Entities\Resources\PlayerResource;
-use Illuminate\Http\Client\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,7 +38,7 @@ class AuthController extends Controller
         /**
          * @var App\Domains\Entities\Models\Player $player
          */
-        $player = Auth::guard('sanctum')->user();
+        $player = Auth::guard('player')->user();
         $player->currentAccessToken()->delete();
 
         return $this->successResponse(message: __('shared.response_messages.logout_success'));

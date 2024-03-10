@@ -47,4 +47,11 @@ class Coach extends Model implements HasMedia
     {
         return $this->belongsTo(Gym::class);
     }
+
+    public function findByEmail(string $email): ?Coach
+    {
+        return self::query()
+            ->where('email', $email)
+            ->first();
+    }
 }
