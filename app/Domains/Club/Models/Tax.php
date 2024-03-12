@@ -14,9 +14,9 @@ class Tax extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
         'name',
         'value',
-        'gym_id',
     ];
 
     protected $cast = [

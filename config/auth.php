@@ -1,5 +1,9 @@
 <?php
 
+use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
+use App\Domains\Entities\Models\Player;
+
 return [
 
     /*
@@ -44,6 +48,14 @@ return [
             'driver' => 'sanctum',
             'provider' => 'admins',
         ],
+        'player' => [
+            'driver' => 'sanctum',
+            'provider' => 'players',
+        ],
+        'coach' => [
+            'driver' => 'sanctum',
+            'provider' => 'coaches',
+        ],
     ],
 
     /*
@@ -64,19 +76,23 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\User::class,
-        ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Domains\Entities\Models\Admin::class,
+            'model' => Admin::class,
+        ],
+        'players' => [
+            'driver' => 'eloquent',
+            'model' => Player::class,
+        ],
+        'coaches' => [
+            'driver' => 'eloquent',
+            'model' => Coach::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'users' => [
+            'driver' => 'database',
+            'table' => 'users',
+        ],
     ],
 
     /*

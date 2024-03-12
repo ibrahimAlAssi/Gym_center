@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
+    use HasFactory;
+
     protected $table = 'services';
 
     public $timestamps = true;

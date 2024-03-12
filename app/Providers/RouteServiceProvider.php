@@ -35,17 +35,37 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
-
-            // Start Custom Route
-            Route::middleware('api')
-                ->prefix('admin')
-                ->name('admin.')
-                ->group(base_path('routes/admin/entities.php'));
-            // Start Custom Route
-            Route::middleware('api')
-                ->prefix('admin')
-                ->name('admin.')
-                ->group(base_path('routes/admin/club.php'));
+            $this->adminRoutes();
+            $this->playerRoutes();
+            $this->coachRoutes();
         });
+    }
+
+    private function adminRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('admins')
+            ->name('admins.')
+            ->group(base_path('routes/admin/entities.php'));
+        Route::middleware('api')
+            ->prefix('admins')
+            ->name('admins.')
+            ->group(base_path('routes/admin/club.php'));
+    }
+
+    private function playerRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('players')
+            ->name('players.')
+            ->group(base_path('routes/player/entities.php'));
+    }
+
+    private function coachRoutes()
+    {
+        Route::middleware('api')
+            ->prefix('coaches')
+            ->name('coaches.')
+            ->group(base_path('routes/coach/entities.php'));
     }
 }

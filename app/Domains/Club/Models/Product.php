@@ -15,9 +15,9 @@ class Product extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
         'name',
         'price',
-        'gym_id',
     ];
 
     protected $cast = [
@@ -27,5 +27,10 @@ class Product extends Model
     public function cart(): BelongsTo
     {
         return $this->belongsTo(Cart::class);
+    }
+
+    public function gym(): BelongsTo
+    {
+        return $this->belongsTo(Gym::class);
     }
 }
