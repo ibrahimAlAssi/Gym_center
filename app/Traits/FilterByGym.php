@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 trait FilterByGym
 {
-    static function boot()
+    public static function boot()
     {
         parent::boot();
 
