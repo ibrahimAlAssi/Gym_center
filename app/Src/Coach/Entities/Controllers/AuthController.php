@@ -27,7 +27,7 @@ class AuthController extends Controller
         return $this->successResponse(
             [
                 'coach' => CoachResource::make($coach),
-                'token' => $coach->createToken('player')->plainTextToken,
+                'token' => $coach->createToken('coach')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
         );
@@ -36,12 +36,12 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         /**
-         * @var App\Domains\Entities\Models\Admin $admin
+         * @var App\Domains\Entities\Models\Coach $coach
          */
-        $admin = Auth::guard('sanctum')->user();
-        $admin->currentAccessToken()->delete();
+        $coach = Auth::guard('coach')->user();
+        $coach->currentAccessToken()->delete();
 
-        return $this->successResponse(message: __('admin.response_messages.logout_success'));
+        return $this->successResponse(message: __('shared.response_messages.logout_success'));
     }
 
     public function user(Request $request)

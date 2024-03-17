@@ -87,4 +87,11 @@ class Player extends Model implements HasMedia
     {
         return $this->hasMany(Feedback::class);
     }
+
+    public function findByEmail(string $email): ?Player
+    {
+        return self::query()
+            ->where('email', $email)
+            ->first();
+    }
 }

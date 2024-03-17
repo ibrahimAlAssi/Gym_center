@@ -1,6 +1,6 @@
 <?php
 
-use App\Src\Admin\Entities\Controllers\AuthController;
+use App\Src\Player\Entities\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:player')->group(function () {

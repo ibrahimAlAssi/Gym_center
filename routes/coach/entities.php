@@ -1,6 +1,6 @@
 <?php
 
-use App\Src\Admin\Entities\Controllers\AuthController;
+use App\Src\Coach\Entities\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:coach')->group(function () {
