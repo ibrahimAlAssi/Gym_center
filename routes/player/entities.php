@@ -1,7 +1,8 @@
 <?php
 
-use App\Src\Player\Entities\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Src\Player\Entities\Controllers\AuthController;
+use App\Src\Player\Entities\Controllers\CoachController;
 
 Route::middleware('auth:player')->group(function () {
     Route::prefix('auth')
@@ -16,4 +17,5 @@ Route::middleware('auth:player')->group(function () {
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
         });
+    Route::apiResource('coaches', CoachController::class);
 });

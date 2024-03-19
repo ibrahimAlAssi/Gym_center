@@ -5,7 +5,7 @@ namespace App\Src\Admin\Entities\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateAdminRequest extends FormRequest
+class UpdateCoachRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class UpdateAdminRequest extends FormRequest
     {
         return [
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
-            'gym_id' => ['sometimes', Rule::exists('gyms', 'id')],
-            'name' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'string', 'unique:admins,email,' . $this->route('admin')],
-            'phone' => ['sometimes', 'string', 'unique:admins,phone,' . $this->route('admin')],
+            'gym_id'  => ['sometimes', Rule::exists('gyms', 'id')],
+            'name'    => ['sometimes', 'string'],
+            'email'   => ['sometimes', 'string', 'unique:coaches,email,' . $this->route('coach')],
+            'phone'   => ['sometimes', 'string', 'unique:coaches,phone,' . $this->route('coach')],
             'description' => ['nullable', 'string'],
         ];
     }

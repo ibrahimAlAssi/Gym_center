@@ -2,17 +2,19 @@
 
 namespace App\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Traits\FilterByGym;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Notifications\Notifiable;
+use App\Domains\Club\Models\Gym;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Coach extends Model implements HasMedia
 {
@@ -29,6 +31,7 @@ class Coach extends Model implements HasMedia
         'email',
         'password',
         'phone',
+        'description',
     ];
 
     protected $casts = [
@@ -49,10 +52,33 @@ class Coach extends Model implements HasMedia
         return $this->belongsTo(Gym::class);
     }
 
+    // Start Helper Function
+    public function getForGrid()
+    {
+        return QueryBuilder::for(Coach::class)
+            ->allowedFilters(['name'])
+            ->get();
+    }
+
     public function findByEmail(string $email): ?Coach
     {
         return self::query()
             ->where('email', $email)
             ->first();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('sm')
+            ->width(150)
+            ->height(150);
+
+        $this->addMediaConversion('md')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('lg')
+            ->width(500)
+            ->height(500);
     }
 }

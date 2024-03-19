@@ -2,6 +2,7 @@
 
 use App\Src\Admin\Entities\Controllers\AdminController;
 use App\Src\Admin\Entities\Controllers\AuthController;
+use App\Src\Admin\Entities\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:admin')->group(function () {
@@ -18,4 +19,5 @@ Route::middleware('auth:admin')->group(function () {
             });
         });
     Route::apiResource('admins', AdminController::class);
+    Route::apiResource('coaches', CoachController::class);
 });

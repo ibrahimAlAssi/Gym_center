@@ -2,13 +2,16 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
-use App\Domains\Entities\Models\Admin;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
+use App\Src\Admin\Entities\Resources\AdminResource;
 use App\Src\Admin\Entities\Requests\StoreAdminRequest;
 use App\Src\Admin\Entities\Requests\UpdateAdminRequest;
+use App\Src\Admin\Entities\Requests\UpdateImageRequest;
 use App\Src\Admin\Entities\Resources\AdminGridResource;
-use App\Src\Admin\Entities\Resources\AdminResource;
-use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -26,9 +29,15 @@ class AdminController extends Controller
     public function store(StoreAdminRequest $request)
     {
         try {
+            DB::beginTransaction();
             $admin = $this->admin->create($request->validated());
 
-            return $this->createdResponse(new AdminResource($admin), 'created');
+            if ($request->hasFile('avatar')) {
+                $admin->addMediaFromRequest('avatar')->toMediaCollection('admins');
+            }
+            DB::commit();
+
+            return $this->createdResponse(new AdminResource($admin->load('media')), 'created');
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
@@ -38,7 +47,7 @@ class AdminController extends Controller
 
     public function show(Admin $admin)
     {
-        return $this->successResponse(new AdminResource($admin->load('roles')), 'success');
+        return $this->successResponse(new AdminResource($admin->load('roles', 'media')), 'success');
     }
 
     public function update(UpdateAdminRequest $request, Admin $admin)
@@ -54,11 +63,29 @@ class AdminController extends Controller
         }
     }
 
+    public function updateImage(UpdateImageRequest $request, Admin $admin)
+    {
+        try {
+            // Remove the existing image from the media library
+            $admin->clearMediaCollection('admins');
+            // Store the new image in the media library
+            $admin->addMediaFromRequest('avatar')->toMediaCollection('admins');
+            return $this->successResponse(new AdminResource($admin->load('media')), 'updated');
+        } catch (\Throwable $th) {
+            return $this->failedResponse($th->getMessage());
+        }
+    }
+
+
     public function destroy(Admin $admin)
     {
         try {
+            DB::beginTransaction();
+            // Remove the existing image from the media library
+            $admin->clearMediaCollection('admins');
+            // Remove the item
             $admin->delete();
-
+            DB::commit();
             return $this->deletedResponse();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
