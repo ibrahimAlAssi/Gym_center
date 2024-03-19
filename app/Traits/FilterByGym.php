@@ -11,8 +11,9 @@ trait FilterByGym
     {
         parent::boot();
         $currentGymId = Gym::first()->id;
-        if (auth()->user())
+        if (auth()->user()) {
             $currentGymId = auth()->user()->gym_id;
+        }
 
         self::creating(function ($model) use ($currentGymId) {
             $model->gym_id = $currentGymId;
