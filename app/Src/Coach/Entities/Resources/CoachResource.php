@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Src\Admin\Entities\Resources;
+namespace App\Src\Coach\Entities\Resources;
 
 use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminResource extends JsonResource
+class CoachResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

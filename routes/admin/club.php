@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:admin')->group(function () {
     Route::apiResources([
-        'gym' => GymController::class,
-        'contact' => ContactController::class,
+        'gyms' => GymController::class,
+        'contacts' => ContactController::class,
     ]);
 });

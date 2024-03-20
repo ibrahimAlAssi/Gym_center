@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Player extends Model
+class Player extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasApiTokens,HasFactory,InteractsWithMedia,Notifiable;
 
     protected $table = 'players';
 
@@ -82,5 +86,12 @@ class Player extends Model
     public function feedbacks(): HasMany
     {
         return $this->hasMany(Feedback::class);
+    }
+
+    public function findByEmail(string $email): ?Player
+    {
+        return self::query()
+            ->where('email', $email)
+            ->first();
     }
 }

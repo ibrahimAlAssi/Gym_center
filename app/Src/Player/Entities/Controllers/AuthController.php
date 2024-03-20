@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Src\Admin\Entities\Controllers;
+namespace App\Src\Player\Entities\Controllers;
 
 use App\Domains\Entities\Mail\SendCodeResetPassword;
-use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Player;
 use App\Domains\Entities\Models\ResetCodePassword;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
-use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Src\Player\Entities\Resources\PlayerResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,21 +17,21 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-    public function __construct(protected Admin $admin)
+    public function __construct(protected Player $player)
     {
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $admin = $this->admin->findByEmail($request->get('email'));
-        if (empty($admin) || Hash::check($request->get('password'), $admin->password) === false) {
-            return $this->failedResponse(__('admin.response_messages.invalid_credentials'));
+        $player = $this->player->findByEmail($request->get('email'));
+        if (empty($player) || Hash::check($request->get('password'), $player->password) === false) {
+            return $this->failedResponse(__('shared.response_messages.invalid_credentials'));
         }
 
         return $this->successResponse(
             [
-                'admin' => AdminResource::make($admin),
-                'token' => $admin->createToken('admin')->plainTextToken,
+                'player' => PlayerResource::make($player),
+                'token' => $player->createToken('player')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
         );
@@ -40,18 +40,18 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         /**
-         * @var App\Domains\Entities\Models\Admin $admin
+         * @var App\Domains\Entities\Models\Player $player
          */
-        $admin = Auth::guard('admin')->user();
-        $admin->currentAccessToken()->delete();
+        $player = Auth::guard('player')->user();
+        $player->currentAccessToken()->delete();
 
-        return $this->successResponse(message: __('shared.response_messages.success'));
+        return $this->successResponse(message: __('shared.response_messages.logout_success'));
     }
 
     public function user(Request $request)
     {
         return $this->successResponse(
-            AdminResource::make($request->user()),
+            PlayerResource::make($request->user()),
             __('shared.response_messages.success')
         );
     }
@@ -59,7 +59,7 @@ class AuthController extends Controller
     public function forgetPassword(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|exists:admins',
+            'email' => 'required|email|exists:players',
         ]);
 
         ResetCodePassword::where('email', $request->email)->delete();
@@ -77,7 +77,7 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:admins',
+            'email' => 'required|email|exists:players',
             'code' => 'required|numeric',
             'password' => 'required|string|min:6',
         ]);
@@ -88,9 +88,9 @@ class AuthController extends Controller
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
 
-        $admin = $this->admin->where('email', $request->email)->first();
-        $admin->password = Hash::make($request->password);
-        $admin->save();
+        $player = Player::where('email', $request->email)->first();
+        $player->password = Hash::make($request->password);
+        $player->save();
 
         return $this->successResponse(message: __('passwords.reset'));
     }

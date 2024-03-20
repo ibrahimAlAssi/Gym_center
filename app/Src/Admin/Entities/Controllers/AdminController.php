@@ -59,7 +59,7 @@ class AdminController extends Controller
         try {
             $admin->delete();
 
-            return $this->deletedResponse('deleted');
+            return $this->deletedResponse();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Src\Admin\Entities\Controllers;
+namespace App\Src\Coach\Entities\Controllers;
 
 use App\Domains\Entities\Mail\SendCodeResetPassword;
-use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\ResetCodePassword;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
-use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Src\Coach\Entities\Resources\CoachResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -17,21 +17,21 @@ use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
-    public function __construct(protected Admin $admin)
+    public function __construct(protected Coach $coach)
     {
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $admin = $this->admin->findByEmail($request->get('email'));
-        if (empty($admin) || Hash::check($request->get('password'), $admin->password) === false) {
-            return $this->failedResponse(__('admin.response_messages.invalid_credentials'));
+        $coach = $this->coach->findByEmail($request->get('email'));
+        if (empty($coach) || Hash::check($request->get('password'), $coach->password) === false) {
+            return $this->failedResponse(__('shared.response_messages.invalid_credentials'));
         }
 
         return $this->successResponse(
             [
-                'admin' => AdminResource::make($admin),
-                'token' => $admin->createToken('admin')->plainTextToken,
+                'coach' => CoachResource::make($coach),
+                'token' => $coach->createToken('coach')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
         );
@@ -40,18 +40,18 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         /**
-         * @var App\Domains\Entities\Models\Admin $admin
+         * @var App\Domains\Entities\Models\Coach $coach
          */
-        $admin = Auth::guard('admin')->user();
-        $admin->currentAccessToken()->delete();
+        $coach = Auth::guard('coach')->user();
+        $coach->currentAccessToken()->delete();
 
-        return $this->successResponse(message: __('shared.response_messages.success'));
+        return $this->successResponse(message: __('shared.response_messages.logout_success'));
     }
 
     public function user(Request $request)
     {
         return $this->successResponse(
-            AdminResource::make($request->user()),
+            CoachResource::make($request->user()),
             __('shared.response_messages.success')
         );
     }
@@ -59,7 +59,7 @@ class AuthController extends Controller
     public function forgetPassword(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email|exists:admins',
+            'email' => 'required|email|exists:coaches',
         ]);
 
         ResetCodePassword::where('email', $request->email)->delete();
@@ -77,7 +77,7 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email' => 'required|email|exists:admins',
+            'email' => 'required|email|exists:coaches',
             'code' => 'required|numeric',
             'password' => 'required|string|min:6',
         ]);
@@ -87,10 +87,9 @@ class AuthController extends Controller
         if (! $resetCode || $resetCode->code != $request->code) {
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
-
-        $admin = $this->admin->where('email', $request->email)->first();
-        $admin->password = Hash::make($request->password);
-        $admin->save();
+        $coach = $this->coach->where('email', $request->email)->first();
+        $coach->password = Hash::make($request->password);
+        $coach->save();
 
         return $this->successResponse(message: __('passwords.reset'));
     }
