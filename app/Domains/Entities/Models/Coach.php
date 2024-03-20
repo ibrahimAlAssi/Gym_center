@@ -3,6 +3,7 @@
 namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Gym;
+use App\Traits\FilterByGym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +16,8 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Coach extends Model implements HasMedia
 {
-    use HasApiTokens, HasFactory, InteractsWithMedia,Notifiable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
+    use HasRoles, FilterByGym;
 
     protected $table = 'coaches';
 

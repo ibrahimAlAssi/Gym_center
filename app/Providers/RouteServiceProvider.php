@@ -21,50 +21,103 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
+     *
+     * @return void
      */
     public function boot(): void
+    {
+        $this->configureRateLimiting();
+
+        $this->routes(function () {
+            $this->mapApiRoutes();
+
+            $this->mapWebRoutes();
+
+            $this->mapAdminRoutes();
+            $this->mapPlayerRoutes();
+            $this->mapCoachRoutes();
+        });
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     *
+     * @return void
+     */
+    protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
-
-        $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
-            $this->adminRoutes();
-            $this->playerRoutes();
-            $this->coachRoutes();
-        });
     }
 
-    private function adminRoutes()
+    /**
+     * Define the "web" routes for your application.
+     *
+     * These routes all receive session state, CSRF protection, and more.
+     *
+     * @return void
+     */
+    protected function mapWebRoutes(): void
     {
-        Route::middleware('api')
-            ->prefix('admins')
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
+    }
+
+    /**
+     * Define the "api" routes for your application.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapApiRoutes(): void
+    {
+        Route::prefix('api')
+            ->middleware('api')
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "admin" routes for your application.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes(): void
+    {
+        Route::prefix('admins')
+            // ->middleware('api')
             ->name('admins.')
             ->group(base_path('routes/admin/entities.php'));
-        Route::middleware('api')
-            ->prefix('admins')
+
+        Route::prefix('admins')
+            ->middleware('api')
             ->name('admins.')
             ->group(base_path('routes/admin/club.php'));
     }
 
-    private function playerRoutes()
+    /**
+     * Define the "player" routes for your application.
+     *
+     * @return void
+     */
+    protected function mapPlayerRoutes(): void
     {
-        Route::middleware('api')
-            ->prefix('players')
+        Route::prefix('players')
+            ->middleware('api')
             ->name('players.')
             ->group(base_path('routes/player/entities.php'));
     }
 
-    private function coachRoutes()
+    /**
+     * Define the "coach" routes for your application.
+     *
+     * @return void
+     */
+    protected function mapCoachRoutes(): void
     {
-        Route::middleware('api')
-            ->prefix('coaches')
+        Route::prefix('coaches')
+            ->middleware('api')
             ->name('coaches.')
             ->group(base_path('routes/coach/entities.php'));
     }
