@@ -17,7 +17,7 @@ use Spatie\Permission\Traits\HasRoles;
 class Coach extends Model implements HasMedia
 {
     use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
-    use HasRoles, FilterByGym;
+    use HasRoles;
 
     protected $table = 'coaches';
 
