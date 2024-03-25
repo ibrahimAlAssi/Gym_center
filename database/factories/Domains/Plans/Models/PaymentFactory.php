@@ -18,15 +18,16 @@ class PaymentFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = Payment::class;
+
     public function definition(): array
     {
         return [
-            'gym_id'       => Gym::factory(),
+            'gym_id' => Gym::factory(),
             'subscribe_id' => Subscribe::inRandomOrder()->first()->id,
-            'player_id'    => null,
-            'payment_method'   => $this->faker->name(),
+            'player_id' => null,
+            'payment_method' => $this->faker->name(),
             'transaction_data' => json_encode('test'),
-            'transaction_id'   => $this->faker->numberBetween(100, 1000),
+            'transaction_id' => $this->faker->numberBetween(100, 1000),
         ];
     }
 }

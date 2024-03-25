@@ -79,7 +79,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|email|exists:coaches',
             'code' => 'required|numeric',
-            'password' => 'required|string|min:6',
+            'password' => 'nullable|string|min:8',
         ]);
 
         $resetCode = ResetCodePassword::where('email', $request->email)
@@ -87,10 +87,14 @@ class AuthController extends Controller
         if (! $resetCode || $resetCode->code != $request->code) {
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
-        $coach = $this->coach->where('email', $request->email)->first();
-        $coach->password = Hash::make($request->password);
-        $coach->save();
 
-        return $this->successResponse(message: __('passwords.reset'));
+        if ($request->has('password')) {
+            $this->coach->where('email', $request->email)->first()
+                ->update(['password' => $request->password]);
+
+            return $this->successResponse(message: __('passwords.reset'));
+        }
+
+        return $this->successResponse(message: __('passwords.code_is_verified'));
     }
 }

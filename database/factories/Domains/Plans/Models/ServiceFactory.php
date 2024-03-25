@@ -17,12 +17,13 @@ class ServiceFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = Service::class;
+
     public function definition(): array
     {
         return [
-            'gym_id'       => Gym::factory(),
-            'name'         => $this->faker->name,
-            'description'  => $this->faker->title,
+            'gym_id' => Gym::factory(),
+            'name' => $this->faker->name,
+            'description' => $this->faker->title,
         ];
     }
 }
