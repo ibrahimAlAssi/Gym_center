@@ -57,7 +57,7 @@ class Coach extends Model implements HasMedia
     {
         return QueryBuilder::for(Coach::class)
             ->allowedFilters(['name'])
-            ->page();
+            ->get();
     }
 
     public function findByEmail(string $email): ?Coach
