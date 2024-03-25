@@ -45,15 +45,13 @@ class CoachController extends Controller
         }
     }
 
-    public function show($coach)
+    public function show(Coach $coach)
     {
-        $coach = $this->coach->findOrFail($coach);
         return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
     }
 
     public function update(UpdateCoachRequest $request, Coach $coach)
     {
-        return $coach;
         try {
             $coach->update($request->validated());
 
@@ -83,7 +81,6 @@ class CoachController extends Controller
         try {
             DB::beginTransaction();
             // Remove the existing image from the media library
-            $coach->clearMediaCollection('coaches');
             // Remove the item
             $coach->delete();
             DB::commit();

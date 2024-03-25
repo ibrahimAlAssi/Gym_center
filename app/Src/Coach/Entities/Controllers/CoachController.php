@@ -28,9 +28,10 @@ class CoachController extends Controller
         return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
     }
 
-    public function update(UpdateCoachRequest $request, Coach $coach)
+    public function update(UpdateCoachRequest $request)
     {
         try {
+            $coach = auth()->user('coach');
             $coach->update($request->validated());
 
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
@@ -41,9 +42,10 @@ class CoachController extends Controller
         }
     }
 
-    public function updateImage(UpdateImageRequest $request, Coach $coach)
+    public function updateImage(UpdateImageRequest $request)
     {
         try {
+            $coach = auth()->user('coach');
             // Remove the existing image from the media library
             $coach->clearMediaCollection('coaches');
             // Store the new image in the media library

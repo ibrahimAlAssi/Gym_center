@@ -20,4 +20,5 @@ Route::middleware('auth:admin')->group(function () {
         });
     Route::apiResource('admins', AdminController::class);
     Route::apiResource('coaches', CoachController::class);
+    Route::post('coaches/update-image/{coach}', [CoachController::class, 'updateImage']);
 });

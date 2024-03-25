@@ -19,7 +19,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Coach extends Model implements HasMedia
 {
     use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
-    use HasRoles, FilterByGym;
+    use HasRoles;
 
     protected $table = 'coaches';
 
@@ -57,7 +57,7 @@ class Coach extends Model implements HasMedia
     {
         return QueryBuilder::for(Coach::class)
             ->allowedFilters(['name'])
-            ->get();
+            ->page();
     }
 
     public function findByEmail(string $email): ?Coach

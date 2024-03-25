@@ -17,5 +17,13 @@ Route::middleware('auth:player')->group(function () {
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
         });
-    Route::apiResource('coaches', CoachController::class);
+
+    // Start Coaches
+    Route::prefix('coaches')
+        ->name('coaches.')
+        ->controller(CoachController::class)
+        ->group(function () {
+            Route::get('index', 'index')->name('index');
+            Route::get('show', 'show')->name('show');
+        });
 });

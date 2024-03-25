@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Src\Shared\Traits;
 
 use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Builder;
