@@ -4,8 +4,8 @@ namespace Database\Seeders\Domains\Club;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use Illuminate\Database\Seeder;
 use App\Domains\Club\Models\Contact;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {

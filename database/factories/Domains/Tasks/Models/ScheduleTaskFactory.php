@@ -3,8 +3,8 @@
 namespace Database\Factories\Domains\Tasks\Models;
 
 use App\Domains\Tasks\Models\Schedule;
-use App\Domains\Tasks\Models\Task;
 use App\Domains\Tasks\Models\ScheduleTask;
+use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,10 +22,10 @@ class ScheduleTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'task_id'     => Task::inRandomOrder()->first()->id,
+            'task_id' => Task::inRandomOrder()->first()->id,
             'schedule_id' => Schedule::inRandomOrder()->first()->id,
-            'repeat'      => $this->faker->numberBetween(2, 3),
-            'weight'      => $this->faker->numberBetween(10, 15),
+            'repeat' => $this->faker->numberBetween(2, 3),
+            'weight' => $this->faker->numberBetween(10, 15),
             'is_complete' => $this->faker->numberBetween(0, 1),
         ];
     }

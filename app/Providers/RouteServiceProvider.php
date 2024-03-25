@@ -21,8 +21,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -41,8 +39,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Configure the rate limiters for the application.
-     *
-     * @return void
      */
     protected function configureRateLimiting(): void
     {
@@ -55,8 +51,6 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "web" routes for your application.
      *
      * These routes all receive session state, CSRF protection, and more.
-     *
-     * @return void
      */
     protected function mapWebRoutes(): void
     {
@@ -68,8 +62,6 @@ class RouteServiceProvider extends ServiceProvider
      * Define the "api" routes for your application.
      *
      * These routes are typically stateless.
-     *
-     * @return void
      */
     protected function mapApiRoutes(): void
     {
@@ -80,13 +72,11 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the "admin" routes for your application.
-     *
-     * @return void
      */
     protected function mapAdminRoutes(): void
     {
         Route::prefix('admins')
-            // ->middleware('api')
+            ->middleware('api')
             ->name('admins.')
             ->group(base_path('routes/admin/entities.php'));
 
@@ -98,8 +88,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the "player" routes for your application.
-     *
-     * @return void
      */
     protected function mapPlayerRoutes(): void
     {
@@ -111,8 +99,6 @@ class RouteServiceProvider extends ServiceProvider
 
     /**
      * Define the "coach" routes for your application.
-     *
-     * @return void
      */
     protected function mapCoachRoutes(): void
     {

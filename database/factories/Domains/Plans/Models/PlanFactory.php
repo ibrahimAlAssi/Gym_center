@@ -17,12 +17,13 @@ class PlanFactory extends Factory
      * @return array<string, mixed>
      */
     protected $model = Plan::class;
+
     public function definition(): array
     {
         return [
             'gym_id' => Gym::factory(),
-            'type'   => $this->faker->randomElement(['V', 'N']),
-            'cost'  => $this->faker->randomNumber(4, 4),
+            'type' => $this->faker->randomElement(['V', 'N']),
+            'cost' => $this->faker->randomNumber(4, 4),
         ];
     }
 }

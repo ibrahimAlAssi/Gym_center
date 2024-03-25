@@ -16,7 +16,6 @@ class RateFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
-     *
      */
     protected $model = Rate::class;
 
@@ -24,9 +23,9 @@ class RateFactory extends Factory
     {
         return [
             'player_id' => Player::inRandomOrder()->first()->id,
-            'task_id'   => Task::inRandomOrder()->first()->id,
-            'content'   => $this->faker->name,
-            'rating'    => $this->faker->numberBetween(1, 5),
+            'task_id' => Task::inRandomOrder()->first()->id,
+            'content' => $this->faker->name,
+            'rating' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

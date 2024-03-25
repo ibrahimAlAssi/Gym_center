@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Gym;

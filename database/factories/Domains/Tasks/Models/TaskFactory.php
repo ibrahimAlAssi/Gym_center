@@ -22,10 +22,10 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id'      => Gym::factory(),
-            'type_id'     => Type::inRandomOrder()->first()->id,
-            'name'        => $this->faker->name,
-            'number'      => $this->faker->numberBetween(10, 20),
+            'gym_id' => Gym::factory(),
+            'type_id' => Type::inRandomOrder()->first()->id,
+            'name' => $this->faker->name,
+            'number' => $this->faker->numberBetween(10, 20),
             'description' => $this->faker->title,
         ];
     }

@@ -5,8 +5,8 @@ namespace Database\Seeders\Domains\Plans;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Domains\Entities\Models\Player;
-use Illuminate\Database\Seeder;
 use App\Domains\Plans\Models\Payment;
+use Illuminate\Database\Seeder;
 
 class PaymentSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class PaymentSeeder extends Seeder
         Payment::factory()->create(
             [
                 'subscribe_id' => null,
-                'player_id'    => Player::inRandomOrder()->first()->id,
+                'player_id' => Player::inRandomOrder()->first()->id,
             ]
         );
     }
