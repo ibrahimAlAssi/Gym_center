@@ -25,6 +25,7 @@ class CoachController extends Controller
 
     public function show(Coach $coach)
     {
+        return $coach;
         return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
     }
 

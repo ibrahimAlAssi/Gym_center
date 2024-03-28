@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Src\Coach\Entities\Controllers\AuthController;
 use App\Src\Coach\Entities\Controllers\CoachController;
 
-Route::middleware('auth:coach')->group(function () {
+Route::middleware('auth:coach', 'api')->group(function () {
     Route::prefix('auth')
         ->name('auth.')
         ->controller(AuthController::class)
@@ -23,9 +23,9 @@ Route::middleware('auth:coach')->group(function () {
         ->name('coaches.')
         ->controller(CoachController::class)
         ->group(function () {
-            Route::get('index', 'index')->name('index');
-            Route::get('show', 'show')->name('show');
-            Route::post('update', 'update')->name('update');
+            Route::get('', 'index')->name('index');
+            Route::get('/{coach}', 'show')->name('show');
+            Route::put('', 'update')->name('update');
             Route::post('update-image', 'updateImage')->name('updateImage');
         });
 });

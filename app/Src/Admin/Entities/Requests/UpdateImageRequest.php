@@ -35,11 +35,9 @@ class UpdateImageRequest extends FormRequest
         return [
             'avatar' => [
                 'required',
-                'file',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // Maximum file size in kilobytes
-                Rule::dimensions()->maxWidth(1000)->maxHeight(1000), // Maximum dimensions in pixels
             ],
         ];
     }

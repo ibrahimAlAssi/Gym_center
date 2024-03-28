@@ -2,7 +2,6 @@
 
 namespace App\Domains\Entities\Models;
 
-use App\Traits\FilterByGym;
 use App\Domains\Club\Models\Gym;
 use App\Src\Shared\Traits\FilterByGym as TraitsFilterByGym;
 use Laravel\Sanctum\HasApiTokens;

@@ -22,12 +22,13 @@ class UpdateCoachRequest extends FormRequest
      */
     public function rules(): array
     {
+        dd('tadfa');
         return [
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
             'gym_id'  => ['sometimes', Rule::exists('gyms', 'id')],
             'name'    => ['sometimes', 'string'],
-            'email'   => ['sometimes', 'string', 'unique:coaches,email,' . $this->route('coach')],
-            'phone'   => ['sometimes', 'string', 'unique:coaches,phone,' . $this->route('coach')],
+            'email'   => ['sometimes', 'string', 'unique:coaches,email,' . $this->route('coach')->id],
+            'phone'   => ['sometimes', 'string', 'unique:coaches,phone,' . $this->route('coach')->id],
             'description' => ['nullable', 'string'],
         ];
     }

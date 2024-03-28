@@ -26,8 +26,8 @@ class UpdateCoachRequest extends FormRequest
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
             'gym_id'  => ['sometimes', Rule::exists('gyms', 'id')],
             'name'    => ['sometimes', 'string'],
-            'email'   => ['sometimes', 'string', 'unique:admins,email,' . $this->route('admin')->id],
-            'phone'   => ['sometimes', 'string', 'unique:admins,phone,' . $this->route('admin')->id],
+            'email'   => ['sometimes', 'string', 'unique:coaches,email,' . auth()->user('coach')->id],
+            'phone'   => ['sometimes', 'string', 'unique:coaches,phone,' . auth()->user('coach')->id],
             'description' => ['nullable', 'string'],
         ];
     }

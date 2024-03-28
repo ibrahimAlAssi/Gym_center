@@ -26,8 +26,8 @@ class UpdateAdminRequest extends FormRequest
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
             'gym_id' => ['sometimes', Rule::exists('gyms', 'id')],
             'name' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'string', 'unique:admins,email,' . $this->route('admin')],
-            'phone' => ['sometimes', 'string', 'unique:admins,phone,' . $this->route('admin')],
+            'email' => ['sometimes', 'string', 'unique:admins,email,' . $this->route('admin')->id],
+            'phone' => ['sometimes', 'string', 'unique:admins,phone,' . $this->route('admin')->id],
             'description' => ['nullable', 'string'],
         ];
     }
