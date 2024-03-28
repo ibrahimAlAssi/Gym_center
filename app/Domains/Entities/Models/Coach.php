@@ -4,6 +4,7 @@ namespace App\Domains\Entities\Models;
 
 use App\Traits\FilterByGym;
 use App\Domains\Club\Models\Gym;
+use App\Src\Shared\Traits\FilterByGym as TraitsFilterByGym;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -19,7 +20,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 class Coach extends Model implements HasMedia
 {
     use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
-    use HasRoles;
+    use HasRoles, TraitsFilterByGym;
 
     protected $table = 'coaches';
 

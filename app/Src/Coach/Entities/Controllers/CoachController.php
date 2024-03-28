@@ -31,7 +31,7 @@ class CoachController extends Controller
     public function update(UpdateCoachRequest $request)
     {
         try {
-            $coach = auth()->user('coach');
+            $coach = Coach::findOrFail(auth()->user('coach')->id);
             $coach->update($request->validated());
 
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
@@ -45,7 +45,7 @@ class CoachController extends Controller
     public function updateImage(UpdateImageRequest $request)
     {
         try {
-            $coach = auth()->user('coach');
+            $coach = Coach::findOrFail(auth()->user('coach')->id);
             // Remove the existing image from the media library
             $coach->clearMediaCollection('coaches');
             // Store the new image in the media library

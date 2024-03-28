@@ -52,6 +52,7 @@ class CoachController extends Controller
 
     public function update(UpdateCoachRequest $request, Coach $coach)
     {
+        return $request;
         try {
             $coach->update($request->validated());
 
