@@ -26,6 +26,6 @@ Route::middleware('auth:coach', 'api')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/{coach}', 'show')->name('show');
             Route::put('', 'update')->name('update');
-            Route::post('update-image', 'updateImage')->name('updateImage');
+            Route::put('update-image', 'updateImage')->name('updateImage');
         });
 });

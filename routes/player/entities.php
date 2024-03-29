@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Src\Player\Entities\Controllers\AuthController;
 use App\Src\Player\Entities\Controllers\CoachController;
 
-Route::middleware('auth:player')->group(function () {
+Route::middleware('auth:player', 'api')->group(function () {
     Route::prefix('auth')
         ->name('auth.')
         ->controller(AuthController::class)
@@ -23,7 +23,7 @@ Route::middleware('auth:player')->group(function () {
         ->name('coaches.')
         ->controller(CoachController::class)
         ->group(function () {
-            Route::get('index', 'index')->name('index');
-            Route::get('show', 'show')->name('show');
+            Route::get('', 'index')->name('index');
+            Route::get('{coach}', 'show')->name('show');
         });
 });

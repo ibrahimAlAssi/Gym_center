@@ -15,8 +15,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Coach extends Model implements HasMedia
+class Coach extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
     use HasRoles, TraitsFilterByGym;
