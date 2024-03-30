@@ -30,7 +30,7 @@ class StoreCoachRequest extends FormRequest
             'email'    => ['required', 'string', 'unique:coaches,email'],
             'password' => ['required', 'string', Password::min(8)],
             'phone'    => ['required', 'string', 'unique:coaches,phone'],
-            'image'    => [
+            'avatar'   => [
                 'sometimes',
                 'file',
                 'image',
