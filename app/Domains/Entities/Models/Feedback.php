@@ -2,9 +2,11 @@
 
 namespace App\Domains\Entities\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Domains\Club\Models\Gym;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Feedback extends Model
 {
@@ -13,17 +15,31 @@ class Feedback extends Model
     protected $table = 'feedbacks';
 
     protected $fillable = [
+        'gym_id',
         'player_id',
         'message',
-        'type',
+        'is_complaint',
     ];
 
     protected $cast = [
-        'type' => 'boolean',
+        'is_complaint' => 'boolean',
     ];
 
     public function player(): BelongsTo
     {
         return $this->belongsTo(Player::class);
+    }
+
+    public function gym(): BelongsTo
+    {
+        return $this->belongsTo(Gym::class);
+    }
+
+    // Start Helper Function
+    public function getForGrid()
+    {
+        return QueryBuilder::for(Feedback::class)
+            ->allowedFilters(['is_complaint'])
+            ->get();
     }
 }

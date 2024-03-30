@@ -19,7 +19,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Player extends Model implements HasMedia
 {
-    use HasApiTokens,HasFactory,InteractsWithMedia,Notifiable;
+    use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
 
     protected $table = 'players';
 
@@ -48,7 +48,7 @@ class Player extends Model implements HasMedia
         'password',
     ];
 
-    public function gym()
+    public function gym(): BelongsTo
     {
         return $this->belongsTo(Gym::class);
     }
@@ -88,6 +88,7 @@ class Player extends Model implements HasMedia
         return $this->hasMany(Feedback::class);
     }
 
+    // Start Helper Function
     public function findByEmail(string $email): ?Player
     {
         return self::query()

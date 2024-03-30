@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Src\Coach\Entities\Controllers\AuthController;
 use App\Src\Coach\Entities\Controllers\CoachController;
+use App\Src\Coach\Entities\Controllers\FeedbackController;
 
-Route::middleware('auth:coach', 'api')->group(function () {
+Route::middleware('auth:coach')->group(function () {
     Route::prefix('auth')
         ->name('auth.')
         ->controller(AuthController::class)
@@ -28,4 +29,7 @@ Route::middleware('auth:coach', 'api')->group(function () {
             Route::put('', 'update')->name('update');
             Route::put('update-image', 'updateImage')->name('updateImage');
         });
+
+    // Start Feedbacks
+    Route::resource('feedbacks', FeedbackController::class);
 });

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('feedback', function (Blueprint $table) {
+        Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('gym_id')->constrained();
             $table->foreignId('player_id')->constrained();
             $table->text('message');
-            $table->boolean('type');
+            $table->boolean('is_complaint'); // 0 => suggestion
             $table->timestamps();
         });
     }
