@@ -1,9 +1,10 @@
 <?php
 
-use App\Src\Player\Entities\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Src\Player\Entities\Controllers\AuthController;
+use App\Src\Player\Entities\Controllers\CoachController;
 
-Route::middleware('auth:player')->group(function () {
+Route::middleware('auth:player', 'api')->group(function () {
     Route::prefix('auth')
         ->name('auth.')
         ->controller(AuthController::class)
@@ -15,5 +16,14 @@ Route::middleware('auth:player')->group(function () {
                 Route::post('forget-password', 'forgetPassword')->name('forgetPassword');
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
+        });
+
+    // Start Coaches
+    Route::prefix('coaches')
+        ->name('coaches.')
+        ->controller(CoachController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('{coach}', 'show')->name('show');
         });
 });

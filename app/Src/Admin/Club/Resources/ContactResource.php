@@ -17,7 +17,7 @@ class ContactResource extends JsonResource
         return [
             'id' => $this->id,
             'gym' => [
-                'id' => $this->gym_id,
+                'id'   => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
             ],
             'platform' => $this->platform,

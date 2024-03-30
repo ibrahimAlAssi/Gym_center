@@ -3,6 +3,7 @@
 namespace App\Src\Admin\Entities\Resources;
 
 use Illuminate\Http\Request;
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminGridResource extends JsonResource
@@ -18,7 +19,7 @@ class AdminGridResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'phone' => $this->phone,
-            'image' => 'image url',
+            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('admins'))),
         ];
     }
 }

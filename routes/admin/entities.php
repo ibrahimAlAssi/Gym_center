@@ -2,9 +2,10 @@
 
 use App\Src\Admin\Entities\Controllers\AdminController;
 use App\Src\Admin\Entities\Controllers\AuthController;
+use App\Src\Admin\Entities\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:admin')->group(function () {
+Route::middleware('auth:admin', 'api')->group(function () {
     Route::prefix('auth')
         ->name('auth.')
         ->controller(AuthController::class)
@@ -18,4 +19,6 @@ Route::middleware('auth:admin')->group(function () {
             });
         });
     Route::apiResource('admins', AdminController::class);
+    Route::apiResource('coaches', CoachController::class);
+    Route::put('coaches/update-image/{coach}', [CoachController::class, 'updateImage']);
 });
