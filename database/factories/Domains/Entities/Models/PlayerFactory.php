@@ -25,7 +25,7 @@ class PlayerFactory extends Factory
             'gym_id' => Gym::first()->id,
             'diet_id' => Diet::inRandomOrder()->first()->id,
             'name' => fake()->name(),
-            'email' => 'player@gmail.com',
+            'email' => fake()->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //passport
             'phone' => fake()->phoneNumber(),
             'active' => true,

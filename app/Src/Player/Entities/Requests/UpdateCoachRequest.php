@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Src\Admin\Entities\Requests;
+namespace App\Src\Player\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateAdminRequest extends FormRequest
+class UpdateCoachRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

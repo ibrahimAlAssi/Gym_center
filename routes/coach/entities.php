@@ -1,6 +1,7 @@
 <?php
 
 use App\Src\Coach\Entities\Controllers\AuthController;
+use App\Src\Coach\Entities\Controllers\CoachController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:coach')->group(function () {
@@ -15,5 +16,16 @@ Route::middleware('auth:coach')->group(function () {
                 Route::post('forget-password', 'forgetPassword')->name('forgetPassword');
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
+        });
+
+    // Start Coaches
+    Route::prefix('coaches')
+        ->name('coaches.')
+        ->controller(CoachController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('/{coach}', 'show')->name('show');
+            Route::put('', 'update')->name('update');
+            Route::put('update-image', 'updateImage')->name('updateImage');
         });
 });

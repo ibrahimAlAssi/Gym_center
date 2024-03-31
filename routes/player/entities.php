@@ -1,6 +1,8 @@
 <?php
 
 use App\Src\Player\Entities\Controllers\AuthController;
+use App\Src\Player\Entities\Controllers\CoachController;
+use App\Src\Player\Entities\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:player')->group(function () {
@@ -16,4 +18,16 @@ Route::middleware('auth:player')->group(function () {
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
         });
+
+    // Start Coaches
+    Route::prefix('coaches')
+        ->name('coaches.')
+        ->controller(CoachController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('{coach}', 'show')->name('show');
+        });
+
+    // Start Feedbacks
+    Route::resource('feedbacks', FeedbackController::class);
 });

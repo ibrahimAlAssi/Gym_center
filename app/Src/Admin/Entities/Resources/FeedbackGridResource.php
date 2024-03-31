@@ -2,11 +2,10 @@
 
 namespace App\Src\Admin\Entities\Resources;
 
-use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdminGridResource extends JsonResource
+class FeedbackGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,9 +16,12 @@ class AdminGridResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('admins'))),
+            'message' => $this->message,
+            'is_complaint' => (bool) $this->is_complaint,
+            'player' => [
+                'id' => $this->player_id,
+                'name' => $this->player_name,
+            ],
         ];
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Src\Coach\Entities\Resources;
+namespace App\Src\Player\Entities\Resources;
 
 use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CoachResource extends JsonResource
+class CoachGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,13 +20,11 @@ class CoachResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'gym' => [
                 'id' => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
             ],
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
-            'description' => $this->description,
         ];
     }
 }

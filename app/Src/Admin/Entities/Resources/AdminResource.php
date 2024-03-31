@@ -20,7 +20,7 @@ class AdminResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
+            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('admins'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'description' => $this->description,
         ];

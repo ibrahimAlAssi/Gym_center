@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Coach\Entities\Resources;
+namespace App\Src\Admin\Entities\Resources;
 
 use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
@@ -20,7 +20,6 @@ class CoachResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'gym' => [
                 'id' => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
