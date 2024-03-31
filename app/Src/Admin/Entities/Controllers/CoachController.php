@@ -2,15 +2,15 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Coach;
-use App\Src\Admin\Entities\Resources\CoachResource;
+use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\StoreCoachRequest;
 use App\Src\Admin\Entities\Requests\UpdateCoachRequest;
 use App\Src\Admin\Entities\Requests\UpdateImageRequest;
 use App\Src\Admin\Entities\Resources\CoachGridResource;
+use App\Src\Admin\Entities\Resources\CoachResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
@@ -35,7 +35,6 @@ class CoachController extends Controller
                 $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
             }
             DB::commit();
-
 
             return $this->createdResponse(new CoachResource($coach->load('media')), 'created');
         } catch (\Throwable $th) {
@@ -70,6 +69,7 @@ class CoachController extends Controller
             $coach->clearMediaCollection('coaches');
             // Store the new image in the media library
             $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
+
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
         } catch (\Throwable $th) {
             return $this->failedResponse($th->getMessage());
@@ -84,6 +84,7 @@ class CoachController extends Controller
             // Remove the item
             $coach->delete();
             DB::commit();
+
             return $this->deletedResponse();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());

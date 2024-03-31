@@ -2,10 +2,7 @@
 
 namespace App\Src\Coach\Entities\Requests;
 
-use Illuminate\Validation\Rule;
-use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use App\Domains\Products\Enums\ItemStatusEnum;
 
 /**
  * @property mixed $name

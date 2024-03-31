@@ -3,10 +3,10 @@
 namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Gym;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Feedback extends Model
 {
@@ -36,10 +36,19 @@ class Feedback extends Model
     }
 
     // Start Helper Function
-    public function getForGrid()
+    public function getForGrid(?int $playerId = null)
     {
         return QueryBuilder::for(Feedback::class)
             ->allowedFilters(['is_complaint'])
-            ->get();
+            ->select([
+                'feedbacks.id',
+                'feedbacks.message',
+                'feedbacks.is_complaint',
+                'players.id as player_id',
+                'players.name as player_name',
+            ])
+            ->join('players', 'players.id', '=', 'feedbacks.player_id')
+            ->when($playerId != null, fn () => $this->where('player_id', $playerId))
+            ->paginate(request()->get('per_page'));
     }
 }

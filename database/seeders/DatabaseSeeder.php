@@ -14,6 +14,7 @@ use App\Domains\Club\Models\Product;
 use App\Domains\Club\Models\Tax;
 use App\Domains\Club\Models\Work;
 use App\Domains\Entities\Models\Chat;
+use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Plans\Models\Discount;
@@ -44,7 +45,7 @@ class DatabaseSeeder extends Seeder
         Diet::factory()->create();
         DietFood::factory()->create();
 
-        Player::factory()->create();
+        Player::factory()->create(['email' => 'player@gmail.com']);
         Product::factory()->for($gym)->create();
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
@@ -53,17 +54,6 @@ class DatabaseSeeder extends Seeder
 
         $chat = Chat::factory()->create();
         Message::factory()->for($chat)->create();
-
-        Discount::factory()->create();
-        Plan::factory()->for($gym)->create();
-        Service::factory()->for($gym)->create();
-        Subscribe::factory()->for($gym)->create();
-        Payment::factory()->for($gym)->create();
-
-        Type::factory()->create();
-        Task::factory()->for($gym)->create();
-        Rate::factory()->create();
-        Schedule::factory()->create();
-        ScheduleTask::factory()->create();
+        Feedback::factory()->count(5)->create();
     }
 }

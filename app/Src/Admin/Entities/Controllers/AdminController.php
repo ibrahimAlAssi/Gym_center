@@ -2,16 +2,15 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Admin;
-use App\Domains\Entities\Models\Coach;
-use App\Src\Admin\Entities\Resources\AdminResource;
+use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\StoreAdminRequest;
 use App\Src\Admin\Entities\Requests\UpdateAdminRequest;
 use App\Src\Admin\Entities\Requests\UpdateImageRequest;
 use App\Src\Admin\Entities\Resources\AdminGridResource;
+use App\Src\Admin\Entities\Resources\AdminResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -70,12 +69,12 @@ class AdminController extends Controller
             $admin->clearMediaCollection('admins');
             // Store the new image in the media library
             $admin->addMediaFromRequest('avatar')->toMediaCollection('admins');
+
             return $this->successResponse(new AdminResource($admin->load('media')), 'updated');
         } catch (\Throwable $th) {
             return $this->failedResponse($th->getMessage());
         }
     }
-
 
     public function destroy(Admin $admin)
     {
@@ -86,6 +85,7 @@ class AdminController extends Controller
             // Remove the item
             $admin->delete();
             DB::commit();
+
             return $this->deletedResponse();
         } catch (\Throwable $th) {
             Log::error($th->getMessage());

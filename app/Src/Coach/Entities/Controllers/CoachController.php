@@ -2,13 +2,13 @@
 
 namespace App\Src\Coach\Entities\Controllers;
 
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Coach;
-use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Http\Controllers\Controller;
 use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
 use App\Src\Coach\Entities\Requests\UpdateImageRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
+use App\Src\Coach\Entities\Resources\CoachResource;
+use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
@@ -26,6 +26,7 @@ class CoachController extends Controller
     public function show(Coach $coach)
     {
         return $coach;
+
         return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
     }
 
@@ -51,6 +52,7 @@ class CoachController extends Controller
             $coach->clearMediaCollection('coaches');
             // Store the new image in the media library
             $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
+
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
         } catch (\Throwable $th) {
             return $this->failedResponse($th->getMessage());

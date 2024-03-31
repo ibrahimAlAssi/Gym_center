@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Src\Admin\Entities\Requests;
+namespace App\Src\Player\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreFeedbackRequest extends FormRequest
+class UpdateFeedBackRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +22,8 @@ class StoreFeedbackRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'gym_id'       => ['required', 'numeric', Rule::exists('gyms', 'id')],
-            'player_id'    => ['required', 'numeric', Rule::exists('players', 'id')],
-            'message'      => ['required', 'string'],
-            'is_complaint' => ['required', 'boolean'],
+            'message' => ['sometimes', 'string'],
+            'is_complaint' => ['sometimes', 'boolean'],
         ];
     }
 }

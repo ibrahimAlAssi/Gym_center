@@ -21,7 +21,7 @@ class CoachResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
-            'gym'   => [
+            'gym' => [
                 'id' => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
             ],

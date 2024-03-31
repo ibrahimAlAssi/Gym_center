@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
             $table->foreignId('player_id')->constrained();
             $table->text('message');
             $table->boolean('is_complaint'); // 0 => suggestion

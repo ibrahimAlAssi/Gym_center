@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Src\Player\Entities\Controllers\AuthController;
 use App\Src\Player\Entities\Controllers\CoachController;
 use App\Src\Player\Entities\Controllers\FeedbackController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:player')->group(function () {
     Route::prefix('auth')

@@ -2,8 +2,8 @@
 
 namespace App\Src\Admin\Entities\Resources;
 
-use Illuminate\Http\Request;
 use App\Src\Shared\Resources\MediaResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AdminGridResource extends JsonResource

@@ -15,12 +15,12 @@ class FeedbackGridResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'           => $this->id,
-            'message'      =>  $this->message,
-            'is_complaint' => $this->is_complaint,
-            'player'   => [
-                'id'   => $this->player_id,
-                'name' => $this->whenLoaded('player', fn () => $this->player->name),
+            'id' => $this->id,
+            'message' => $this->message,
+            'is_complaint' => (bool) $this->is_complaint,
+            'player' => [
+                'id' => $this->player_id,
+                'name' => $this->player_name,
             ],
         ];
     }

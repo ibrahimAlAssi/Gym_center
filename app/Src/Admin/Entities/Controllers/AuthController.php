@@ -77,14 +77,14 @@ class AuthController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email'    => 'required|email|exists:admins',
-            'code'     => 'required|numeric',
+            'email' => 'required|email|exists:admins',
+            'code' => 'required|numeric',
             'password' => 'sometimes|string|min:8',
         ]);
 
         $resetCode = ResetCodePassword::where('email', $request->email)
             ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-        if (!$resetCode || $resetCode->code != $request->code) {
+        if (! $resetCode || $resetCode->code != $request->code) {
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
 
@@ -93,6 +93,7 @@ class AuthController extends Controller
             $admin->password = Hash::make($request->password);
             $admin->save();
         }
+
         return $this->successResponse(message: __('passwords.reset'));
     }
 }

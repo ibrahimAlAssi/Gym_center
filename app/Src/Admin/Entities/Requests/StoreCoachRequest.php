@@ -24,13 +24,13 @@ class StoreCoachRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id'  => ['required', Rule::exists('roles', 'id')],
-            'gym_id'   => ['required', Rule::exists('gyms', 'id')],
-            'name'     => ['required', 'string'],
-            'email'    => ['required', 'string', 'unique:coaches,email'],
+            'role_id' => ['required', Rule::exists('roles', 'id')],
+            'gym_id' => ['required', Rule::exists('gyms', 'id')],
+            'name' => ['required', 'string'],
+            'email' => ['required', 'string', 'unique:coaches,email'],
             'password' => ['required', 'string', Password::min(8)],
-            'phone'    => ['required', 'string', 'unique:coaches,phone'],
-            'avatar'   => [
+            'phone' => ['required', 'string', 'unique:coaches,phone'],
+            'avatar' => [
                 'sometimes',
                 'file',
                 'image',

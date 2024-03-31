@@ -2,8 +2,8 @@
 
 namespace App\Src\Player\Entities\Resources;
 
-use Illuminate\Http\Request;
 use App\Src\Shared\Resources\MediaResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CoachGridResource extends JsonResource
@@ -16,11 +16,11 @@ class CoachGridResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'    => $this->id,
-            'name'  => $this->name,
-            'email' =>  $this->email,
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
             'phone' => $this->phone,
-            'gym'   => [
+            'gym' => [
                 'id' => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
             ],

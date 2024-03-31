@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Src\Admin\Entities\Controllers\AuthController;
 use App\Src\Admin\Entities\Controllers\AdminController;
+use App\Src\Admin\Entities\Controllers\AuthController;
 use App\Src\Admin\Entities\Controllers\CoachController;
 use App\Src\Admin\Entities\Controllers\FeedbackController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:admin')->group(function () {
     Route::prefix('auth')
@@ -19,10 +19,10 @@ Route::middleware('auth:admin')->group(function () {
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
         });
-    Route::apiResource('admins', AdminController::class);
-    // Start Coaches
-    Route::apiResource('coaches', CoachController::class);
     Route::put('coaches/update-image/{coach}', [CoachController::class, 'updateImage']);
-    // Start Feedbacks
-    Route::resource('feedbacks', FeedbackController::class);
+    Route::apiResources([
+        'admins' => AdminController::class,
+        'coaches' => CoachController::class,
+        'feedbacks' => FeedbackController::class,
+    ]);
 });

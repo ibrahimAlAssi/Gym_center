@@ -24,10 +24,10 @@ class UpdateCoachRequest extends FormRequest
     {
         return [
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
-            'gym_id'  => ['sometimes', Rule::exists('gyms', 'id')],
-            'name'    => ['sometimes', 'string'],
-            'email'   => ['sometimes', 'string',  Rule::unique('coaches', 'email')->ignore(auth()->id())],
-            'phone'   => ['sometimes', 'string', 'unique:coaches,phone,' . auth()->user('coach')->id],
+            'gym_id' => ['sometimes', Rule::exists('gyms', 'id')],
+            'name' => ['sometimes', 'string'],
+            'email' => ['sometimes', 'string',  Rule::unique('coaches', 'email')->ignore(auth()->id())],
+            'phone' => ['sometimes', 'string', 'unique:coaches,phone,'.auth()->user('coach')->id],
             'description' => ['nullable', 'string'],
         ];
     }
