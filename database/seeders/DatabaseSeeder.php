@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         Diet::factory()->create();
         DietFood::factory()->create();
 
-        Player::factory()->create(['email' => 'player@gmail.com']);
+        $player=Player::factory()->create(['email' => 'player@gmail.com']);
         Product::factory()->for($gym)->create();
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
@@ -54,6 +54,6 @@ class DatabaseSeeder extends Seeder
 
         $chat = Chat::factory()->create();
         Message::factory()->for($chat)->create();
-        Feedback::factory()->count(5)->create();
+        Feedback::factory()->for($player)->count(5)->create();
     }
 }
