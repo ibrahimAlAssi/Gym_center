@@ -14,11 +14,6 @@ class FeedbackController extends Controller
 
     public function index()
     {
-        return $this->successResponse(
-            FeedbackGridResource::collection(
-                $this->feedback->getForGrid()
-            ),
-            __('shared.response_messages.success')
-        );
+        return FeedbackGridResource::collection($this->feedback->getForGrid());
     }
 }
