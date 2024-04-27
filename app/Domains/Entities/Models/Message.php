@@ -2,10 +2,11 @@
 
 namespace App\Domains\Entities\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Message extends Model
 {
@@ -31,5 +32,22 @@ class Message extends Model
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
+    }
+
+    // Start Helper Function
+    public function getForGrid(?int $chatId = null)
+    {
+        return QueryBuilder::for(Message::class)
+            ->select([
+                'messages.id',
+                'messages.message',
+                'chats.id as chat_id',
+                'players.id as player_id',
+                'players.name as player_name',
+            ])
+            ->join('chats', 'messages.chat_id', '=', 'chats.id')
+            ->join('players', 'players.id', '=', 'chats.player_id')
+            ->when($chatId != null, fn () => $this->where('chat_id', $chatId))
+            ->paginate(request()->get('per_page'));
     }
 }

@@ -1,9 +1,11 @@
 <?php
 
-use App\Src\Player\Entities\Controllers\AuthController;
-use App\Src\Player\Entities\Controllers\CoachController;
-use App\Src\Player\Entities\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
+use App\Src\Player\Entities\Controllers\AuthController;
+use App\Src\Player\Entities\Controllers\ChatController;
+use App\Src\Player\Entities\Controllers\CoachController;
+use App\Src\Player\Entities\Controllers\MessageController;
+use App\Src\Player\Entities\Controllers\FeedbackController;
 
 Route::middleware('auth:player')->group(function () {
     Route::prefix('auth')
@@ -30,4 +32,8 @@ Route::middleware('auth:player')->group(function () {
 
     // Start Feedbacks
     Route::resource('feedbacks', FeedbackController::class);
+    // Start Chat
+    Route::resource('chats', ChatController::class);
+    // Start Messages
+    Route::resource('messages', MessageController::class);
 });
