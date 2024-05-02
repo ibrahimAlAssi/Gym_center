@@ -2,9 +2,8 @@
 
 namespace Database\Factories\Domains\Tasks\Models;
 
-use App\Domains\Club\Models\Gym;
+use App\Domains\Tasks\Enums\TaskTypeEnum;
 use App\Domains\Tasks\Models\Task;
-use App\Domains\Tasks\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,11 +21,10 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
-            'type_id' => Type::inRandomOrder()->first()->id,
             'name' => $this->faker->name,
+            'type' => TaskTypeEnum::getRandomValue(),
             'number' => $this->faker->numberBetween(10, 20),
-            'description' => $this->faker->title,
+            'description' => $this->faker->sentence(),
         ];
     }
 }
