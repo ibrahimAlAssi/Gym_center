@@ -29,10 +29,8 @@ class TaskController extends Controller
 
     public function index()
     {
-        return $this->successResponse(
-            TaskResource::collection($this->task->getForGrid()),
-            __('shared.response_messages.success')
-        );
+        return TaskResource::collection($this->task->getForGrid())
+            ->additional(['message' => __('shared.response_messages.success')]);
     }
 
     public function store(StoreTaskRequest $request)
