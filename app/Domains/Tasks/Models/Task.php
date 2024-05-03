@@ -54,13 +54,14 @@ class Task extends Model implements HasMedia
         return $this->belongsTo(Gym::class);
     }
 
-    public function getForGrid()
+    public function getForGrid(?bool $random = false)
     {
         return QueryBuilder::for(Task::class)
             ->allowedFilters([
                 'name',
                 AllowedFilter::exact('type', 'type'),
             ])
+            ->when($random, fn ($query) => $query->inRandomOrder())
             ->paginate(request()->get('per_page'));
     }
 

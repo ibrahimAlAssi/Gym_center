@@ -8,6 +8,7 @@ use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
 use App\Src\Coach\Entities\Requests\UpdateImageRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
 use App\Src\Coach\Entities\Resources\CoachResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
@@ -16,24 +17,21 @@ class CoachController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $coaches = $this->coach->getForGrid();
-
-        return $this->successResponse(CoachGridResource::collection($coaches), 'success');
+        return CoachGridResource::collection(
+            $this->coach->getForGrid($request->random)
+        )->additional(['message' => __('shared.response_messages.success')]);
     }
 
     public function show(Coach $coach)
     {
-        return $coach;
-
         return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
     }
 
-    public function update(UpdateCoachRequest $request)
+    public function update(UpdateCoachRequest $request, Coach $coach)
     {
         try {
-            $coach = Coach::findOrFail(auth()->user('coach')->id);
             $coach->update($request->validated());
 
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');

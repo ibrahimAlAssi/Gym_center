@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Src\Admin\Tasks\Requests\StoreTaskRequest;
 use App\Src\Admin\Tasks\Requests\UpdateTaskRequest;
 use App\Src\Admin\Tasks\Resources\TaskResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -27,9 +28,9 @@ class TaskController extends Controller
         );
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return TaskResource::collection($this->task->getForGrid())
+        return TaskResource::collection($this->task->getForGrid($request->random))
             ->additional(['message' => __('shared.response_messages.success')]);
     }
 
