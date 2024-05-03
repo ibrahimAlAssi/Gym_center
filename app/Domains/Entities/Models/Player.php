@@ -37,7 +37,7 @@ class Player extends Model implements HasMedia
         'attendance_days',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'password' => 'hashed',
         'active' => 'boolean',
         'gender' => 'boolean',
