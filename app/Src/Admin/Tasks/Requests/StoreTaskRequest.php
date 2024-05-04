@@ -2,10 +2,10 @@
 
 namespace App\Src\Admin\Tasks\Requests;
 
+use Illuminate\Validation\Rule;
+use BenSampo\Enum\Rules\EnumValue;
 use App\Domains\Tasks\Enums\TaskTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -26,8 +26,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('tasks', 'name')],
-            // 'type' => ['required', 'string', new Enum(TaskTypeEnum::class)],
-            'type' => ['required', 'string'],
+            'type' => ['required', 'string', new EnumValue(TaskTypeEnum::class)],
             'number' => ['required', 'integer'],
             'description' => ['nullable', 'string'],
             'image' => ['required', 'image'],

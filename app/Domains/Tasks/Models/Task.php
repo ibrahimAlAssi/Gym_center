@@ -16,7 +16,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class Task extends Model implements HasMedia
 {
-    use HasFactory,InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'tasks';
 
@@ -59,7 +59,7 @@ class Task extends Model implements HasMedia
         return QueryBuilder::for(Task::class)
             ->allowedFilters([
                 'name',
-                AllowedFilter::exact('type', 'type'),
+                AllowedFilter::exact('type'),
             ])
             ->when($random, fn ($query) => $query->inRandomOrder())
             ->paginate(request()->get('per_page'));
