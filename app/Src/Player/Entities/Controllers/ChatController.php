@@ -17,7 +17,6 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-        // dd($this->chat->getForGrid());
         return $this->successResponse(
             ChatGridResource::collection(
                 $this->chat->getForGrid(

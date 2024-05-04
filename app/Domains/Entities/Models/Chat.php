@@ -36,17 +36,13 @@ class Chat extends Model
     // Start Helper Function
     public function getForGrid(?int $playerId = null)
     {
-        return QueryBuilder::for(Chat::class)
-            ->select([
-                'messages.id',
-                'messages.message',
-                'chats.id',
-                'players.id as player_id',
-                'players.name as player_name',
-            ])
-            ->join('players', 'players.id', '=', 'chats.player_id')
-            ->join('messages', 'messages.chat_id', '=', 'chats.id')
-            ->when($playerId != null, fn () => $this->where('player_id', $playerId))
+        return Chat::with(['messages' => function ($query) {
+            $query->select('id', 'chat_id', 'message')
+                ->latest('created_at')->take(1); // Get the latest message
+        }, 'coach:id,name'])
+            ->when($playerId, function ($query, $playerId) {
+                return $query->where('player_id', $playerId);
+            })
             ->paginate(request()->get('per_page'));
     }
 }
