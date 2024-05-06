@@ -30,10 +30,12 @@ Route::middleware('auth:player')->group(function () {
             Route::get('{coach}', 'show')->name('show');
         });
 
-    // Start Feedbacks
-    Route::resource('feedbacks', FeedbackController::class);
-    // Start Chat
-    Route::resource('chats', ChatController::class);
-    // Start Messages
-    Route::resource('messages', MessageController::class);
+    Route::apiResources([
+        // Start Feedbacks
+        'feedbacks' => FeedbackController::class,
+        // Start Chat
+        'chats' => ChatController::class,
+        // Start Messages
+        'messages' => MessageController::class,
+    ]);
 });
