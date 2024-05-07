@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Player\Entities\Resources;
+namespace App\Src\Coach\Entities\Resources;
 
 use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
@@ -20,17 +20,16 @@ class ChatGridResource extends JsonResource
                 'id' => $this->id,
                 'created_at' => $this->created_at,
             ],
-            'coach' => $this->whenLoaded('coach', fn () => [
-                'id' => $this->coach->id,
-                'name' => $this->coach->name,
-                'avatar' => $this->when($this->coach->getFirstMedia('coaches') != null,
-                    fn () => new MediaResource($this->coach->getFirstMedia('coaches')),
+            'player' => $this->whenLoaded('player', fn () => [
+                'id' => $this->player->id,
+                'name' => $this->player->name,
+                'avatar' => $this->when($this->player->getFirstMedia('players') != null,
+                    fn () => new MediaResource($this->player->getFirstMedia('players')),
                 ),
             ]),
             'message' => $this->whenLoaded('messages',
                 fn () => count($this->messages) > 0 ?
                 MessageGridResource::make($this->messages[0]) : null),
-
         ];
     }
 }

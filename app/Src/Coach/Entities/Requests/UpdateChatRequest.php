@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Src\Player\Entities\Requests;
+namespace App\Src\Coach\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreChatRequest extends FormRequest
+class UpdateChatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class StoreChatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => ['required', 'string'],
-            'coach_id' => ['required', 'string', 'exists:coaches,id'],
+            'message' => ['sometimes', 'string'],
         ];
     }
 }

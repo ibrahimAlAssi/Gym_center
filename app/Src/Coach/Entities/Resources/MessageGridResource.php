@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Src\Player\Entities\Resources;
+namespace App\Src\Coach\Entities\Resources;
 
+use App\Domains\Shared\Enums\AppTypesEnum;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MessageResource extends JsonResource
+class MessageGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +17,10 @@ class MessageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sender_id' => $this->senderable_id,
-            'chat_id' => $this->chat_id,
             'message' => $this->message,
-            'read_at' => $this->read_at,
+            'is_sender' => ($this->senderable_id == auth()->user()->id) && ($this->senderable_type == AppTypesEnum::COACH),
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

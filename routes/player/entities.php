@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Src\Player\Entities\Controllers\AuthController;
 use App\Src\Player\Entities\Controllers\ChatController;
 use App\Src\Player\Entities\Controllers\CoachController;
-use App\Src\Player\Entities\Controllers\MessageController;
 use App\Src\Player\Entities\Controllers\FeedbackController;
+use App\Src\Player\Entities\Controllers\MessageController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:player')->group(function () {
     Route::prefix('auth')
@@ -28,6 +28,25 @@ Route::middleware('auth:player')->group(function () {
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('{coach}', 'show')->name('show');
+        });
+    // Start Chat
+    Route::prefix('chats')
+        ->name('chats.')
+        ->controller(ChatController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::delete('{chat}', 'destroy')->name('destroy');
+        });
+
+    //Start Messages
+    Route::prefix('chat/{chat}/messages')
+        ->name('messages.')
+        ->controller(MessageController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+            Route::post('/{message}', 'update')->name('update');
+            Route::delete('/{message}', 'destroy')->name('destroy');
         });
 
     Route::apiResources([
