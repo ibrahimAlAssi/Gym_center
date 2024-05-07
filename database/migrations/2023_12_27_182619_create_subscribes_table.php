@@ -26,6 +26,6 @@ class CreateSubscribesTable extends Migration
 
     public function down()
     {
-        Schema::drop('subscribe');
+        Schema::drop('subscribes');
     }
 }

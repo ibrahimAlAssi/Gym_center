@@ -5,6 +5,7 @@ namespace Database\Factories\Domains\Entities\Models;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
+use App\Domains\Shared\Enums\AppTypesEnum;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -24,7 +25,7 @@ class MessageFactory extends Factory
         return [
             'chat_id' => Chat::factory(),
             'senderable_id' => Player::inRandomOrder()->first()->id,
-            'senderable_type' => 'App\Domains\Entities\Models\Player',
+            'senderable_type' => AppTypesEnum::PLAYER,
             'message' => fake()->title(),
             'read_at' => $this->faker->dateTime(),
         ];

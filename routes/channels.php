@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('chat.{id}', function ($user, $id) {
+    // Here, you can return true if the user should be allowed to listen on this channel.
+    // For a private chat, you might check if the user is one of the participants.
+    return $user->id === $id;
+});

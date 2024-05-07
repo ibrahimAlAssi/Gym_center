@@ -95,4 +95,11 @@ class Player extends Model implements HasMedia
             ->where('email', $email)
             ->first();
     }
+
+    public static function findById(string $id): ?Player
+    {
+        return self::query()
+            ->where('id', $id)
+            ->first();
+    }
 }
