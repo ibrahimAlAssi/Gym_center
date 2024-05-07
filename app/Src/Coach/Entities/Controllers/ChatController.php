@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Src\Player\Entities\Controllers;
+namespace App\Src\Coach\Entities\Controllers;
 
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Message;
 use App\Http\Controllers\Controller;
-use App\Src\Player\Entities\Resources\ChatGridResource;
+use App\Src\Coach\Entities\Resources\ChatGridResource;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +23,8 @@ class ChatController extends Controller
         return $this->successResponse(
             ChatGridResource::collection(
                 $this->chat->getForGrid(
-                    $request->user()->id,
-                    null
+                    null,
+                    $request->user()->id
                 )
             ),
             __('shared.response_messages.success')
@@ -33,8 +33,7 @@ class ChatController extends Controller
 
     public function destroy(Request $request, Chat $chat)
     {
-        throw_if($request->user()->id != $chat->player_id, new AuthorizationException());
-
+        throw_if($request->user()->id != $chat->coach_id, new AuthorizationException());
         try {
             DB::beginTransaction();
             $this->message->where('chat_id', $chat->id)->delete();

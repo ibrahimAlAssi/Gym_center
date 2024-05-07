@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Player\Entities\Requests;
+namespace App\Src\Coach\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +23,7 @@ class StoreChatRequest extends FormRequest
     {
         return [
             'message' => ['required', 'string'],
-            'coach_id' => ['required', 'string', 'exists:coaches,id'],
+            'player_id' => ['required', 'string', 'exists:players,id'],
         ];
     }
 }

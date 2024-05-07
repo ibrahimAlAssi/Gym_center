@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Player\Entities\Controllers;
+namespace App\Src\Coach\Entities\Controllers;
 
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
@@ -8,10 +8,11 @@ use App\Domains\Entities\Models\Message;
 use App\Domains\Shared\Enums\AppTypesEnum;
 use App\Http\Controllers\Controller;
 use App\Notifications\ChatMessageWasReceived;
-use App\Src\Player\Entities\Requests\StoreChatRequest;
-use App\Src\Player\Entities\Requests\UpdateChatRequest;
-use App\Src\Player\Entities\Resources\MessageGridResource;
-use App\Src\Player\Entities\Resources\MessageResource;
+use App\Src\Coach\Entities\Requests\StoreChatRequest;
+use App\Src\Coach\Entities\Requests\UpdateChatRequest;
+use App\Src\Coach\Entities\Resources\MessageGridResource;
+use App\Src\Coach\Entities\Resources\MessageResource;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,7 @@ class MessageController extends Controller
 
     public function index(Request $request, Chat $chat)
     {
-        throw_if($request->user()->id != $chat->player_id, new AuthorizationException());
+        throw_if($request->user()->id != $chat->coach_id, new AuthorizationException());
 
         return $this->successResponse(
             MessageGridResource::collection(
@@ -42,8 +43,8 @@ class MessageController extends Controller
     {
         try {
             DB::beginTransaction();
-            $playerId = $request->user('player')->id;
-            $coachId = $request->coach_id;
+            $coachId = $request->user('coach')->id;
+            $playerId = $request->player_id;
 
             // Check if a chat already exists between these two users
             $existingChat = $this->chat->findChatByIds($playerId, $coachId);
@@ -56,8 +57,9 @@ class MessageController extends Controller
             $message = $this->message->create([
                 'chat_id' => $existingChat->id,
                 'senderable_id' => $playerId,
-                'senderable_type' => AppTypesEnum::PLAYER,
+                'senderable_type' => AppTypesEnum::COACH,
                 'message' => $request->message,
+                'read_at' => Carbon::now(),
             ]);
             DB::commit();
             Notification::send(Coach::find($coachId), new ChatMessageWasReceived($message));
@@ -77,7 +79,7 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::PLAYER,
+             $message->senderable_type != AppTypesEnum::COACH,
             new AuthorizationException()
         );
         try {
@@ -98,9 +100,10 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::PLAYER,
+             $message->senderable_type != AppTypesEnum::COACH,
             new AuthorizationException()
         );
+
         try {
             $message->delete();
 

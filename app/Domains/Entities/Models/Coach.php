@@ -46,6 +46,7 @@ class Coach extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Chat::class);
     }
+
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);

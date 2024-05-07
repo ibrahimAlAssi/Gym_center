@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Player\Entities\Resources;
+namespace App\Src\Coach\Entities\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
