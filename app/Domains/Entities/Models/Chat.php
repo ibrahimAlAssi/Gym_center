@@ -37,12 +37,18 @@ class Chat extends Model
     public function getForGrid(?int $playerId, ?int $coachId)
     {
         return QueryBuilder::for(Chat::class)
+            ->allowedFilters([
+                'coaches.name',
+                'players.name',
+            ])
             ->select([
                 'chats.id',
                 'chats.player_id',
                 'chats.coach_id',
                 'chats.created_at',
             ])
+            ->join('coaches', 'coaches.id', '=', 'chats.coach_id')
+            ->join('players', 'players.id', '=', 'chats.player_id')
             ->with(['messages' => function ($query) {
                 $query->select('id', 'chat_id', 'message')
                     ->latest('created_at')->take(1);

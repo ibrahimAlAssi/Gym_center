@@ -38,6 +38,9 @@ class Message extends Model
     public function getForGrid(int $chatId)
     {
         return QueryBuilder::for(Message::class)
+            ->allowedFilters([
+                'message',
+            ])
             ->select([
                 'messages.id',
                 'messages.message',
