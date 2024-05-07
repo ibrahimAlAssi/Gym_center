@@ -17,16 +17,6 @@ use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
-use App\Domains\Plans\Models\Discount;
-use App\Domains\Plans\Models\Payment;
-use App\Domains\Plans\Models\Plan;
-use App\Domains\Plans\Models\Service;
-use App\Domains\Plans\Models\Subscribe;
-use App\Domains\Tasks\Models\Rate;
-use App\Domains\Tasks\Models\Schedule;
-use App\Domains\Tasks\Models\ScheduleTask;
-use App\Domains\Tasks\Models\Task;
-use App\Domains\Tasks\Models\Type;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,15 +35,15 @@ class DatabaseSeeder extends Seeder
         Diet::factory()->create();
         DietFood::factory()->create();
 
-        $player=Player::factory()->create(['email' => 'player@gmail.com']);
+        $player = Player::factory()->create(['email' => 'player@gmail.com']);
         Product::factory()->for($gym)->create();
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
         Tax::factory()->create();
         Work::factory()->for($gym)->create();
 
-        $chat = Chat::factory()->create();
-        Message::factory()->for($chat)->create();
+        $chats = Chat::factory()->count(3)->create();
+        Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create();
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Src\Coach\Entities\Controllers\AuthController;
+use App\Src\Coach\Entities\Controllers\ChatController;
 use App\Src\Coach\Entities\Controllers\CoachController;
+use App\Src\Coach\Entities\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:coach')->group(function () {
@@ -27,5 +29,23 @@ Route::middleware('auth:coach')->group(function () {
             Route::get('/{coach}', 'show')->name('show');
             Route::put('', 'update')->name('update');
             Route::put('update-image', 'updateImage')->name('updateImage');
+        });
+
+    // Start Chat
+    Route::prefix('chats')
+        ->name('chats.')
+        ->controller(ChatController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::delete('{chat}', 'destroy')->name('destroy');
+        });
+    Route::prefix('chat/{chat}/messages')
+        ->name('messages.')
+        ->controller(MessageController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+            Route::post('/{message}', 'update')->name('update');
+            Route::delete('/{message}', 'destroy')->name('destroy');
         });
 });
