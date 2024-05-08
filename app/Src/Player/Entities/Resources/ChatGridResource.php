@@ -18,19 +18,20 @@ class ChatGridResource extends JsonResource
         return [
             'chat' => [
                 'id' => $this->id,
-                'created_at' => $this->created_at,
             ],
             'coach' => $this->whenLoaded('coach', fn () => [
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
-                'avatar' => $this->when($this->coach->getFirstMedia('coaches') != null,
+                'avatar' => $this->when(
+                    $this->coach->relationLoaded('media') && $this->coach->getFirstMedia('coaches') != null,
                     fn () => new MediaResource($this->coach->getFirstMedia('coaches')),
                 ),
             ]),
-            'message' => $this->whenLoaded('messages',
+            'message' => $this->whenLoaded(
+                'messages',
                 fn () => count($this->messages) > 0 ?
-                MessageGridResource::make($this->messages[0]) : null),
-
+                    MessageGridResource::make($this->messages[0]) : null
+            ),
         ];
     }
 }

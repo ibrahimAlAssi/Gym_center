@@ -41,6 +41,7 @@ class Message extends Model
             ->allowedFilters([
                 'message',
             ])
+            ->defaultSort('-id') // Sort Descending
             ->select([
                 'messages.id',
                 'messages.message',
@@ -48,9 +49,6 @@ class Message extends Model
                 'messages.updated_at',
                 'messages.senderable_id',
                 'messages.senderable_type',
-                'chats.id as chat_id',
-                'players.id as player_id',
-                'players.name as player_name',
             ])
             ->join('chats', 'messages.chat_id', '=', 'chats.id')
             ->join('players', 'players.id', '=', 'chats.player_id')
