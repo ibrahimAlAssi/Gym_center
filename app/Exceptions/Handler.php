@@ -31,8 +31,8 @@ class Handler extends ExceptionHandler
             //
         });
 
-        $this->renderable(function (NotFoundHttpException $e, $request) {
-            return $this->notFoundResponse('record not found.');
-        });
+        // $this->renderable(function (NotFoundHttpException $e, $request) {
+        //     return $this->notFoundResponse('record not found.');
+        // });
     }
 }
