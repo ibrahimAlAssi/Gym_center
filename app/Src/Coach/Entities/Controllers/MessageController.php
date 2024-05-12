@@ -75,7 +75,7 @@ class MessageController extends Controller
         }
     }
 
-    public function update(UpdateChatRequest $request, Chat $chat, Message $message)
+    public function update(UpdateChatRequest $request, Message $message)
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
@@ -96,7 +96,7 @@ class MessageController extends Controller
         }
     }
 
-    public function destroy(Request $request, Chat $chat, Message $message)
+    public function destroy(Request $request, Message $message)
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||

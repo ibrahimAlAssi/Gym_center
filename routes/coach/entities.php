@@ -39,11 +39,11 @@ Route::middleware('auth:coach')->group(function () {
             Route::get('', 'index')->name('index');
             Route::delete('{chat}', 'destroy')->name('destroy');
         });
-    Route::prefix('chat/{chat}/messages')
+    Route::prefix('messages')
         ->name('messages.')
         ->controller(MessageController::class)
         ->group(function () {
-            Route::get('', 'index')->name('index');
+            Route::get('{chat}', 'index')->name('index');
             Route::post('', 'store')->name('store');
             Route::post('/{message}', 'update')->name('update');
             Route::delete('/{message}', 'destroy')->name('destroy');
