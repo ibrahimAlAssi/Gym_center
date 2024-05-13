@@ -76,13 +76,13 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
-        return $this->successResponse(message: 'bars');
         $request->validate([
             'email' => 'required|email|exists:players',
             'code' => 'required|numeric',
             'password' => 'nullable|string|min:8',
         ]);
 
+        return $this->successResponse(message: 'bars');
         $resetCode = ResetCodePassword::where('email', $request->email)
             ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
         if (! $resetCode || $resetCode->code != $request->code) {
