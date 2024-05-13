@@ -76,6 +76,7 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
+        return $this->successResponse(message: __('passwords.code_is_verified'));
         $request->validate([
             'email' => 'required|email|exists:players',
             'code' => 'required|numeric',
