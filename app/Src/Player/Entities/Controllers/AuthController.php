@@ -82,9 +82,9 @@ class AuthController extends Controller
             'password' => 'nullable|string|min:8',
         ]);
 
-        return $this->successResponse(message: 'bars');
         $resetCode = ResetCodePassword::where('email', $request->email)
-            ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
+        ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
+        return $this->successResponse(message: 'bars 33');
         if (! $resetCode || $resetCode->code != $request->code) {
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
