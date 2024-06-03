@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Src\Admin\Tasks\Controllers;
+namespace App\Src\Coach\Tasks\Controllers;
 
 use App\Domains\Tasks\Enums\TaskTypeEnum;
 use App\Domains\Tasks\Models\Task;
 use App\Http\Controllers\Controller;
-use App\Src\Admin\Tasks\Requests\StoreTaskRequest;
-use App\Src\Admin\Tasks\Requests\UpdateTaskRequest;
-use App\Src\Admin\Tasks\Resources\TaskResource;
+use App\Src\Coach\Tasks\Requests\StoreTaskRequest;
+use App\Src\Coach\Tasks\Requests\UpdateTaskRequest;
+use App\Src\Coach\Tasks\Resources\TaskResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
