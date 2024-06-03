@@ -84,7 +84,6 @@ class AuthController extends Controller
 
         $resetCode = ResetCodePassword::where('email', $request->email)
         ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-        return $this->successResponse(message: 'bars 33');
         if (! $resetCode || $resetCode->code != $request->code) {
             return $this->failedResponse(message: __('passwords.invalid_code'));
         }
