@@ -16,7 +16,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class Task extends Model implements HasMedia
 {
-    use HasFactory,InteractsWithMedia;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'tasks';
 
