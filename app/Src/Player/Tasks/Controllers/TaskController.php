@@ -15,7 +15,6 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        return ($this->task->getForGrid($request->random));
         return TaskResource::collection($this->task->getForGrid($request->random))
             ->additional(['message' => __('shared.response_messages.success')]);
     }
