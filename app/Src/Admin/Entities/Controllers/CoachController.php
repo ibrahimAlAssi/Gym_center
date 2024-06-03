@@ -9,6 +9,7 @@ use App\Src\Admin\Entities\Requests\UpdateCoachRequest;
 use App\Src\Admin\Entities\Requests\UpdateImageRequest;
 use App\Src\Admin\Entities\Resources\CoachGridResource;
 use App\Src\Admin\Entities\Resources\CoachResource;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -18,11 +19,11 @@ class CoachController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $coaches = $this->coach->getForGrid();
-
-        return $this->successResponse(CoachGridResource::collection($coaches), 'success');
+        return CoachGridResource::collection(
+            $this->coach->getForGrid($request->random)
+        )->additional(['message' => __('shared.response_messages.success')]);
     }
 
     public function store(StoreCoachRequest $request)

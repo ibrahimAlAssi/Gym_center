@@ -58,11 +58,12 @@ class Coach extends Authenticatable implements HasMedia
     }
 
     // Start Helper Function
-    public function getForGrid()
+    public function getForGrid(?bool $random = false)
     {
         return QueryBuilder::for(Coach::class)
             ->allowedFilters(['name'])
-            ->get();
+            ->when($random, fn ($query) => $query->inRandomOrder())
+            ->paginate(request()->get('per_page'));
     }
 
     public function findByEmail(string $email): ?Coach

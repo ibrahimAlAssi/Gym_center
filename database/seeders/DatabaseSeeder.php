@@ -17,6 +17,7 @@ use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
+use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,5 +46,7 @@ class DatabaseSeeder extends Seeder
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create();
+
+        Task::factory()->count(5)->create();
     }
 }
