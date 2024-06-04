@@ -21,7 +21,6 @@ class MessageGridResource extends JsonResource
             'is_sender' => ($this->senderable_id == auth()->user()->id) && ($this->senderable_type == AppTypesEnum::PLAYER),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
         ];
     }
 }
