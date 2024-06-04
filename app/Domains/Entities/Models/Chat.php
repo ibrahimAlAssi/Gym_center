@@ -45,12 +45,11 @@ class Chat extends Model
                 'chats.id',
                 'chats.player_id',
                 'chats.coach_id',
-                'chats.created_at',
             ])
             ->join('coaches', 'coaches.id', '=', 'chats.coach_id')
             ->join('players', 'players.id', '=', 'chats.player_id')
             ->with(['messages' => function ($query) {
-                $query->select('id', 'chat_id', 'message')
+                $query->select('id', 'chat_id', 'message', 'created_at')
                     ->latest('created_at')->take(1);
             }])
             ->when(empty($coachId) == false, function ($query) use ($coachId) {

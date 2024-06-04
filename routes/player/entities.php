@@ -49,6 +49,12 @@ Route::middleware('auth:player')->group(function () {
             Route::delete('/{message}', 'destroy')->name('destroy');
         });
 
-    // Start Feedbacks
-    Route::resource('feedbacks', FeedbackController::class);
+    Route::apiResources([
+        // Start Feedbacks
+        'feedbacks' => FeedbackController::class,
+        // Start Chat
+        'chats' => ChatController::class,
+        // Start Messages
+        'messages' => MessageController::class,
+    ]);
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications;
+namespace App\Src\Shared\Notifications;
 
 use App\Domains\Entities\Models\Message;
 use Illuminate\Bus\Queueable;
@@ -31,7 +31,7 @@ class ChatMessageWasReceived extends Notification
     public function toBroadcast($notifiable)
     {
         // Use the private channel for the chat
-        $channelName = 'chat.'.$this->message->chat_id;
+        $channelName = 'chat.' . $this->message->chat_id;
 
         return new BroadcastMessage([
             'message' => $this->message,

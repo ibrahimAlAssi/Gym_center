@@ -37,7 +37,6 @@ class ChatController extends Controller
 
         try {
             DB::beginTransaction();
-            $this->message->where('chat_id', $chat->id)->delete();
             $chat->delete();
             DB::commit();
 

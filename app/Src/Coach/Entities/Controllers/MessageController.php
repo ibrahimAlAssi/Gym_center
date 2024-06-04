@@ -2,22 +2,22 @@
 
 namespace App\Src\Coach\Entities\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Shared\Enums\AppTypesEnum;
-use App\Http\Controllers\Controller;
-use App\Notifications\ChatMessageWasReceived;
-use App\Src\Coach\Entities\Requests\StoreChatRequest;
-use App\Src\Coach\Entities\Requests\UpdateChatRequest;
-use App\Src\Coach\Entities\Resources\MessageGridResource;
-use App\Src\Coach\Entities\Resources\MessageResource;
-use Carbon\Carbon;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Src\Coach\Entities\Requests\StoreChatRequest;
+use App\Src\Coach\Entities\Resources\MessageResource;
+use App\Src\Coach\Entities\Requests\UpdateChatRequest;
+use App\Src\Shared\Notifications\ChatMessageWasReceived;
+use App\Src\Coach\Entities\Resources\MessageGridResource;
 
 class MessageController extends Controller
 {
@@ -59,7 +59,6 @@ class MessageController extends Controller
                 'senderable_id' => $playerId,
                 'senderable_type' => AppTypesEnum::COACH,
                 'message' => $request->message,
-                'read_at' => Carbon::now(),
             ]);
             DB::commit();
             Notification::send(Coach::find($coachId), new ChatMessageWasReceived($message));
@@ -79,7 +78,7 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::COACH,
+                $message->senderable_type != AppTypesEnum::COACH,
             new AuthorizationException()
         );
         try {
@@ -100,7 +99,7 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::COACH,
+                $message->senderable_type != AppTypesEnum::COACH,
             new AuthorizationException()
         );
 

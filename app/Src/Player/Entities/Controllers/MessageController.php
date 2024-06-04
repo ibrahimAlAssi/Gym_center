@@ -2,21 +2,21 @@
 
 namespace App\Src\Player\Entities\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Shared\Enums\AppTypesEnum;
-use App\Http\Controllers\Controller;
-use App\Notifications\ChatMessageWasReceived;
-use App\Src\Player\Entities\Requests\StoreChatRequest;
-use App\Src\Player\Entities\Requests\UpdateChatRequest;
-use App\Src\Player\Entities\Resources\MessageGridResource;
-use App\Src\Player\Entities\Resources\MessageResource;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Src\Player\Entities\Requests\StoreChatRequest;
+use App\Src\Player\Entities\Resources\MessageResource;
+use App\Src\Player\Entities\Requests\UpdateChatRequest;
+use App\Src\Shared\Notifications\ChatMessageWasReceived;
+use App\Src\Player\Entities\Resources\MessageGridResource;
 
 class MessageController extends Controller
 {
@@ -77,7 +77,7 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::PLAYER,
+                $message->senderable_type != AppTypesEnum::PLAYER,
             new AuthorizationException()
         );
         try {
@@ -98,7 +98,7 @@ class MessageController extends Controller
     {
         throw_if(
             $request->user()->id != $message->senderable_id ||
-             $message->senderable_type != AppTypesEnum::PLAYER,
+                $message->senderable_type != AppTypesEnum::PLAYER,
             new AuthorizationException()
         );
         try {
@@ -106,7 +106,7 @@ class MessageController extends Controller
 
             return $this->deletedResponse();
         } catch (\Throwable $th) {
-            Log::error("error on delete  message , exception: {$th->getMessage()}");
+            Log::error("error on delete message player, exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
