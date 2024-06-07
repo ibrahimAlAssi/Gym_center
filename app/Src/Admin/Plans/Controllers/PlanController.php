@@ -64,7 +64,7 @@ class PlanController extends Controller
             if ($request->has('image')) {
                 $plan->addMediaFromRequest('image')->toMediaCollection('plan');
             }
-            $plan->services()->syncWithoutDetaching($request->services);
+            $plan->services()->sync($request->services);
             DB::commit();
 
             return $this->successResponse(
