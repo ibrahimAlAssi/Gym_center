@@ -4,8 +4,8 @@ namespace App\Src\Admin\Plans\Controllers;
 
 use App\Domains\Plans\Models\Service;
 use App\Http\Controllers\Controller;
-use App\Src\Admin\Plans\Requests\storeServiceRequest;
-use App\Src\Admin\Plans\Requests\updateServiceRequest;
+use App\Src\Admin\Plans\Requests\StoreServiceRequest;
+use App\Src\Admin\Plans\Requests\UpdateServiceRequest;
 use App\Src\Admin\Plans\Resources\ServiceResource;
 use Illuminate\Support\Facades\Log;
 
@@ -23,7 +23,7 @@ class ServiceController extends Controller
         );
     }
 
-    public function store(storeServiceRequest $request)
+    public function store(StoreServiceRequest $request)
     {
         try {
             $service = $this->service->create($request->validated());
@@ -39,7 +39,7 @@ class ServiceController extends Controller
         }
     }
 
-    public function update(updateServiceRequest $request, Service $service)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
         try {
             $service->update($request->validated());
