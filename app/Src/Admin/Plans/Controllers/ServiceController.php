@@ -2,75 +2,68 @@
 
 namespace App\Src\Admin\Plans\Controllers;
 
+use App\Domains\Plans\Models\Service;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Src\Admin\Plans\Requests\storeServiceRequest;
+use App\Src\Admin\Plans\Requests\updateServiceRequest;
+use App\Src\Admin\Plans\Resources\ServiceResource;
+use Illuminate\Support\Facades\Log;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function __construct(protected Service $service)
+    {
+    }
+
     public function index()
     {
+        return $this->successResponse(
+            $this->service->getForGrid(),
+            __('shared.response_messages.success')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function store(storeServiceRequest $request)
     {
+        try {
+            $service = $this->service->create($request->validated());
+
+            return $this->createdResponse(
+                ServiceResource::make($service),
+                __('shared.response_messages.created_success')
+            );
+        } catch (\Throwable $th) {
+            Log::error("error on store service in admin app, exception: {$th->getMessage()}");
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
+    public function update(updateServiceRequest $request, Service $service)
     {
+        try {
+            $service->update($request->validated());
+
+            return $this->successResponse(
+                ServiceResource::make($service),
+                __('shared.response_messages.success')
+            );
+        } catch (\Throwable $th) {
+            Log::error("error on update service in admin app, exception: {$th->getMessage()}");
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function destroy(Service $service)
     {
-    }
+        try {
+            $service->delete();
+            $this->deletedResponse();
+        } catch (\Throwable $th) {
+            Log::error("error on delete service in admin app, exception: {$th->getMessage()}");
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 }

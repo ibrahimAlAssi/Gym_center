@@ -2,10 +2,10 @@
 
 namespace App\Domains\Plans\Models;
 
-use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Service extends Model
 {
@@ -16,13 +16,21 @@ class Service extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
         'name',
         'description',
     ];
 
-    public function gym(): BelongsTo
+    public function getForGrid()
     {
-        return $this->belongsTo(Gym::class);
+        return QueryBuilder::for(Service::class)
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+            ])
+            ->select([
+                'services.id',
+                'services.name',
+                'services.description',
+            ])
+            ->get();
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Domains\Plans\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Plans\Models\Service;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,9 +20,8 @@ class ServiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
             'name' => $this->faker->name,
-            'description' => $this->faker->title,
+            'description' => $this->faker->paragraph,
         ];
     }
 }

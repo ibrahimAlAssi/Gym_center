@@ -2,75 +2,96 @@
 
 namespace App\Src\Admin\Plans\Controllers;
 
+use App\Domains\Plans\Models\Plan;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Src\Admin\Plans\Requests\StorePlanRequest;
+use App\Src\Admin\Plans\Requests\UpdatePlanRequest;
+use App\Src\Admin\Plans\Resources\PlanGridResource;
+use App\Src\Admin\Plans\Resources\PlanResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class PlanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
+    public function __construct(protected Plan $plan)
+    {
+    }
+
     public function index()
     {
+        return $this->successResponse(
+            PlanGridResource::collection($this->plan->getForGrid()),
+            __('shared.response_messages.success')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function show(Plan $plan)
     {
+        return $this->successResponse(
+            PlanResource::make($plan->load('services', 'media')),
+            __('shared.response_messages.success')
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
+    public function store(StorePlanRequest $request)
     {
+        try {
+            DB::beginTransaction();
+            $plan = $this->plan->create($request->validated());
+            if ($request->hasFile('image')) {
+                $plan->addMediaFromRequest('image')->toMediaCollection('plan');
+            }
+            $plan->services()->attach($request->services);
+            DB::commit();
+
+            return $this->createdResponse(
+                PlanResource::make($plan->load('services', 'media')),
+                __('shared.response_messages.created_success')
+            );
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error("error on store plan in admin app, exception: {$th->getMessage()}");
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function update(UpdatePlanRequest $request, Plan $plan)
     {
+        try {
+            DB::beginTransaction();
+            $plan->update($request->validated());
+            if ($request->has('image')) {
+                $plan->addMediaFromRequest('image')->toMediaCollection('plan');
+            }
+            $plan->services()->syncWithoutDetaching($request->services);
+            DB::commit();
+
+            return $this->successResponse(
+                PlanResource::make($plan->load('services', 'media')),
+                __('shared.response_messages.success')
+            );
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error("error on update plan in admin app, exception: {$th->getMessage()}");
+
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function destroy(Plan $plan)
     {
-    }
+        try {
+            DB::beginTransaction(); //transaction for image when it delete automatic
+            $plan->delete();
+            DB::commit();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
-    {
-    }
+            return $this->deletedResponse();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error("error on delete plan in admin app, exception: {$th->getMessage()}");
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
+        }
     }
 }
