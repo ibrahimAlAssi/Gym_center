@@ -19,6 +19,7 @@ use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Plans\Models\Plan;
 use App\Domains\Plans\Models\Service;
+use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
 
@@ -56,5 +57,10 @@ class DatabaseSeeder extends Seeder
         $normalPlan = Plan::factory()->create(['name' => 'limited', 'type' => 'normal']);
         $vipPlan->services()->attach($services->slice(0, 5));
         $normalPlan->services()->attach($services->slice(6, 10));
+
+        Subscription::factory()
+            ->for($player)
+            ->count(5)
+            ->create();
     }
 }
