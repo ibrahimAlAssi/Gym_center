@@ -4,21 +4,22 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Domains\Club\Models\Contact;
-use App\Domains\Club\Models\Diet;
-use App\Domains\Club\Models\DietFood;
-use App\Domains\Club\Models\Food;
-use App\Domains\Club\Models\Gym;
-use App\Domains\Club\Models\NutritionalValue;
-use App\Domains\Club\Models\Product;
-use App\Domains\Club\Models\Tax;
-use App\Domains\Club\Models\Work;
-use App\Domains\Entities\Models\Chat;
-use App\Domains\Entities\Models\Feedback;
-use App\Domains\Entities\Models\Message;
-use App\Domains\Entities\Models\Player;
-use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
+use App\Domains\Club\Models\Gym;
+use App\Domains\Club\Models\Tax;
+use App\Domains\Club\Models\Diet;
+use App\Domains\Club\Models\Food;
+use App\Domains\Club\Models\Work;
+use App\Domains\Tasks\Models\Task;
+use App\Domains\Club\Models\Contact;
+use App\Domains\Club\Models\Product;
+use App\Domains\Club\Models\DietFood;
+use App\Domains\Entities\Models\Chat;
+use App\Domains\Entities\Models\Player;
+use App\Domains\Entities\Models\Message;
+use App\Domains\Entities\Models\Feedback;
+use App\Domains\Club\Models\NutritionalValue;
+use Database\Factories\Domains\Club\Models\FoodFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,7 +33,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
 
-        Food::factory()->for($gym)->create();
+        Food::factory()->count(5)->create();
         Diet::factory()->create();
         DietFood::factory()->create();
 
