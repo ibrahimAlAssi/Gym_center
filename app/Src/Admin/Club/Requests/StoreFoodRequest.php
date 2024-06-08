@@ -25,6 +25,8 @@ class StoreFoodRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:food,name',
             'nutritionalValues'   => ['sometimes', 'array', 'min:1'],
+            'nutritionalValues.*.name'   => ['sometimes', 'string'],
+            'nutritionalValues.*.value'   => ['sometimes', 'numeric'],
             'image' => [
                 'required',
                 'file',

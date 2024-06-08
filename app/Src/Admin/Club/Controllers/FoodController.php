@@ -38,13 +38,16 @@ class FoodController extends Controller
                 "name" => $request->name
             ]);
 
+            // Collect nutritional values for batch insertion
+            $nutritionalValuesData = [];
             foreach ($request->nutritionalValues as $value) {
-                NutritionalValue::create([
+                $nutritionalValuesData[] = [
                     'food_id' => $food->id,
                     'name'    => $value["name"],
                     'value'   => $value["value"],
-                ]);
+                ];
             }
+            NutritionalValue::insert($nutritionalValuesData);
 
             if ($request->hasFile('image')) {
                 $food->addMediaFromRequest('image')->toMediaCollection('foods');
@@ -53,6 +56,7 @@ class FoodController extends Controller
 
             return $this->createdResponse(new FoodGridResource($food->load('media', 'nutritionalValues')), 'created');
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error("error on create  food , exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
@@ -70,17 +74,20 @@ class FoodController extends Controller
             DB::beginTransaction();
             $food->update($request->validated());
             $food->nutritionalValues()->delete();
+            $nutritionalValuesData = [];
             foreach ($request->nutritionalValues as $value) {
-                NutritionalValue::create([
+                $nutritionalValuesData[] = [
                     'food_id' => $food->id,
                     'name'    => $value["name"],
                     'value'   => $value["value"],
-                ]);
+                ];
             }
+            NutritionalValue::insert($nutritionalValuesData);
             DB::commit();
 
             return $this->successResponse(new FoodGridResource($food->load('media', 'nutritionalValues')), 'updated');
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error("error on update food , exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
