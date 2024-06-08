@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FoodGridResource extends JsonResource
+class NutritionalValues extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,8 +18,7 @@ class FoodGridResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('foods'))),
-            'nutritionalValues' => $this->whenLoaded('nutritionalValues', fn () => NutritionalValues::collection($this->nutritionalValues)),
+            'value' => $this->value,
         ];
     }
 }

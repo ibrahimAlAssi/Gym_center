@@ -5,9 +5,12 @@ namespace App\Src\Admin\Club\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Domains\Club\Models\Food;
+use App\Domains\Club\Models\NutritionalValue;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Src\Admin\Club\Requests\StoreFoodRequest;
+use App\Src\Admin\Club\Requests\UpdateFoodRequest;
 use App\Src\Admin\Club\Resources\FoodResource;
 use App\Src\Admin\Club\Resources\FoodGridResource;
 
@@ -27,32 +30,28 @@ class FoodController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(StoreFoodRequest $request)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255|unique:food,name',
-            'image' => [
-                'required',
-                'file',
-                'image',
-                'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // Maximum file size in kilobytes
-                Rule::dimensions()->maxWidth(1000)->maxHeight(1000), // Maximum dimensions in pixels
-            ],
-        ]);
         try {
             DB::beginTransaction();
-            $food = $this->food->create(
-                ["name" => $request->name]
-            );
+            $food = $this->food->create([
+                "name" => $request->name
+            ]);
+
+            foreach ($request->nutritionalValues as $value) {
+                NutritionalValue::create([
+                    'food_id' => $food->id,
+                    'name'    => $value["name"],
+                    'value'   => $value["value"],
+                ]);
+            }
 
             if ($request->hasFile('image')) {
                 $food->addMediaFromRequest('image')->toMediaCollection('foods');
             }
             DB::commit();
 
-            return $this->createdResponse(new FoodGridResource($food->load('media')), 'created');
+            return $this->createdResponse(new FoodGridResource($food->load('media', 'nutritionalValues')), 'created');
         } catch (\Throwable $th) {
             Log::error("error on create  food , exception: {$th->getMessage()}");
 
@@ -62,19 +61,25 @@ class FoodController extends Controller
 
     public function show(Food $food)
     {
-        return $this->successResponse(new FoodResource($food->load('media')), 'success');
+        return $this->successResponse(new FoodResource($food->load('media', 'nutritionalValues')), 'success');
     }
 
-    public function update(Request $request, Food $food)
+    public function update(UpdateFoodRequest $request, Food $food)
     {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'name' => ['required', 'string', 'max:255', Rule::unique('food', 'name')->ignore($food->id)],
-        ]);
         try {
-            $food->update($validatedData);
+            DB::beginTransaction();
+            $food->update($request->validated());
+            $food->nutritionalValues()->delete();
+            foreach ($request->nutritionalValues as $value) {
+                NutritionalValue::create([
+                    'food_id' => $food->id,
+                    'name'    => $value["name"],
+                    'value'   => $value["value"],
+                ]);
+            }
+            DB::commit();
 
-            return $this->successResponse(new FoodGridResource($food), 'updated');
+            return $this->successResponse(new FoodGridResource($food->load('media', 'nutritionalValues')), 'updated');
         } catch (\Throwable $th) {
             Log::error("error on update food , exception: {$th->getMessage()}");
 
