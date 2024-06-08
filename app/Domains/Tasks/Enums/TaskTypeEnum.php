@@ -8,13 +8,13 @@ use BenSampo\Enum\Enum;
 
 final class TaskTypeEnum extends Enum
 {
-    const BACK = 'ظهر';
+    const BACK = 'back';
 
-    const FEED = 'قدم';
+    const FEED = 'feed';
 
-    const CHEST = 'صدر';
+    const CHEST = 'chest';
 
-    const ARMPIT = 'باط';
+    const ARMPIT = 'armpit';
 
-    const SHOULDER = 'كتف';
+    const SHOULDER = 'shoulder';
 }
