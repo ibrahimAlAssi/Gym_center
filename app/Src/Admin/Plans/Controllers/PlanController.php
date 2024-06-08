@@ -62,6 +62,7 @@ class PlanController extends Controller
             DB::beginTransaction();
             $plan->update($request->validated());
             if ($request->has('image')) {
+                $plan->clearMediaCollection('plan');
                 $plan->addMediaFromRequest('image')->toMediaCollection('plan');
             }
             $plan->services()->sync($request->services);
