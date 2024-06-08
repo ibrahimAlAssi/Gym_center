@@ -18,5 +18,6 @@ Route::middleware('auth:player')->group(function () {
         ->controller(SubscriptionController::class)
         ->group(function () {
             Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
         });
 });

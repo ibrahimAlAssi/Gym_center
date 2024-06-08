@@ -11,6 +11,7 @@ use App\Src\Admin\Plans\Resources\SubscriptionGridResource;
 use App\Src\Admin\Plans\Resources\SubscriptionResource;
 use Carbon\Carbon;
 use Dotenv\Exception\ValidationException;
+use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\Log;
 
 class SubscriptionController extends Controller
@@ -33,6 +34,9 @@ class SubscriptionController extends Controller
         throw_if(empty($plan), new ValidationException(
             __('validation.exists', ['attribute' => 'plan_id'])
         ));
+        $subscription = $this->subscription->activeSubscription($request->player_id);
+
+        throw_if(! empty($subscription), new HttpClientException('Your subscription not ended yet.'));
         try {
             $data = $request->validated();
             $data['cost'] = $plan->cost;

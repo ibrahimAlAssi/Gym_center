@@ -4,6 +4,7 @@ namespace App\Domains\Plans\Models;
 
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -87,5 +88,13 @@ class Subscription extends Model
             ->leftJoin('plans', 'plans.id', 'subscriptions.plan_id')
             ->when($playerId != null, fn ($query) => $query->where('player_id', $playerId))
             ->paginate(request()->get('per_page'));
+    }
+
+    public function activeSubscription(int $playerId)
+    {
+        return Subscription::join('players', 'players.id', '=', 'subscriptions.player_id')
+            ->where('subscriptions.player_id', $playerId)
+            ->whereDate('subscriptions.end_date', '>=', Carbon::now())
+            ->exists();
     }
 }

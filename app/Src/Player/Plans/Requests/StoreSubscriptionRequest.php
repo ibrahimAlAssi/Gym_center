@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Src\Admin\Plans\Requests;
+namespace App\Src\Player\Plans\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
