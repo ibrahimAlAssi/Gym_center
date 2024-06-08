@@ -80,7 +80,8 @@ class SubscriptionController extends Controller
     {
         try {
             $subscription->delete();
-            $this->deletedResponse();
+
+            return $this->deletedResponse();
         } catch (\Throwable $th) {
             Log::error("error on delete subscription in admin app, exception: {$th->getMessage()}");
 
