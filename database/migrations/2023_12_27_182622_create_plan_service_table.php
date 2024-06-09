@@ -10,8 +10,8 @@ class CreatePlanServiceTable extends Migration
     {
         Schema::create('plan_service', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plan_id')->constrained();
-            $table->foreignId('service_id')->constrained();
+            $table->foreignId('plan_id')->constrained()->onDelete('cascade');
+            $table->foreignId('service_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

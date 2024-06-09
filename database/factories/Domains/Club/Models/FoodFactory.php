@@ -3,7 +3,6 @@
 namespace Database\Factories\Domains\Club\Models;
 
 use App\Domains\Club\Models\Food;
-use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,7 +20,6 @@ class FoodFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
             'name' => fake()->name(),
         ];
     }

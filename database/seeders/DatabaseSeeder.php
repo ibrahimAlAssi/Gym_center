@@ -17,6 +17,9 @@ use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
+use App\Domains\Plans\Models\Plan;
+use App\Domains\Plans\Models\Service;
+use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
 
@@ -32,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
 
-        Food::factory()->for($gym)->create();
+        Food::factory()->count(5)->create();
         Diet::factory()->create();
         DietFood::factory()->create();
 
@@ -48,5 +51,16 @@ class DatabaseSeeder extends Seeder
         Feedback::factory()->for($player)->count(5)->create();
 
         Task::factory()->count(5)->create();
+        //plans
+        $services = Service::factory()->count(10)->create();
+        $vipPlan = Plan::factory()->create(['name' => 'unlimited', 'type' => 'vip']);
+        $normalPlan = Plan::factory()->create(['name' => 'limited', 'type' => 'normal']);
+        $vipPlan->services()->attach($services->slice(0, 5));
+        $normalPlan->services()->attach($services->slice(6, 10));
+
+        Subscription::factory()
+            ->for($player)
+            ->count(5)
+            ->create();
     }
 }

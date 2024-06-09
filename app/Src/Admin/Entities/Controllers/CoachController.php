@@ -39,6 +39,7 @@ class CoachController extends Controller
 
             return $this->createdResponse(new CoachResource($coach->load('media')), 'created');
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error($th->getMessage());
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
@@ -88,6 +89,7 @@ class CoachController extends Controller
 
             return $this->deletedResponse();
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error($th->getMessage());
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));

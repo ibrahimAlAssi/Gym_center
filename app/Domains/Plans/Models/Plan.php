@@ -2,22 +2,25 @@
 
 namespace App\Domains\Plans\Models;
 
-use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
-class Plan extends Model
+class Plan extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory,InteractsWithMedia;
 
     protected $table = 'plans';
 
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
+        'name',
         'type',
         'cost',
     ];
@@ -26,13 +29,40 @@ class Plan extends Model
         'cost' => 'double',
     ];
 
-    public function services(): HasMany
+    public function services(): BelongsToMany
     {
-        return $this->hasMany(Service::class);
+        return $this->BelongsToMany(Service::class);
     }
 
-    public function gym(): BelongsTo
+    public function registerMediaConversions(?Media $media = null): void
     {
-        return $this->belongsTo(Gym::class);
+        $this->addMediaConversion('sm')
+            ->width(150)
+            ->height(150);
+
+        $this->addMediaConversion('md')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('lg')
+            ->width(500)
+            ->height(500);
+    }
+
+    public function getForGrid()
+    {
+        return QueryBuilder::for(Plan::class)
+            ->allowedFilters([
+                AllowedFilter::exact('name'),
+                AllowedFilter::exact('type'),
+            ])
+            ->select([
+                'plans.id',
+                'plans.name',
+                'plans.type',
+                'plans.cost',
+            ])
+            ->with('media')
+            ->get();
     }
 }

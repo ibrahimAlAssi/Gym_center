@@ -10,8 +10,7 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->nullable()->constrained();
-            $table->foreignId('subscribe_id')->nullable()->constrained();
+            $table->foreignId('subscription_id')->nullable()->constrained();
             $table->foreignId('player_id')->nullable()->constrained();
             $table->string('payment_method');
             $table->json('transaction_data');

@@ -89,6 +89,10 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->name('admins.')
             ->group(base_path('routes/admin/tasks.php'));
+        Route::prefix('admins')
+            ->middleware('api')
+            ->name('admins.')
+            ->group(base_path('routes/admin/plans.php'));
     }
 
     /**
@@ -104,6 +108,10 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->name('players.')
             ->group(base_path('routes/player/tasks.php'));
+        Route::prefix('players')
+            ->middleware('api')
+            ->name('players.')
+            ->group(base_path('routes/player/plans.php'));
     }
 
     /**

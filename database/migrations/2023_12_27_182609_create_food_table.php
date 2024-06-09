@@ -10,7 +10,6 @@ class CreateFoodTable extends Migration
     {
         Schema::create('food', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
             $table->string('name');
             $table->timestamps();
         });

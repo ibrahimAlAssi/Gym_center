@@ -3,7 +3,6 @@
 namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Gym;
-use App\Src\Shared\Traits\FilterByGym as TraitsFilterByGym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +18,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 class Coach extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, InteractsWithMedia, Notifiable;
-    use HasRoles, TraitsFilterByGym;
+    use HasRoles;
 
     protected $table = 'coaches';
 
