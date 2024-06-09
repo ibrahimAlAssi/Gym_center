@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Domains\Club\Models\Food;
 use App\Domains\Entities\Models\Admin;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
             'coach' => Coach::class,
             'admin' => Admin::class,
             'plan' => Plan::class,
+            'food'   => Food::class,
         ]);
     }
 }

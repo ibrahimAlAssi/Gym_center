@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
 
-        Food::factory()->for($gym)->create();
+        Food::factory()->count(5)->create();
         Diet::factory()->create();
         DietFood::factory()->create();
 

@@ -2,30 +2,28 @@
 
 namespace App\Domains\Club\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Food extends Model
+class Food extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'food';
 
-    protected $fillable = ['gym_id', 'name'];
+    protected $fillable = ['name'];
 
     public $timestamps = true;
 
     public function nutritionalValues(): HasMany
     {
         return $this->hasMany(NutritionalValue::class);
-    }
-
-    public function gym(): BelongsTo
-    {
-        return $this->belongsTo(Gym::class);
     }
 
     public function diets(): BelongsToMany
@@ -36,5 +34,29 @@ class Food extends Model
     public function dietFood(): HasMany
     {
         return $this->hasMany(DietFood::class, 'diet_food');
+    }
+
+    public function getForGrid()
+    {
+        return QueryBuilder::for(Food::class)
+            ->allowedFilters([
+                'name',
+            ])->with('media')
+            ->paginate(request()->get('per_page'));
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('sm')
+            ->width(150)
+            ->height(150);
+
+        $this->addMediaConversion('md')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('lg')
+            ->width(500)
+            ->height(500);
     }
 }
