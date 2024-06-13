@@ -2,18 +2,19 @@
 
 namespace App\Src\Player\Entities\Controllers;
 
-use App\Domains\Entities\Mail\SendCodeResetPassword;
-use App\Domains\Entities\Models\Player;
-use App\Domains\Entities\Models\ResetCodePassword;
-use App\Http\Controllers\Controller;
-use App\Src\Admin\Entities\Requests\LoginRequest;
-use App\Src\Player\Entities\Resources\PlayerResource;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Domains\Entities\Models\Player;
+use App\Src\Admin\Entities\Requests\LoginRequest;
+use App\Domains\Entities\Models\ResetCodePassword;
+use App\Domains\Entities\Mail\SendCodeResetPassword;
+use App\Src\Player\Entities\Resources\PlayerResource;
 
 class AuthController extends Controller
 {
@@ -82,17 +83,21 @@ class AuthController extends Controller
             'password' => 'nullable|string|min:8',
         ]);
 
-        $resetCode = ResetCodePassword::where('email', $request->email)
+        try {
+            $resetCode = ResetCodePassword::where('email', $request->email)
             ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-        if (! $resetCode || $resetCode->code != $request->code) {
-            return $this->failedResponse(message: __('passwords.invalid_code'));
-        }
+            if (! $resetCode || $resetCode->code != $request->code) {
+                  return $this->failedResponse(message: __('passwords.invalid_code'));
+            }
 
-        if ($request->has('password')) {
-            $this->player->where('email', $request->email)->first()
+            if ($request->has('password')) {
+                 $this->player->where('email', $request->email)
                 ->update(['password' => $request->password]);
 
-            return $this->successResponse(message: __('passwords.reset'));
+                 return $this->successResponse(message: __('passwords.reset'));
+            }
+        } catch (\Throwable $th) {
+            Log::info($th);
         }
 
         return $this->successResponse(message: __('passwords.code_is_verified'));
