@@ -99,13 +99,13 @@ class AuthController extends Controller
 
                 return $this->successResponse(message: __('passwords.reset'));
             }
+
+            return $this->successResponse(message: __('passwords.code_is_verified'));
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error("error on store  reset password  in player, exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
-
-        return $this->successResponse(message: __('passwords.code_is_verified'));
     }
 }
