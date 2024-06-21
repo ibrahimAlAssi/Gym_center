@@ -1,5 +1,6 @@
 <?php
 
+use App\Src\Admin\Plans\Controllers\DiscountController;
 use App\Src\Admin\Plans\Controllers\PlanController;
 use App\Src\Admin\Plans\Controllers\ServiceController;
 use App\Src\Admin\Plans\Controllers\SubscriptionController;
@@ -36,5 +37,15 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('{subscription}', 'update')->name('update');
             Route::delete('{subscription}', 'destroy')->name('destroy');
+        });
+
+    Route::prefix('discounts')
+        ->name('discounts.')
+        ->controller(DiscountController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+            Route::post('{discount}', 'update')->name('update');
+            Route::delete('{discount}', 'destroy')->name('destroy');
         });
 });

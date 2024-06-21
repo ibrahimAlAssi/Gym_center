@@ -10,17 +10,16 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('plan_id');
             $table->date('start_date');
             $table->date('end_date');
-            $table->tinyInteger('type')->nullable();
-            $table->double('value')->nullable();
+            $table->integer('value');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('offers');
+        Schema::drop('discounts');
     }
 }

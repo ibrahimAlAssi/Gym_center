@@ -2,8 +2,9 @@
 
 namespace Database\Factories\Domains\Plans\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Plans\Models\Discount;
+use App\Domains\Plans\Models\Plan;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,11 +22,10 @@ class DiscountFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
-            'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
-            'type' => $this->faker->numberBetween(0, 1),
-            'value' => $this->faker->numberBetween(100, 1000),
+            'plan_id' => Plan::factory(),
+            'start_date' => Carbon::now(),
+            'end_date' => Carbon::now()->addWeek(),
+            'value' => $this->faker->numberBetween(1, 90),
         ];
     }
 }

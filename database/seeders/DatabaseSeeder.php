@@ -17,8 +17,7 @@ use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
-use App\Domains\Plans\Models\Plan;
-use App\Domains\Plans\Models\Service;
+use App\Domains\Plans\Models\Discount;
 use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
@@ -52,15 +51,14 @@ class DatabaseSeeder extends Seeder
 
         Task::factory()->count(5)->create();
         //plans
-        $services = Service::factory()->count(10)->create();
-        $vipPlan = Plan::factory()->create(['name' => 'unlimited', 'type' => 'vip']);
-        $normalPlan = Plan::factory()->create(['name' => 'limited', 'type' => 'normal']);
-        $vipPlan->services()->attach($services->slice(0, 5));
-        $normalPlan->services()->attach($services->slice(6, 10));
-
-        Subscription::factory()
+        $this->call(PlanSeeder::class);
+        $Subscriptions = Subscription::factory()
             ->for($player)
             ->count(5)
             ->create();
+        $normalDiscount = Discount::factory()
+            ->create(['plan_id' => 1]);
+        $vipDiscount = Discount::factory()
+            ->create(['plan_id' => 2]);
     }
 }
