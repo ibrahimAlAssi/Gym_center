@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -82,7 +83,6 @@ class AuthController extends Controller
             'code' => 'required|numeric',
             'password' => 'nullable|string|min:8',
         ]);
-
         try {
             $resetCode = ResetCodePassword::where('email', $request->email)
                 ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
@@ -90,18 +90,22 @@ class AuthController extends Controller
                 return $this->failedResponse(message: __('passwords.invalid_code'));
             }
 
-            if ($request->has('password')) {
+            if (! empty($request->password)) {
+                DB::beginTransaction();
                 $this->player->where('email', $request->email)->first()
                     ->update(['password' => $request->password]);
+                $resetCode->delete();
+                DB::commit();
 
                 return $this->successResponse(message: __('passwords.reset'));
             }
 
             return $this->successResponse(message: __('passwords.code_is_verified'));
         } catch (\Throwable $th) {
-            Log::error($th);
+            DB::rollBack();
+            Log::error("error on store  reset password  in player, exception: {$th->getMessage()}");
 
-            return $this->failedResponse('errr');
+            return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }
 }
