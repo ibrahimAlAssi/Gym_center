@@ -52,4 +52,14 @@ class Discount extends Model
             ->when($active === true, fn ($query) => $query->whereDate('start_date', '>=', now()))
             ->paginate(request()->get('per_page'));
     }
+
+    public function findActiveDiscountByPlan(int $planId)
+    {
+        return Discount::select(['id', 'value'])
+            ->whereDate('start_date', '<=', now())
+            ->whereDate('end_date', '>=', now())
+            ->where('plan_id', $planId)
+            ->orderBy('id', 'desc')
+            ->first();
+    }
 }
