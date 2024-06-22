@@ -1,5 +1,6 @@
 <?php
 
+use App\Src\Player\Plans\Controllers\DiscountController;
 use App\Src\Player\Plans\Controllers\PlanController;
 use App\Src\Player\Plans\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,12 @@ Route::middleware('auth:player')->group(function () {
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::post('', 'store')->name('store');
+        });
+
+    Route::prefix('discounts')
+        ->name('discounts.')
+        ->controller(DiscountController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
         });
 });

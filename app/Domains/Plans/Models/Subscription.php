@@ -21,6 +21,7 @@ class Subscription extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'discount_id',
         'player_id',
         'plan_id',
         'coach_Id',

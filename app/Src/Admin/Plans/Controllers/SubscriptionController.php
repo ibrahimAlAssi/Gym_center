@@ -2,6 +2,7 @@
 
 namespace App\Src\Admin\Plans\Controllers;
 
+use App\Domains\Plans\Models\Discount;
 use App\Domains\Plans\Models\Plan;
 use App\Domains\Plans\Models\Subscription;
 use App\Http\Controllers\Controller;
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Log;
 
 class SubscriptionController extends Controller
 {
-    public function __construct(protected Subscription $subscription, protected Plan $plan)
-    {
+    public function __construct(
+        protected Subscription $subscription,
+        protected Plan $plan,
+        protected Discount $discount,
+    ) {
     }
 
     public function index()
@@ -39,7 +43,10 @@ class SubscriptionController extends Controller
         throw_if(! empty($subscription), new HttpClientException('Your subscription not ended yet.'));
         try {
             $data = $request->validated();
-            $data['cost'] = $plan->cost;
+            $discount = $this->discount->findActiveDiscountByPlan($plan->id);
+            $data['discount_id'] = $discount?->id;
+            $discount = $discount->value ?? 0;
+            $data['cost'] = $plan->cost * (1 + $discount / 100);
             $data['start_date'] = Carbon::now();
             $subscription = $this->subscription->create($data);
 
