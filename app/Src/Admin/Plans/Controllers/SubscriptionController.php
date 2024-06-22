@@ -46,7 +46,7 @@ class SubscriptionController extends Controller
             $discount = $this->discount->findActiveDiscountByPlan($plan->id);
             $data['discount_id'] = $discount?->id;
             $discount = $discount->value ?? 0;
-            $data['cost'] = $plan->cost * (1 + $discount / 100);
+            $data['cost'] = $plan->cost * (1 - $discount / 100);
             $data['start_date'] = Carbon::now();
             $subscription = $this->subscription->create($data);
 

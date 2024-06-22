@@ -59,9 +59,7 @@ class PlanSeeder extends Seeder
 
         foreach ($associations as $planId => $serviceIds) {
             $plan = Plan::find($planId);
-            foreach ($serviceIds as $serviceId) {
-                $plan->services()->attach($serviceId);
-            }
+            $plan->services()->attach($serviceIds);
         }
     }
 }
