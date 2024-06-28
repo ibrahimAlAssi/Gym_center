@@ -53,7 +53,6 @@ class DatabaseSeeder extends Seeder
         //plans
         $this->call(PlanSeeder::class);
         $Subscriptions = Subscription::factory()
-            ->for($player)
             ->count(5)
             ->create();
         $normalDiscount = Discount::factory()

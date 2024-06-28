@@ -63,6 +63,7 @@ class Plan extends Model implements HasMedia
                 'plans.cost',
             ])
             ->with('media')
+            ->with('services')
             ->get();
     }
 }
