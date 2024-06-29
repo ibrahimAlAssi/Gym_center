@@ -29,16 +29,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //club
         $gym = Gym::factory()->create([
             'name' => 'default gym',
         ]);
         $this->call(PermissionsSeeder::class);
 
         Food::factory()->count(5)->create();
-        Diet::factory()->create();
-        DietFood::factory()->create();
-
-        $player = Player::factory()->create(['email' => 'player@gmail.com']);
+        $diet = Diet::factory()->create();
+        DietFood::factory()->for($diet)->count(5)->create();
+        $customDiet = Diet::factory()->create(['is_free' => 0]);
+        DietFood::factory()->for($customDiet)->count(4)->create();
+        $player = Player::factory()
+            ->for($customDiet)
+            ->create(['email' => 'player@gmail.com']);
         Product::factory()->for($gym)->create();
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();

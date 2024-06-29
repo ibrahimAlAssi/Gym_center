@@ -15,11 +15,11 @@ class DietFood extends Model
     protected $fillable = [
         'diet_id',
         'food_id',
-        'allowed_food',
+        'allowed',
     ];
 
     protected $cast = [
-        'allowed_food' => 'boolean',
+        'allowed' => 'boolean',
     ];
 
     public function diet(): BelongsTo
