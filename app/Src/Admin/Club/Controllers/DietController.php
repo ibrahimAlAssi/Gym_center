@@ -20,10 +20,9 @@ class DietController extends Controller
 
     public function index()
     {
-        return $this->successResponse(
-            DietGridResource::collection($this->diet->getForGrid()),
-            __('shared.response_messages.success')
-        );
+        return DietGridResource::collection(
+            $this->diet->getForGrid()
+        )->additional(['message' => __('shared.response_messages.success')]);
     }
 
     public function store(StoreDietRequest $request)

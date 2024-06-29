@@ -4,6 +4,7 @@ use App\Src\Admin\Club\Controllers\ContactController;
 use App\Src\Admin\Club\Controllers\DietController;
 use App\Src\Admin\Club\Controllers\FoodController;
 use App\Src\Admin\Club\Controllers\GymController;
+use App\Src\Admin\Club\Controllers\OrderDietController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:admin')->group(function () {
@@ -22,5 +23,13 @@ Route::middleware('auth:admin')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('{diet}', 'update')->name('update');
             Route::delete('{diet}', 'destroy')->name('destroy');
+            Route::prefix('orders')
+                ->name('orders.')
+                ->controller(OrderDietController::class)
+                ->group(function () {
+                    Route::get('', 'index')->name('index');
+                    Route::post('', 'store')->name('store');
+                    Route::post('{orderDiet}', 'update')->name('update');
+                });
         });
 });
