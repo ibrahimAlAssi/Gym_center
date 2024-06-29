@@ -112,6 +112,10 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('api')
             ->name('players.')
             ->group(base_path('routes/player/plans.php'));
+        Route::prefix('players')
+            ->middleware('api')
+            ->name('players.')
+            ->group(base_path('routes/player/clubs.php'));
     }
 
     /**

@@ -3,8 +3,7 @@
 namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Cart;
-use App\Domains\Club\Models\Gym;
-use App\Domains\Plans\Models\Subscribe;
+use App\Domains\Club\Models\Diet;
 use App\Domains\Tasks\Models\Rate;
 use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Tasks\Models\Task;
@@ -26,7 +25,6 @@ class Player extends Model implements HasMedia
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
         'diet_id',
         'name',
         'email',
@@ -48,14 +46,9 @@ class Player extends Model implements HasMedia
         'password',
     ];
 
-    public function gym(): BelongsTo
+    public function diet(): BelongsTo
     {
-        return $this->belongsTo(Gym::class);
-    }
-
-    public function subscribes(): HasMany
-    {
-        return $this->hasMany(Subscribe::class);
+        return $this->belongsTo(Diet::class);
     }
 
     public function schedules(): HasMany
