@@ -10,8 +10,7 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
-            $table->foreignId('diet_id')->constrained();
+            $table->foreignId('diet_id')->nullable()->constrained();
             $table->string('name', 70);
             $table->string('email')->unique();
             $table->string('password');

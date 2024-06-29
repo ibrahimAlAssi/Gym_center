@@ -24,7 +24,7 @@ class DietFoodFactory extends Factory
         return [
             'diet_id' => Diet::inRandomOrder()->first()->id,
             'food_id' => Food::inRandomOrder()->first()->id,
-            'allowed_food' => $this->faker->randomElement([true, false]),
+            'allowed' => $this->faker->randomElement([true, false]),
         ];
     }
 }

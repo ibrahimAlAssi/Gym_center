@@ -3,7 +3,6 @@
 namespace Database\Factories\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Diet;
-use App\Domains\Club\Models\Gym;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +21,6 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::first()->id,
             'diet_id' => Diet::inRandomOrder()->first()->id,
             'name' => fake()->name(),
             'email' => fake()->email(),
