@@ -94,7 +94,6 @@ class DietController extends Controller
 
             return $this->deletedResponse();
         } catch (\Throwable $th) {
-            DB::rollBack();
             Log::error("error on delete diet in admin app, exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));

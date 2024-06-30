@@ -45,12 +45,10 @@ class OrderDiet extends Model
     public function getForGrid(?int $playerId = null)
     {
         return QueryBuilder::for(OrderDiet::class)
-            ->defaultSort('-id')
             ->select([
                 'order_diets.id',
                 'order_diets.description',
                 'order_diets.status',
-                'order_diets.id',
                 'players.id as player_id',
                 'players.name as player_name',
                 'diets.id as diet_id',
@@ -62,6 +60,7 @@ class OrderDiet extends Model
                 $playerId != null,
                 fn ($query) => $query->where('order_diets.player_id', $playerId)
             )
+            ->orderBy('order_diets.status')
             ->paginate(request()->get('per_page'));
     }
 }
