@@ -34,7 +34,8 @@ class Schedule extends Model
 
     public function tasks(): BelongsToMany
     {
-        return $this->belongsToMany(Task::class, 'schedule_task')->withPivot('repeat', 'weight', 'is_complete');
+        return $this->belongsToMany(Task::class, 'schedule_task')
+            ->withPivot('repeat', 'weight', 'is_complete');
     }
 
     public function getForGridPlayer(int $playerId = null)
@@ -62,7 +63,7 @@ class Schedule extends Model
                 'schedules.day',
                 'schedules.is_complete',
             ])
-            ->leftJoin('schedules', 'schedules.player_id', '=', 'players.id') // Adjust the foreign key as per your schema
+            ->leftJoin('schedules', 'schedules.player_id', '=', 'players.id')
             ->select([
                 'players.id',
                 'players.name',
