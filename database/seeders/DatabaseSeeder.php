@@ -19,6 +19,8 @@ use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Plans\Models\Discount;
 use App\Domains\Plans\Models\Subscription;
+use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Tasks\Models\ScheduleTask;
 use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
 
@@ -63,5 +65,8 @@ class DatabaseSeeder extends Seeder
             ->create(['plan_id' => 1]);
         $vipDiscount = Discount::factory()
             ->create(['plan_id' => 2]);
+
+        $schedule = Schedule::factory()->create();
+        ScheduleTask::factory()->for($schedule)->count(5)->create();
     }
 }

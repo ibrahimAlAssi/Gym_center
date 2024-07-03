@@ -12,7 +12,8 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->foreignId('player_id')->constrained();
             $table->tinyInteger('day')->unsigned();
-            $table->boolean('is_complete');
+            $table->boolean('is_complete')->default(false);
+            $table->unique(['day', 'player_id']);
             $table->timestamps();
         });
     }
