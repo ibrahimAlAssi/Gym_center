@@ -49,7 +49,7 @@ class Schedule extends Model
                 'schedules.id',
                 'schedules.day',
                 'schedules.is_complete as schedule_complete',
-            ])->with('tasks')
+            ])
             ->where('schedules.player_id', $playerId)
             ->with('tasks')
             ->orderBy('is_complete')
