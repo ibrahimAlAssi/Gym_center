@@ -16,10 +16,10 @@ class ScheduleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            "id"          => $this->id,
-            "day"         => $this->day,
-            "is_complete" => $this->is_complete,
-            'tasks'       => TaskResource::collection($this->whenLoaded('tasks')),
+            'id' => $this->id,
+            'day' => $this->day,
+            'is_complete' => (bool) $this->is_complete,
+            'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
         ];
     }
 }

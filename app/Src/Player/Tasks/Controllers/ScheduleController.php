@@ -2,12 +2,12 @@
 
 namespace App\Src\Player\Tasks\Controllers;
 
+use App\Domains\Tasks\Models\Schedule;
+use App\Http\Controllers\Controller;
+use App\Src\Player\Tasks\Requests\UpdateTaskStatusRequest;
+use App\Src\Player\Tasks\Resources\ScheduleGridResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use App\Domains\Tasks\Models\Schedule;
-use App\Src\Player\Tasks\Resources\ScheduleGridResource;
-use App\Src\Player\Tasks\Requests\UpdateTaskStatusRequest;
 
 class ScheduleController extends Controller
 {
@@ -19,7 +19,7 @@ class ScheduleController extends Controller
     {
         return $this->successResponse(
             ScheduleGridResource::collection(
-                $this->schedule->getForGrid('player', request()->user('player')->id)
+                $this->schedule->getForGrid(playerId: request()->user('player')->id)
             ),
             __('shared.response_messages.success')
         );
@@ -38,13 +38,15 @@ class ScheduleController extends Controller
                     ->where('is_complete', false)
                     ->exists();
 
-                if (!$allTasksComplete) {
+                if (! $allTasksComplete) {
                     DB::table('schedules')
                         ->where('id', $request->schedule_id)
                         ->update(['is_complete' => true]);
                 }
+
                 return $this->successResponse(message: __('shared.response_messages.success'));
             }
+
             return $this->notFoundResponse('task not found');
         } catch (\Throwable $th) {
             Log::error("error on player when update Task Status , exception: {$th->getMessage()}");

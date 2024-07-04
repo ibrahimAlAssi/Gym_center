@@ -2,13 +2,11 @@
 
 namespace App\Domains\Tasks\Models;
 
-use Spatie\QueryBuilder\QueryBuilder;
-use App\Domains\Entities\Models\Player;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Schedule extends Model
 {
@@ -39,39 +37,34 @@ class Schedule extends Model
             ->withPivot('repeat', 'weight', 'is_complete');
     }
 
-    public function getForGrid(string $entityType, int $id = null)
+    public function getForGrid(?int $coachId = null, ?int $playerId = null)
     {
-        if ($entityType === 'player') {
-            return QueryBuilder::for(Schedule::class)
-                ->allowedFilters([
-                    'schedules.day',
-                    'schedules.is_complete',
-                ])
-                ->select([
-                    'schedules.id',
-                    'schedules.day',
-                    'schedules.is_complete as schedule_complete',
-                ])
-                ->where('schedules.player_id', $id)
-                ->with('tasks')
-                ->orderBy('is_complete')
-                ->paginate(request()->get('per_page'));
-        } else {
-            return QueryBuilder::for(Player::class)
-                ->allowedFilters([
-                    'schedules.day',
-                    'schedules.is_complete',
-                ])
-                ->leftJoin('schedules', 'schedules.player_id', '=', 'players.id')
-                ->select([
+        return QueryBuilder::for(Schedule::class)
+            ->allowedFilters([
+                'schedules.day',
+                'schedules.is_complete',
+            ])
+            ->select([
+                'schedules.id',
+                'schedules.day',
+                'schedules.is_complete as schedule_complete',
+            ])
+            ->when($playerId != null, function ($query) use ($playerId) {
+                $query->where('schedules.player_id', $playerId)
+                    ->orderBy('is_complete');
+            })
+            ->when($coachId != null, function ($query) use ($coachId) {
+                $query->addSelect([
                     'players.id',
                     'players.name',
                     'players.active',
+                    'schedules.is_complete',
                 ])
-                ->with('schedules', 'schedules.tasks')
-                ->where('players.coach_id', $id)
-                ->orderBy('schedules.day')
-                ->paginate(request()->get('per_page'));
-        }
+                    ->join('players', 'players.id', '=', 'schedules.player_id')
+                    ->where('players.coach_id', $coachId)
+                    ->orderBy('schedules.day');
+            })
+            ->with('tasks')
+            ->paginate(request()->get('per_page'));
     }
 }

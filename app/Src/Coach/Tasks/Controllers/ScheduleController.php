@@ -2,14 +2,14 @@
 
 namespace App\Src\Coach\Tasks\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Tasks\Models\Schedule;
-use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use App\Http\Controllers\Controller;
 use App\Src\Coach\Tasks\Requests\StoreScheduleRequest;
 use App\Src\Coach\Tasks\Requests\UpdateScheduleRequest;
 use App\Src\Coach\Tasks\Resources\ScheduleGridResource;
+use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ScheduleController extends Controller
 {
@@ -21,10 +21,7 @@ class ScheduleController extends Controller
     {
         return $this->successResponse(
             ScheduleGridResource::collection(
-                $this->schedule->getForGrid(
-                    'coach',
-                    request()->user('coach')->id
-                )
+                $this->schedule->getForGrid(coachId: request()->user('coach')->id)
             ),
             __('shared.response_messages.success')
         );
@@ -38,9 +35,9 @@ class ScheduleController extends Controller
             foreach ($request->schedule_tasks as $task) {
                 $data[] = [
                     'schedule_id' => $schedule->id,
-                    'task_id'     => $task['task_id'],
-                    'repeat'      => $task['repeat'],
-                    'weight'      => $task['weight'],
+                    'task_id' => $task['task_id'],
+                    'repeat' => $task['repeat'],
+                    'weight' => $task['weight'],
                 ];
             }
             $this->schedule->scheduleTasks()->insert($data);
@@ -68,9 +65,9 @@ class ScheduleController extends Controller
                 foreach ($request->schedule_tasks as $task) {
                     $data[] = [
                         'schedule_id' => $schedule->id,
-                        'task_id'     => $task['task_id'],
-                        'repeat'      => $task['repeat'],
-                        'weight'      => $task['weight'],
+                        'task_id' => $task['task_id'],
+                        'repeat' => $task['repeat'],
+                        'weight' => $task['weight'],
                     ];
                 }
                 $this->schedule->scheduleTasks()->insert($data);

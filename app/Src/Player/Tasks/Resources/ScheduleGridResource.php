@@ -2,7 +2,6 @@
 
 namespace App\Src\Player\Tasks\Resources;
 
-use App\Src\Player\Tasks\Resources\TaskResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,10 +15,10 @@ class ScheduleGridResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'  => $this->id,
+            'id' => $this->id,
             'day' => $this->day,
-            'schedule_complete' => $this->schedule_complete,
-            'tasks'       => TaskResource::collection($this->whenLoaded('tasks')),
+            'schedule_complete' => (bool) $this->schedule_complete,
+            'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
         ];
     }
 }
