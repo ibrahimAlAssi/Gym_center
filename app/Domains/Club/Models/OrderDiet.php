@@ -19,10 +19,14 @@ class OrderDiet extends Model
         'diet_id',
         'description',
         'status',
+        'weight',
+        'length',
     ];
 
     protected $casts = [
         'status' => 'boolean',
+        'weight' => 'integer',
+        'length' => 'integer',
     ];
 
     public function player(): BelongsTo
@@ -49,6 +53,9 @@ class OrderDiet extends Model
                 'order_diets.id',
                 'order_diets.description',
                 'order_diets.status',
+                'order_diets.weight',
+                'order_diets.length',
+                'order_diets.id',
                 'players.id as player_id',
                 'players.name as player_name',
                 'diets.id as diet_id',

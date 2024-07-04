@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Src\Player\Club\Resources;
+namespace App\Src\Player\Tasks\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderDietResource extends JsonResource
+class ScheduleGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,11 +16,9 @@ class OrderDietResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'description' => $this->description,
-            'status' => $this->status,
-            'weight' => $this->weight,
-            'length' => $this->length,
-            'created_at' => $this->created_at,
+            'day' => $this->day,
+            'schedule_complete' => (bool) $this->schedule_complete,
+            'tasks' => TaskResource::collection($this->whenLoaded('tasks')),
         ];
     }
 }
