@@ -23,6 +23,8 @@ class StoreOrderDietRequest extends FormRequest
     {
         return [
             'description' => ['required', 'string'],
+            'weight' => ['required', 'integer', 'min:40', 'max:200'],
+            'length' => ['required', 'integer', 'min:100', 'max:250'],
         ];
     }
 }

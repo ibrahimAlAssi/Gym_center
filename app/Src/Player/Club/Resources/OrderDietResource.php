@@ -18,6 +18,8 @@ class OrderDietResource extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'status' => $this->status,
+            'weight' => $this->weight,
+            'length' => $this->length,
             'created_at' => $this->created_at,
         ];
     }

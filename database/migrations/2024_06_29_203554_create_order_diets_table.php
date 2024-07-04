@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('player_id')->constrained();
             $table->foreignId('diet_id')->nullable()->constrained();
             $table->string('description');
+            $table->integer('weight');
+            $table->integer('length');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });
