@@ -3,8 +3,6 @@
 namespace App\Src\Coach\Tasks\Requests;
 
 use Illuminate\Validation\Rule;
-use BenSampo\Enum\Rules\EnumValue;
-use App\Domains\Tasks\Enums\TaskTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreScheduleRequest extends FormRequest
@@ -25,7 +23,10 @@ class StoreScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'player_id' => ['required', Rule::exists('players', 'id')->where('players.coach_id', request()->user()->id)],
+            'player_id' => [
+                'required',
+                Rule::exists('players', 'id')->where('players.coach_id', request()->user()->id)
+            ],
             'day'       => ['required', 'min:1', 'max:7'],
 
             'schedule_tasks'           => ['required', 'array', 'min:1'],
@@ -41,7 +42,7 @@ class StoreScheduleRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        if ($this->filled('stores') && is_array($this->get('schedule_tasks'))) {
+        if ($this->filled('schedule_tasks') && is_array($this->get('schedule_tasks'))) {
             $this->merge([
                 'task_ids' => array_column($this->get('schedule_tasks'), 'task_id'),
             ]);

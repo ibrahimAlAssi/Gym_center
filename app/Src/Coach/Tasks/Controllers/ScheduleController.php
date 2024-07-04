@@ -21,7 +21,8 @@ class ScheduleController extends Controller
     {
         return $this->successResponse(
             ScheduleGridResource::collection(
-                $this->schedule->getForGridCoach(
+                $this->schedule->getForGrid(
+                    'coach',
                     request()->user('coach')->id
                 )
             ),
