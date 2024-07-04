@@ -3,6 +3,7 @@
 namespace Database\Factories\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Diet;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,13 +22,14 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'diet_id' => Diet::inRandomOrder()->first()->id,
-            'name' => fake()->name(),
-            'email' => fake()->email(),
+            'diet_id'  => Diet::inRandomOrder()->first()->id,
+            'coach_id' => Coach::inRandomOrder()->first()->id,
+            'name'     => fake()->name(),
+            'email'    => fake()->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //passport
-            'phone' => fake()->phoneNumber(),
-            'active' => true,
-            'gender' => fake()->randomElement(['male', 'female']),
+            'phone'    => fake()->phoneNumber(),
+            'active'   => true,
+            'gender'   => fake()->randomElement(['male', 'female']),
             'attendance_days' => fake()->numberBetween(3, 30),
         ];
     }

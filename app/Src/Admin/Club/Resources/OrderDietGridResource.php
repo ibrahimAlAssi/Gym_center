@@ -18,6 +18,8 @@ class OrderDietGridResource extends JsonResource
             'id' => $this->id,
             'description' => $this->description,
             'status' => $this->status,
+            'weight' => $this->weight,
+            'length' => $this->length,
             'player' => [
                 'id' => $this->player_id,
                 'name' => $this->player_name,

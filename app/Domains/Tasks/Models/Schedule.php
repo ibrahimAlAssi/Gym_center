@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Schedule extends Model
 {
@@ -22,7 +23,7 @@ class Schedule extends Model
     ];
 
     protected $cast = [
-        'complete' => 'boolean',
+        'is_complete' => 'boolean',
     ];
 
     public function scheduleTasks(): HasMany
@@ -32,6 +33,38 @@ class Schedule extends Model
 
     public function tasks(): BelongsToMany
     {
-        return $this->belongsToMany(Task::class, 'schedule_task');
+        return $this->belongsToMany(Task::class, 'schedule_task')
+            ->withPivot('repeat', 'weight', 'is_complete');
+    }
+
+    public function getForGrid(?int $coachId = null, ?int $playerId = null)
+    {
+        return QueryBuilder::for(Schedule::class)
+            ->allowedFilters([
+                'schedules.day',
+                'schedules.is_complete',
+            ])
+            ->select([
+                'schedules.id',
+                'schedules.day',
+                'schedules.is_complete as schedule_complete',
+            ])
+            ->when($playerId != null, function ($query) use ($playerId) {
+                $query->where('schedules.player_id', $playerId)
+                    ->orderBy('is_complete');
+            })
+            ->when($coachId != null, function ($query) use ($coachId) {
+                $query->addSelect([
+                    'players.id',
+                    'players.name',
+                    'players.active',
+                    'schedules.is_complete',
+                ])
+                    ->join('players', 'players.id', '=', 'schedules.player_id')
+                    ->where('players.coach_id', $coachId)
+                    ->orderBy('schedules.day');
+            })
+            ->with('tasks')
+            ->paginate(request()->get('per_page'));
     }
 }

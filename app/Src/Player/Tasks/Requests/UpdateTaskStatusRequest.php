@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Src\Player\Club\Requests;
+namespace App\Src\Player\Tasks\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreOrderDietRequest extends FormRequest
+class UpdateTaskStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +22,10 @@ class StoreOrderDietRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'description' => ['required', 'string'],
-            'weight' => ['required', 'integer', 'min:40', 'max:200'],
-            'length' => ['required', 'integer', 'min:100', 'max:250'],
+            'schedule_id' => ['required', 'integer', Rule::exists('schedules', 'id')],
+            'task_id'     => ['required', 'integer', Rule::exists('tasks', 'id')],
         ];
     }
 }
