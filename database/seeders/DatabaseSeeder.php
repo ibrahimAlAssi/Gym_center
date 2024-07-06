@@ -49,11 +49,10 @@ class DatabaseSeeder extends Seeder
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
         Tax::factory()->create();
-        Work::factory()->for($gym)->create();
-
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create();
+        Work::factory()->count(7)->create();
 
         Task::factory()->count(5)->create();
         //plans
