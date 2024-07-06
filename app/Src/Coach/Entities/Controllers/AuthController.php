@@ -50,14 +50,6 @@ class AuthController extends Controller
         return $this->successResponse(message: __('shared.response_messages.logout_success'));
     }
 
-    public function user(Request $request)
-    {
-        return $this->successResponse(
-            CoachResource::make($request->user()),
-            __('shared.response_messages.success')
-        );
-    }
-
     public function forgetPassword(Request $request)
     {
         $data = $request->validate([

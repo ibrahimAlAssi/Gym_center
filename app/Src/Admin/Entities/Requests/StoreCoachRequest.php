@@ -25,8 +25,10 @@ class StoreCoachRequest extends FormRequest
     {
         return [
             'role_id' => ['required', Rule::exists('roles', 'id')],
-            'gym_id' => ['required', Rule::exists('gyms', 'id')],
             'name' => ['required', 'string'],
+            'specialization' => ['required', 'string'],
+            'experienceYears' => ['required', 'numeric'],
+            'subscribePrice' => ['required', 'numeric'],
             'email' => ['required', 'string', 'unique:coaches,email'],
             'password' => ['required', 'string', Password::min(8)],
             'phone' => ['required', 'string', 'unique:coaches,phone'],
