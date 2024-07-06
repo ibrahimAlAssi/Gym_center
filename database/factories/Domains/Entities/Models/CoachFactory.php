@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Entities\Models\Coach;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,9 +20,12 @@ class CoachFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::first()->id,
             'name' => fake()->name(),
-            'email' => 'choach@gmail.com',
+            'specialization' => fake()->jobTitle(),
+            'experienceYears' => fake()->randomNumber(1),
+            'subscribePrice' => fake()->randomNumber(5),
+            'description' => fake()->paragraph(),
+            'email' => fake()->unique()->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //passport
             'phone' => fake()->phoneNumber(),
         ];

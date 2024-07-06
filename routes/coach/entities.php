@@ -13,11 +13,17 @@ Route::middleware('auth:coach')->group(function () {
         ->group(function () {
             Route::post('login', 'login')->name('login')->withoutMiddleware('auth:coach');
             Route::delete('logout', 'logout')->name('logout');
-            Route::get('user', 'user')->name('user');
             Route::withoutMiddleware('auth:coach')->middleware('guest')->group(function () {
                 Route::post('forget-password', 'forgetPassword')->name('forgetPassword');
                 Route::post('reset-password', 'resetPassword')->name('resetPassword');
             });
+            Route::prefix('profile')
+                ->name('profile.')
+                ->controller(CoachController::class)
+                ->group(function () {
+                    Route::get('', 'index')->name('index');
+                    Route::put('', 'update')->name('update');
+                });
         });
 
     // Start Coaches

@@ -2,9 +2,7 @@
 
 namespace App\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -25,16 +23,20 @@ class Coach extends Authenticatable implements HasMedia
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
         'name',
         'email',
         'password',
         'phone',
+        'specialization',
+        'experienceYears',
+        'subscribePrice',
         'description',
     ];
 
     protected $casts = [
         'password' => 'hashed',
+        'experienceYears' => 'double',
+        'subscribePrice' => 'double',
     ];
 
     protected $hidden = [
@@ -49,11 +51,6 @@ class Coach extends Authenticatable implements HasMedia
     public function players(): HasMany
     {
         return $this->hasMany(Player::class);
-    }
-
-    public function gym(): BelongsTo
-    {
-        return $this->belongsTo(Gym::class);
     }
 
     // Start Helper Function

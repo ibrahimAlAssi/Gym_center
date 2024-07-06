@@ -20,10 +20,9 @@ class CoachResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'gym' => [
-                'id' => $this->gym_id,
-                'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
-            ],
+            'specialization' => $this->specialization,
+            'experienceYears' => $this->experienceYears,
+            'subscribePrice' => $this->subscribePrice,
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
             'description' => $this->description,
         ];

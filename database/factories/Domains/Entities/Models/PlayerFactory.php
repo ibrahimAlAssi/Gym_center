@@ -22,10 +22,10 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'diet_id'  => Diet::inRandomOrder()->first()->id,
-            'coach_id' => Coach::inRandomOrder()->first()->id,
-            'name'     => fake()->name(),
-            'email'    => fake()->email(),
+            'diet_id' => Diet::factory(),
+            'coach_id' => Coach::factory(),
+            'name' => fake()->name(),
+            'email' => fake()->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //passport
             'phone'    => fake()->phoneNumber(),
             'active'   => true,

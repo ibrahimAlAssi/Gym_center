@@ -14,6 +14,7 @@ use App\Domains\Club\Models\Product;
 use App\Domains\Club\Models\Tax;
 use App\Domains\Club\Models\Work;
 use App\Domains\Entities\Models\Chat;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Player;
@@ -35,6 +36,9 @@ class DatabaseSeeder extends Seeder
         $gym = Gym::factory()->create([
             'name' => 'default gym',
         ]);
+        Coach::factory()->count(10)->create();
+        Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
+        Player::factory()->count(4)->create(['coach_id' => 2, 'diet_id' => null]);
         $this->call(PermissionsSeeder::class);
 
         Food::factory()->count(5)->create();

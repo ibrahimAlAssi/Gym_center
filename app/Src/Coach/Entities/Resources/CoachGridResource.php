@@ -20,10 +20,6 @@ class CoachGridResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
-            'gym' => [
-                'id' => $this->gym_id,
-                'name' => $this->whenLoaded('gym', fn () => $this->gym->name),
-            ],
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
         ];
     }
