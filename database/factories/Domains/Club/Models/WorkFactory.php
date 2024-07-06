@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Domains\Club\Models;
 
-use App\Domains\Club\Models\Gym;
+use App\Domains\Club\Enums\WorkDayEnum;
 use App\Domains\Club\Models\Work;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,13 +20,12 @@ class WorkFactory extends Factory
 
     public function definition(): array
     {
+        $day = $this->faker->unique()->dayOfWeek();
+
         return [
-            'gym_id' => Gym::factory(),
-            'type' => $this->faker->randomElement(['male', 'female']),
-            'day' => $this->faker->numberBetween(1, 7),
-            'is_working' => $this->faker->numberBetween(0, 1),
-            'from' => $this->faker->time(),
-            'to' => $this->faker->time(),
+            'day' => $day,
+            'man' => $day != WorkDayEnum::FRIDAY ? '02:00 PM - 11:00 PM' : 'CLOSED',
+            'woman' => $day != WorkDayEnum::FRIDAY ? '7:00 AM - 01:00 PM' : 'CLOSED',
         ];
     }
 }

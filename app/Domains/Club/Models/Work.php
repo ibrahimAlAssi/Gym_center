@@ -4,7 +4,7 @@ namespace App\Domains\Club\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Work extends Model
 {
@@ -15,22 +15,26 @@ class Work extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
-        'type',
         'day',
-        'is_working',
-        'from',
-        'to',
+        'man',
+        'woman',
+        'day',
     ];
 
     protected $cast = [
-        'from' => 'time',
-        'to' => 'time',
         'is_working' => 'boolean',
     ];
 
-    public function gym(): BelongsTo
+    public function getForGrid()
     {
-        return $this->belongsTo(Gym::class);
+        return QueryBuilder::for(Work::class)
+            ->select([
+                'works.id',
+                'works.day',
+                'works.is_working',
+                'works.man',
+                'works.woman',
+            ])
+            ->get();
     }
 }

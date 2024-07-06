@@ -10,20 +10,16 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
-            $table->string('type')->comment('for male, female'); //male or female
-            $table->tinyInteger('day')->unsigned();
-            $table->boolean('is_working');
-            $table->time('from');
-            $table->time('to');
-            // Add a composite unique index on 'day' and 'type'
-            $table->unique(['day', 'type']);
+            $table->string('day');
+            $table->string('man')->nullable();
+            $table->string('woman')->nullable();
+            $table->unique('day');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::drop('work');
+        Schema::drop('works');
     }
 }
