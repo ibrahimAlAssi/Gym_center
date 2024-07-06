@@ -31,7 +31,6 @@ class Work extends Model
             ->select([
                 'works.id',
                 'works.day',
-                'works.is_working',
                 'works.man',
                 'works.woman',
             ])
