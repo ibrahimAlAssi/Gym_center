@@ -3,17 +3,19 @@
 namespace App\Src\Coach\Entities\Controllers;
 
 use App\Domains\Entities\Models\Coach;
+use App\Domains\Entities\Models\Player;
 use App\Http\Controllers\Controller;
 use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
 use App\Src\Coach\Entities\Requests\UpdateImageRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
 use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Src\Coach\Entities\Resources\ProfileResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
-    public function __construct(protected Coach $coach)
+    public function __construct(protected Coach $coach, protected Player $player)
     {
     }
 
@@ -26,7 +28,9 @@ class CoachController extends Controller
 
     public function show(Coach $coach)
     {
-        return $this->successResponse(new CoachResource($coach->load('roles', 'media')), 'success');
+        $coach['total_trainers'] = $this->player->where('coach_id', $coach->id)->count();
+
+        return $this->successResponse(new ProfileResource($coach->load('roles', 'media')), 'success');
     }
 
     public function update(UpdateCoachRequest $request, Coach $coach)

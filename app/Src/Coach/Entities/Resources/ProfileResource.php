@@ -6,7 +6,7 @@ use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CoachResource extends JsonResource
+class ProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -20,8 +20,13 @@ class CoachResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'specialization' => $this->when($this->specialization, $this->specialization),
+            'experienceYears' => $this->when($this->experienceYears != null, $this->experienceYears),
+            'subscribePrice' => $this->when($this->subscribePrice != null, $this->subscribePrice),
+            'total_trainers' => $this->when($this->total_trainers != null, $this->total_trainers, 0),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
+            'description' => $this->description,
         ];
     }
 }

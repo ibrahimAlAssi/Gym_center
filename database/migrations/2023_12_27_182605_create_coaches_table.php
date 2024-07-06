@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('coaches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
             $table->char('name', 100);
+            $table->string('specialization');
+            $table->double('experienceYears');
+            $table->double('subscribePrice');
             $table->string('phone', 25)->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

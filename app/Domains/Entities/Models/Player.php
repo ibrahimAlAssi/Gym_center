@@ -26,6 +26,7 @@ class Player extends Model implements HasMedia
 
     protected $fillable = [
         'diet_id',
+        'coach_id',
         'name',
         'email',
         'password',
@@ -49,6 +50,11 @@ class Player extends Model implements HasMedia
     public function diet(): BelongsTo
     {
         return $this->belongsTo(Diet::class);
+    }
+
+    public function coach(): BelongsTo
+    {
+        return $this->belongsTo(Coach::class);
     }
 
     public function schedules(): HasMany
