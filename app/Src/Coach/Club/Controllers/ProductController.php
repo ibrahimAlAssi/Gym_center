@@ -10,7 +10,6 @@ class ProductController extends Controller
 {
     public function __construct(protected Product $product)
     {
-
     }
 
     public function index()
