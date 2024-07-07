@@ -4,6 +4,7 @@ namespace Database\Factories\Domains\Club\Models;
 
 use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Product;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,9 +24,9 @@ class CartFactory extends Factory
     {
         return [
             'product_id' => Product::inRandomOrder()->first()->id,
-            'player_id' => Player::inRandomOrder()->first()->id,
+            'player_id' => Player::factory(),
+            'coach_id' => Coach::factory(),
             'quantity' => fake()->numberBetween(1, 3),
-            'is_favorite' => fake()->numberBetween([true, false]),
         ];
     }
 }

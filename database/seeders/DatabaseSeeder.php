@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Contact;
 use App\Domains\Club\Models\Diet;
 use App\Domains\Club\Models\DietFood;
@@ -36,9 +37,6 @@ class DatabaseSeeder extends Seeder
         $gym = Gym::factory()->create([
             'name' => 'default gym',
         ]);
-        Coach::factory()->count(10)->create();
-        Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
-        Player::factory()->count(4)->create(['coach_id' => 2, 'diet_id' => null]);
         $this->call(PermissionsSeeder::class);
 
         Food::factory()->count(5)->create();
@@ -49,7 +47,12 @@ class DatabaseSeeder extends Seeder
         $player = Player::factory()
             ->for($customDiet)
             ->create(['email' => 'player@gmail.com']);
-        Product::factory()->count(5)->create();
+        Coach::factory()->count(10)->create();
+        Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
+        Player::factory()->count(4)->create(['coach_id' => 2, 'diet_id' => null]);
+        $products = Product::factory()->count(5)->create();
+        $playerCart = Cart::factory()->for($products[0])->create(['player_id' => 1, 'coach_id' => null]);
+        $coachCart = Cart::factory()->for($products[1])->create(['coach_id' => 1, 'player_id' => null]);
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
         Tax::factory()->create();

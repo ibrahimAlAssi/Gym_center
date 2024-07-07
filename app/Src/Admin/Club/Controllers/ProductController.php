@@ -33,7 +33,7 @@ class ProductController extends Controller
             DB::commit();
 
             return $this->createdResponse(
-                ProductResource::make($product->load('media'), __('shared.response_messages.success'))
+                ProductResource::make($product->load('media'), __('shared.response_messages.created_success'))
             );
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -54,12 +54,12 @@ class ProductController extends Controller
             }
             DB::commit();
 
-            return $this->createdResponse(
+            return $this->successResponse(
                 ProductResource::make($product->load('media'), __('shared.response_messages.success'))
             );
         } catch (\Throwable $th) {
             DB::rollBack();
-            Log::error("error on create Product in admin app, exception: {$th->getMessage()}");
+            Log::error("error on updates Product in admin app, exception: {$th->getMessage()}");
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
