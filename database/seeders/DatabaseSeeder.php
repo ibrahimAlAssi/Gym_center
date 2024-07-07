@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
         $player = Player::factory()
             ->for($customDiet)
             ->create(['email' => 'player@gmail.com']);
-        Product::factory()->for($gym)->create();
+        Product::factory()->count(5)->create();
         Contact::factory()->for($gym)->create();
         NutritionalValue::factory()->create();
         Tax::factory()->create();
