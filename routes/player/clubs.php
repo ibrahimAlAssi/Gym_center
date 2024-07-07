@@ -6,6 +6,7 @@ use App\Src\Player\Club\Controllers\OrderDietController;
 use App\Src\Player\Club\Controllers\ProductController;
 use App\Src\Player\Club\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
+use App\Src\Player\Club\Controllers\FoodController;
 
 Route::middleware('auth:player')->group(function () {
     Route::get('works', [WorkController::class, 'index'])->name('works.index');
@@ -32,5 +33,12 @@ Route::middleware('auth:player')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('/{cart}', 'update')->name('update');
             Route::delete('/{cart}', 'destroy')->name('destroy');
+            //Start Food
+            Route::prefix('foods')
+                ->name('foods.')
+                ->controller(FoodController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                });
         });
 });

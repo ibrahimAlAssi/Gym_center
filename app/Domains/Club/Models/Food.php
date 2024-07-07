@@ -41,7 +41,7 @@ class Food extends Model implements HasMedia
         return QueryBuilder::for(Food::class)
             ->allowedFilters([
                 'name',
-            ])->with('media')
+            ])->with('media', 'nutritionalValues')
             ->paginate(request()->get('per_page'));
     }
 
