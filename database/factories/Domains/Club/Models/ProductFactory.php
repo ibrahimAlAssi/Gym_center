@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Domains\Club\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,9 +20,9 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
             'name' => fake()->name(),
-            'price' => fake()->numberBetween(100, 2000),
+            'quantity' => fake()->randomNumber(2),
+            'price' => fake()->randomNumber(5),
         ];
     }
 }

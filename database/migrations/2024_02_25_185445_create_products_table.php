@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
             $table->string('name');
-            $table->decimal('price', 10, 2);
+            $table->unsignedDecimal('price', 10, 2);
+            $table->unsignedInteger('quantity');
             $table->timestamps();
         });
     }
