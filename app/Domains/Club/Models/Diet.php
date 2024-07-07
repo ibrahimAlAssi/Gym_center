@@ -37,7 +37,7 @@ class Diet extends Model
 
     public function getForGrid(?int $playerId = null)
     {
-        return QueryBuilder::for(Diet::class)
+        $results = QueryBuilder::for(Diet::class)
             ->allowedFilters([
                 'diets.name',
                 'diets.is_free',
@@ -46,8 +46,7 @@ class Diet extends Model
                 'diets.id',
                 'diets.name',
                 'diets.is_free',
-                'diets.created_at',
-            ])->with('foods')
+            ])->with(['foods:id,name'])
             ->when($playerId != null, function ($query) {
                 $query->leftJoin('players', 'diets.id', '=', 'players.diet_id')
                     ->where('diets.is_free', 1)
@@ -55,5 +54,24 @@ class Diet extends Model
                     ->orderBy('is_free');
             })
             ->paginate(request()->get('per_page'));
+
+        $allowedFoodsList = [];
+        $notAllowedFoodsList = [];
+
+        foreach ($results as $diet) {
+            foreach ($diet->foods as $food) {
+                if ($food->pivot->allowed) {
+                    $allowedFoodsList[] = $food;
+                } else {
+                    $notAllowedFoodsList[] = $food;
+                }
+            }
+            $diet->allowedFoodsList    = $allowedFoodsList;
+            $diet->notAllowedFoodsList = $notAllowedFoodsList;
+            $allowedFoodsList = [];
+            $notAllowedFoodsList = [];
+            unset($diet->foods);
+        }
+        return $results;
     }
 }

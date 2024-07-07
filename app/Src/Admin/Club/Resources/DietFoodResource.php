@@ -17,8 +17,10 @@ class DietFoodResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'allowed' => $this->when($this->pivot['allowed'] != null,
-                fn () => (bool) $this->pivot['allowed']),
+            'allowed' => $this->when(
+                $this->pivot['allowed'] != null,
+                fn () => (bool) $this->pivot['allowed']
+            ),
         ];
     }
 }

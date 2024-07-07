@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Src\Player\Club\Controllers\FoodController;
 use App\Src\Player\Entities\Controllers\AuthController;
 use App\Src\Player\Entities\Controllers\ChatController;
 use App\Src\Player\Entities\Controllers\CoachController;
@@ -58,11 +57,4 @@ Route::middleware('auth:player')->group(function () {
         // Start Messages
         'messages' => MessageController::class,
     ]);
-    //Start Food
-    Route::prefix('foods')
-        ->name('foods.')
-        ->controller(FoodController::class)
-        ->group(function () {
-            Route::get('/', 'index')->name('index');
-        });
 });

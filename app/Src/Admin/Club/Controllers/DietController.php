@@ -37,7 +37,6 @@ class DietController extends Controller
                     'allowed' => $food['allowed'],
                     'created_at' => now(),
                     'updated_at' => now(),
-
                 ];
             }
             $this->dietFood->insert($data);

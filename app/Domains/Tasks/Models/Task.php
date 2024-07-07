@@ -62,6 +62,7 @@ class Task extends Model implements HasMedia
                 AllowedFilter::exact('type'),
             ])
             ->when($random, fn ($query) => $query->inRandomOrder())
+            ->with('media')
             ->paginate(request()->get('per_page'));
     }
 
