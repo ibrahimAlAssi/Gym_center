@@ -104,7 +104,6 @@ class FoodController extends Controller
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // Maximum file size in kilobytes
-                Rule::dimensions()->maxWidth(1000)->maxHeight(1000), // Maximum dimensions in pixels
             ],
         ]);
         try {
