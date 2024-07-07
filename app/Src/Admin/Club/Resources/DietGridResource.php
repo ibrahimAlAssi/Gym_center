@@ -15,11 +15,11 @@ class DietGridResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'is_free' => $this->is_free,
-            'created_at' => $this->created_at,
-            'foods' => DietFoodResource::collection($this->whenLoaded('foods')),
+            'id'         => $this->id,
+            'name'       => $this->name,
+            'is_free'    => $this->is_free,
+            'allowedFoodsList'      => DietFoodResource::collection($this->allowedFoodsList),
+            'notAllowedFoodsList'   => DietFoodResource::collection($this->notAllowedFoodsList),
         ];
     }
 }

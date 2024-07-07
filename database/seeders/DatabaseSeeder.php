@@ -4,25 +4,26 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Domains\Club\Models\Contact;
-use App\Domains\Club\Models\Diet;
-use App\Domains\Club\Models\DietFood;
-use App\Domains\Club\Models\Food;
-use App\Domains\Club\Models\Gym;
-use App\Domains\Club\Models\NutritionalValue;
-use App\Domains\Club\Models\Product;
-use App\Domains\Club\Models\Tax;
-use App\Domains\Club\Models\Work;
-use App\Domains\Entities\Models\Chat;
-use App\Domains\Entities\Models\Feedback;
-use App\Domains\Entities\Models\Message;
-use App\Domains\Entities\Models\Player;
-use App\Domains\Plans\Models\Discount;
-use App\Domains\Plans\Models\Subscription;
-use App\Domains\Tasks\Models\Schedule;
-use App\Domains\Tasks\Models\ScheduleTask;
-use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Seeder;
+use App\Domains\Club\Models\Gym;
+use App\Domains\Club\Models\Tax;
+use App\Domains\Club\Models\Diet;
+use App\Domains\Club\Models\Work;
+use App\Domains\Tasks\Models\Task;
+use App\Domains\Club\Models\Contact;
+use App\Domains\Club\Models\Product;
+use App\Domains\Club\Models\DietFood;
+use App\Domains\Entities\Models\Chat;
+use App\Domains\Plans\Models\Discount;
+use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Entities\Models\Player;
+use App\Domains\Entities\Models\Message;
+use App\Domains\Entities\Models\Feedback;
+use App\Domains\Plans\Models\Subscription;
+use App\Domains\Tasks\Models\ScheduleTask;
+use App\Domains\Club\Models\NutritionalValue;
+use Database\Seeders\Domains\Club\DietSeeder;
+use Database\Seeders\Domains\Club\FoodSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -37,9 +38,11 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
 
-        Food::factory()->count(5)->create();
-        $diet = Diet::factory()->create();
-        DietFood::factory()->for($diet)->count(5)->create();
+        // Food::factory()->count(5)->create();
+        $this->call(FoodSeeder::class);
+        $this->call(DietSeeder::class);
+        // $diet = Diet::factory()->create();
+        // DietFood::factory()->for($diet)->count(5)->create();
         $customDiet = Diet::factory()->create(['is_free' => 0]);
         DietFood::factory()->for($customDiet)->count(4)->create();
         $player = Player::factory()

@@ -7,6 +7,7 @@ use App\Domains\Entities\Models\Admin;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Plans\Models\Plan;
+use App\Domains\Tasks\Models\Task;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
             'admin' => Admin::class,
             'plan' => Plan::class,
             'food'   => Food::class,
+            'Task'   => Task::class,
         ]);
     }
 }
