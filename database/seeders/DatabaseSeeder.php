@@ -13,7 +13,6 @@ use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\NutritionalValue;
 use App\Domains\Club\Models\Product;
 use App\Domains\Club\Models\Tax;
-use App\Domains\Club\Models\Work;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Feedback;
@@ -38,6 +37,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'default gym',
         ]);
         $this->call(PermissionsSeeder::class);
+        $this->call(WorkSeeder::class);
 
         Food::factory()->count(5)->create();
         $diet = Diet::factory()->create();
@@ -59,7 +59,6 @@ class DatabaseSeeder extends Seeder
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create(['coach_id' => null]);
-        Work::factory()->count(7)->create();
 
         Task::factory()->count(5)->create();
         //plans
