@@ -2,7 +2,6 @@
 
 namespace App\Domains\Entities\Models;
 
-use App\Domains\Club\Models\Gym;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,8 +14,8 @@ class Feedback extends Model
     protected $table = 'feedbacks';
 
     protected $fillable = [
-        'gym_id',
         'player_id',
+        'coach_id',
         'message',
         'is_complaint',
     ];
@@ -30,13 +29,8 @@ class Feedback extends Model
         return $this->belongsTo(Player::class);
     }
 
-    public function gym(): BelongsTo
-    {
-        return $this->belongsTo(Gym::class);
-    }
-
     // Start Helper Function
-    public function getForGrid(?int $playerId = null)
+    public function getForGrid(?int $playerId = null, ?int $coachId = null)
     {
         return QueryBuilder::for(Feedback::class)
             ->allowedFilters(['is_complaint'])
@@ -46,9 +40,13 @@ class Feedback extends Model
                 'feedbacks.is_complaint',
                 'players.id as player_id',
                 'players.name as player_name',
+                'coaches.id as coach_id',
+                'coaches.name as coach_name',
             ])
-            ->join('players', 'players.id', '=', 'feedbacks.player_id')
+            ->leftJoin('players', 'players.id', '=', 'feedbacks.player_id')
+            ->leftJoin('coaches', 'coaches.id', '=', 'feedbacks.coach_id')
             ->when($playerId != null, fn () => $this->where('player_id', $playerId))
+            ->when($coachId != null, fn () => $this->where('coach_id', $coachId))
             ->paginate(request()->get('per_page'));
     }
 }

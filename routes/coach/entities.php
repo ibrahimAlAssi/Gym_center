@@ -3,6 +3,7 @@
 use App\Src\Coach\Entities\Controllers\AuthController;
 use App\Src\Coach\Entities\Controllers\ChatController;
 use App\Src\Coach\Entities\Controllers\CoachController;
+use App\Src\Coach\Entities\Controllers\FeedbackController;
 use App\Src\Coach\Entities\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,5 +54,14 @@ Route::middleware('auth:coach')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('/{message}', 'update')->name('update');
             Route::delete('/{message}', 'destroy')->name('destroy');
+        });
+    Route::prefix('feedbacks')
+        ->name('feedbacks.')
+        ->controller(FeedbackController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+            Route::post('/{feedback}', 'update')->name('update');
+            Route::delete('/{feedback}', 'destroy')->name('destroy');
         });
 });

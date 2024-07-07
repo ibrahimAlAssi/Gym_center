@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Src\Player\Entities\Controllers;
+namespace App\Src\Coach\Entities\Controllers;
 
 use App\Domains\Entities\Models\Feedback;
 use App\Http\Controllers\Controller;
-use App\Src\Player\Entities\Requests\StoreFeedbackRequest;
-use App\Src\Player\Entities\Requests\UpdateFeedBackRequest;
-use App\Src\Player\Entities\Resources\FeedbackGridResource;
+use App\Src\Coach\Entities\Requests\StoreFeedbackRequest;
+use App\Src\Coach\Entities\Requests\UpdateFeedBackRequest;
+use App\Src\Coach\Entities\Resources\FeedbackGridResource;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +22,7 @@ class FeedbackController extends Controller
         return $this->successResponse(
             FeedbackGridResource::collection(
                 $this->feedback->getForGrid(
-                    playerId: $request->user('player')->id
+                    coachId: $request->user('coach')->id
                 )
             ),
             __('shared.response_messages.success')
@@ -34,7 +34,7 @@ class FeedbackController extends Controller
         try {
             $feedback = $this->feedback->create(array_merge(
                 $request->validated(),
-                ['player_id' => $request->user('player')->id]
+                ['coach_id' => $request->user('coach')->id]
             ));
 
             return $this->createdResponse(new FeedbackGridResource($feedback), 'created');
@@ -47,7 +47,7 @@ class FeedbackController extends Controller
 
     public function update(UpdateFeedBackRequest $request, Feedback $feedback)
     {
-        throw_if($request->user()->id != $feedback->player_id, new AuthorizationException());
+        throw_if($request->user()->id != $feedback->coach_id, new AuthorizationException());
         try {
             $feedback->update($request->validated());
 
@@ -61,7 +61,7 @@ class FeedbackController extends Controller
 
     public function destroy(Request $request, Feedback $feedback)
     {
-        throw_if($request->user()->id != $feedback->player_id, new AuthorizationException());
+        throw_if($request->user()->id != $feedback->coach_id, new AuthorizationException());
 
         try {
             $feedback->delete();

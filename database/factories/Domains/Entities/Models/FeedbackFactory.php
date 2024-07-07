@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Domains\Entities\Models;
 
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,6 +23,7 @@ class FeedbackFactory extends Factory
     {
         return [
             'player_id' => Player::factory(),
+            'coach_id' => Coach::factory(),
             'message' => fake()->name(),
             'is_complaint' => fake()->boolean(),
         ];
