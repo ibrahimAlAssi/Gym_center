@@ -44,8 +44,8 @@ class DietSeeder extends Seeder
                     'diet_id' => 1,
                     'food_id' => $id,
                     'allowed' => true,
-                    'create_at' => now(),
-                    'update_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]
             );
         }
@@ -55,8 +55,8 @@ class DietSeeder extends Seeder
                     'diet_id' => 1,
                     'food_id' => $id,
                     'allowed' => false,
-                    'create_at' => now(),
-                    'update_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]
             );
         }
