@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         Tax::factory()->create();
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
-        Feedback::factory()->for($player)->count(5)->create();
+        Feedback::factory()->for($player)->count(5)->create(['coach_id' => null]);
         Work::factory()->count(7)->create();
 
         Task::factory()->count(5)->create();
