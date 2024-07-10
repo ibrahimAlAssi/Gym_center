@@ -2,10 +2,12 @@
 
 namespace Database\Seeders\Domains\Club;
 
-use Illuminate\Database\Seeder;
 use App\Domains\Club\Models\Diet;
 use App\Domains\Club\Models\DietFood;
 use App\Domains\Club\Models\Food;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class DietSeeder extends Seeder
 {
@@ -16,7 +18,7 @@ class DietSeeder extends Seeder
     {
         // Mediterranean Diet
         $Mediterranean_dietData = [
-            "name" => 'Mediterranean Diet', "is_free" => 1
+            'name' => 'Mediterranean Diet', 'is_free' => 1,
         ];
 
         $Mediterranean_allowedFoods = [
@@ -64,10 +66,9 @@ class DietSeeder extends Seeder
             }
         }
 
-
         // Paleo Diet
         $Paleo_dietData = [
-            "name" => 'Paleo Diet', "is_free" => 1
+            'name' => 'Paleo Diet', 'is_free' => 1,
         ];
 
         $Paleo_allowedFoods = [
@@ -85,7 +86,7 @@ class DietSeeder extends Seeder
             'peanuts',
             'Milk',
             'cheese',
-            'oil'
+            'oil',
         ];
 
         // Insert diet
@@ -109,17 +110,16 @@ class DietSeeder extends Seeder
             }
         }
 
-
         // Keto Diet
         $dietData = [
-            "name" => 'Keto Diet', "is_free" => 1
+            'name' => 'Keto Diet', 'is_free' => 1,
         ];
 
         $keto_allowedFoods = [
-            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomatoes', 'Tuna', 'Salmon'
+            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomatoes', 'Tuna', 'Salmon',
         ];
         $keto_notAllowedFoods = [
-            'Cake', 'Rice', 'Pasta', 'Peas', 'Carrots', 'Crabs', 'Sugar'
+            'Cake', 'Rice', 'Pasta', 'Peas', 'Carrots', 'Crabs', 'Sugar',
         ];
 
         // Insert diet
@@ -139,24 +139,70 @@ class DietSeeder extends Seeder
             }
         }
 
-
         // Insert allowed foods
-        if (!empty($allowedData)) {
+        if (! empty($allowedData)) {
             DietFood::insert($allowedData);
         }
 
         // Insert not allowed foods
-        if (!empty($notAllowedData)) {
+        if (! empty($notAllowedData)) {
             DietFood::insert($notAllowedData);
         }
 
-        $imagePaths = [
-            public_path('1.jpeg'),
-            public_path('2.jpeg'),
-            public_path('3.jpeg'),
-        ];
-        $Mediterranean_diet->addMedia($imagePaths[0])->toMediaCollection('diets');
-        $Paleo_diet->addMedia($imagePaths[1])->toMediaCollection('diets');
-        $keto_diet->addMedia($imagePaths[2])->toMediaCollection('diets');
+        // $imagePaths = [
+        //     public_path('1.jpeg'),
+        //     public_path('2.jpeg'),
+        //     public_path('3.jpeg'),
+        // ];
+        // $Mediterranean_diet->addMedia($imagePaths[0])->toMediaCollection('diets');
+        // $Paleo_diet->addMedia($imagePaths[1])->toMediaCollection('diets');
+        // $keto_diet->addMedia($imagePaths[2])->toMediaCollection('diets');
+        Media::insert([
+            [
+                'model_type' => 'diet',
+                'model_id' => $Mediterranean_diet->id,
+                'uuid' => Str::uuid()->toString(),
+                'collection_name' => 'diet',
+                'name' => 'diet_1',
+                'file_name' => 'diet_1.jpg',
+                'mime_type' => 'jpg',
+                'disk' => 'public_dir',
+                'size' => 1200,
+                'manipulations' => json_encode([]),
+                'custom_properties' => json_encode([]),
+                'generated_conversions' => json_encode([]),
+                'responsive_images' => json_encode([]),
+            ],
+            [
+                'model_type' => 'diet',
+                'model_id' => $Paleo_diet->id,
+                'uuid' => Str::uuid()->toString(),
+                'collection_name' => 'diet',
+                'name' => 'diet_2',
+                'file_name' => 'diet_2.jpg',
+                'mime_type' => 'jpg',
+                'disk' => 'public_dir',
+                'size' => 1200,
+                'manipulations' => json_encode([]),
+                'custom_properties' => json_encode([]),
+                'generated_conversions' => json_encode([]),
+                'responsive_images' => json_encode([]),
+            ],
+            [
+                'model_type' => 'diet',
+                'model_id' => $keto_diet->id,
+                'uuid' => Str::uuid()->toString(),
+                'collection_name' => 'diet',
+                'name' => 'diet_3',
+                'file_name' => 'diet_3.jpg',
+                'mime_type' => 'jpg',
+                'disk' => 'public_dir',
+                'size' => 1200,
+                'manipulations' => json_encode([]),
+                'custom_properties' => json_encode([]),
+                'generated_conversions' => json_encode([]),
+                'responsive_images' => json_encode([]),
+            ],
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Src\Admin\Club\Resources;
 
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,11 +16,12 @@ class DietGridResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'         => $this->id,
-            'name'       => $this->name,
-            'is_free'    => $this->is_free,
-            'allowedFoodsList'      => DietFoodResource::collection($this->allowedFoodsList),
-            'notAllowedFoodsList'   => DietFoodResource::collection($this->notAllowedFoodsList),
+            'id' => $this->id,
+            'name' => $this->name,
+            'is_free' => $this->is_free,
+            'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('diet'))),
+            'allowedFoodsList' => DietFoodResource::collection($this->allowedFoodsList),
+            'notAllowedFoodsList' => DietFoodResource::collection($this->notAllowedFoodsList),
         ];
     }
 }
