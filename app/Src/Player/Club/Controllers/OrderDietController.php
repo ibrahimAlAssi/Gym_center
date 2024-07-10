@@ -29,8 +29,8 @@ class OrderDietController extends Controller
     {
         $playerId = $request->user('player')->id;
         $orderDiet = $this->orderDiet->findRecentlyOrderDietByPlayerId(playerId: $playerId);
-        if (!$orderDiet) {
-            $this->successResponse(message: 'wait until admin response to your order');
+        if ($orderDiet) {
+            return $this->successResponse(message: 'wait until admin response to your order');
         }
         try {
             $orderDiet = $this->orderDiet->create(

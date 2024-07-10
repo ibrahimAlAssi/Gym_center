@@ -33,12 +33,12 @@ Route::middleware('auth:player')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('/{cart}', 'update')->name('update');
             Route::delete('/{cart}', 'destroy')->name('destroy');
-            //Start Food
-            Route::prefix('foods')
-                ->name('foods.')
-                ->controller(FoodController::class)
-                ->group(function () {
-                    Route::get('/', 'index')->name('index');
-                });
+        });
+    //Start Food
+    Route::prefix('foods')
+        ->name('foods.')
+        ->controller(FoodController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
         });
 });

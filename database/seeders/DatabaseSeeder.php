@@ -45,10 +45,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DietSeeder::class);
         // $diet = Diet::factory()->create();
         // DietFood::factory()->for($diet)->count(5)->create();
-        $customDiet = Diet::factory()->create(['is_free' => 0]);
-        DietFood::factory()->for($customDiet)->count(4)->create();
+        // $customDiet = Diet::factory()->create(['is_free' => 0]);
+        // DietFood::factory()->for($customDiet)->count(4)->create();
         $player = Player::factory()
-            ->for($customDiet)
             ->create(['email' => 'player@gmail.com']);
         Coach::factory()->count(10)->create();
         Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
@@ -57,7 +56,7 @@ class DatabaseSeeder extends Seeder
         $playerCart = Cart::factory()->for($products[0])->create(['player_id' => 1, 'coach_id' => null]);
         $coachCart = Cart::factory()->for($products[1])->create(['coach_id' => 1, 'player_id' => null]);
         Contact::factory()->for($gym)->create();
-        NutritionalValue::factory()->create();
+        // NutritionalValue::factory()->create();
         Tax::factory()->create();
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
