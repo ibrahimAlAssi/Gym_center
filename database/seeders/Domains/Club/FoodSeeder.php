@@ -34,6 +34,12 @@ class FoodSeeder extends Seeder
             ['name' => 'Chia Seeds',],
             ['name' => 'Bell Pepper (Red)',],
             ['name' => 'Cottage Cheese',],
+            ['name' => 'Rice'],
+            ['name' => 'Lentils'],
+            ['name' => 'Peanuts'],
+            ['name' => 'Milk'],
+            ['name' => 'Cheese'],
+            ['name' => 'Oil'],
         ];
         Food::insert($foodData);
         $nutritionalValuesData = [
@@ -136,6 +142,36 @@ class FoodSeeder extends Seeder
             ['food_id' => 20, 'name' => 'Fat', 'value' => 5],
             ['food_id' => 20, 'name' => 'Calories', 'value' => 98],
             ['food_id' => 20, 'name' => 'Carbohydrates', 'value' => 3],
+
+            ['food_id' => 21, 'name' => 'Protein', 'value' => 4.3],
+            ['food_id' => 21, 'name' => 'Fat', 'value' => 0.4],
+            ['food_id' => 21, 'name' => 'Calories', 'value' => 205],
+            ['food_id' => 21, 'name' => 'Carbohydrates', 'value' => 44.5],
+
+            ['food_id' => 22, 'name' => 'Calories', 'value' => 230],
+            ['food_id' => 22, 'name' => 'Fat', 'value' => 0.8],
+            ['food_id' => 22, 'name' => 'Protein', 'value' => 17.9],
+            ['food_id' => 22, 'name' => 'Carbohydrates', 'value' => 39.9],
+
+            ['food_id' => 23, 'name' => 'Calories', 'value' => 166],
+            ['food_id' => 23, 'name' => 'Fat', 'value' => 14],
+            ['food_id' => 23, 'name' => 'Protein', 'value' => 7.3],
+            ['food_id' => 23, 'name' => 'Carbohydrates', 'value' => 6.1],
+
+            ['food_id' => 24, 'name' => 'Calories', 'value' => 149],
+            ['food_id' => 24, 'name' => 'Fat', 'value' => 8],
+            ['food_id' => 24, 'name' => 'Protein', 'value' => 7.7],
+            ['food_id' => 24, 'name' => 'Carbohydrates', 'value' => 11.7],
+
+            ['food_id' => 25, 'name' => 'Calories', 'value' => 113],
+            ['food_id' => 25, 'name' => 'Fat', 'value' => 9.3],
+            ['food_id' => 25, 'name' => 'Protein', 'value' => 7],
+            ['food_id' => 25, 'name' => 'Carbohydrates', 'value' => 0.4],
+
+            ['food_id' => 26, 'name' => 'Calories', 'value' => 119],
+            ['food_id' => 26, 'name' => 'Fat', 'value' => 119],
+            ['food_id' => 26, 'name' => 'Protein', 'value' => 0],
+            ['food_id' => 26, 'name' => 'Carbohydrates', 'value' => 0],
         ];
         NutritionalValue::insert($nutritionalValuesData);
 

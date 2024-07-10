@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Domains\Club\Models\Diet;
 use App\Domains\Club\Models\Food;
 use App\Domains\Club\Models\Product;
 use App\Domains\Entities\Models\Admin;
@@ -29,12 +30,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'player' => Player::class,
-            'coach' => Coach::class,
-            'admin' => Admin::class,
-            'plan' => Plan::class,
-            'food' => Food::class,
+            'coach'  => Coach::class,
+            'admin'  => Admin::class,
+            'plan'   => Plan::class,
+            'food'   => Food::class,
             'product' => Product::class,
             'Task'   => Task::class,
+            'diet'   => Diet::class,
         ]);
     }
 }

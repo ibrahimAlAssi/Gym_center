@@ -2,15 +2,18 @@
 
 namespace App\Domains\Club\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Diet extends Model
+class Diet extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $table = 'diets';
 
@@ -73,5 +76,20 @@ class Diet extends Model
             unset($diet->foods);
         }
         return $results;
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('sm')
+            ->width(150)
+            ->height(150);
+
+        $this->addMediaConversion('md')
+            ->width(300)
+            ->height(300);
+
+        $this->addMediaConversion('lg')
+            ->width(500)
+            ->height(500);
     }
 }
