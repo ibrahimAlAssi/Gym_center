@@ -33,7 +33,7 @@ class DietSeeder extends Seeder
             'Lentils',
             'chickpeas',
             'sardines',
-            'Chicken',
+            'Chicken breast',
         ];
         $Mediterranean_notAllowedFoods = [
             'Sausages',
@@ -75,17 +75,17 @@ class DietSeeder extends Seeder
             'Meats',
             'salmon',
             'Berries',
-            'apples',
+            'Apples',
             'bananas',
             'Almonds',
-            'Eggs',
+            'Egg',
         ];
         $Paleo_notAllowedFoods = [
-            'rice',
-            'lentils',
-            'peanuts',
+            'Rice',
+            'Lentils',
+            'Peanuts',
             'Milk',
-            'cheese',
+            'Cheese',
             'Oil'
         ];
 
@@ -115,7 +115,7 @@ class DietSeeder extends Seeder
             'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomato', 'Tuna', 'Salmon'
         ];
         $keto_notAllowedFoods = [
-            'Cake', 'Rice', 'Pasta', 'Peas', 'Carrots', 'Crabs', 'Sugar',
+            'Cake', 'Rice', 'pasta', 'Peas', 'Carrot', 'Crabs', 'Sugar',
         ];
 
         // Insert diet
@@ -136,23 +136,15 @@ class DietSeeder extends Seeder
         }
 
         // Insert allowed foods
-        if (! empty($allowedData)) {
+        if (!empty($allowedData)) {
             DietFood::insert($allowedData);
         }
 
         // Insert not allowed foods
-        if (! empty($notAllowedData)) {
+        if (!empty($notAllowedData)) {
             DietFood::insert($notAllowedData);
         }
 
-        // $imagePaths = [
-        //     public_path('1.jpeg'),
-        //     public_path('2.jpeg'),
-        //     public_path('3.jpeg'),
-        // ];
-        // $Mediterranean_diet->addMedia($imagePaths[0])->toMediaCollection('diets');
-        // $Paleo_diet->addMedia($imagePaths[1])->toMediaCollection('diets');
-        // $keto_diet->addMedia($imagePaths[2])->toMediaCollection('diets');
         Media::insert([
             [
                 'model_type' => 'diet',

@@ -22,7 +22,7 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            'diet_id' => Diet::factory(),
+            'diet_id' => Diet::inRandomOrder()->first(),
             'coach_id' => Coach::factory(),
             'name' => fake()->name(),
             'email' => fake()->email(),
