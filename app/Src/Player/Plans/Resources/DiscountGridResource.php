@@ -16,8 +16,8 @@ class DiscountGridResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'start_date' => $this->start_date->format('Y-m-d'),
+            'end_date' => $this->end_date->format('Y-m-d'),
             'value' => $this->value,
             'plan' => $this->when($this->plan_id != null, fn () => [
                 'id' => $this->plan_id,
