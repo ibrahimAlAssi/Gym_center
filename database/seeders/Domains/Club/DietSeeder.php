@@ -20,7 +20,7 @@ class DietSeeder extends Seeder
         ];
 
         $Mediterranean_allowedFoods = [
-            'Egg', 'Tomatoes', 'Tuna', 'Salmon',
+            'Egg', 'Tomato', 'Tuna', 'Salmon',
             'peppers',
             'cucumbers',
             'Apples',
@@ -38,7 +38,7 @@ class DietSeeder extends Seeder
             'White bread',
             'pasta',
             'white rice',
-            'Canola oil',
+            'Oil',
             'Fast food',
             'snack foods',
         ];
@@ -85,15 +85,11 @@ class DietSeeder extends Seeder
             'peanuts',
             'Milk',
             'cheese',
-            'oil'
+            'Oil'
         ];
 
         // Insert diet
         $Paleo_diet = Diet::firstOrCreate($Paleo_dietData);
-
-        // Prepare data for bulk insert
-        $allowedData = [];
-        $notAllowedData = [];
 
         foreach ($Paleo_allowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
@@ -116,7 +112,7 @@ class DietSeeder extends Seeder
         ];
 
         $keto_allowedFoods = [
-            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomatoes', 'Tuna', 'Salmon'
+            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomato', 'Tuna', 'Salmon'
         ];
         $keto_notAllowedFoods = [
             'Cake', 'Rice', 'Pasta', 'Peas', 'Carrots', 'Crabs', 'Sugar'

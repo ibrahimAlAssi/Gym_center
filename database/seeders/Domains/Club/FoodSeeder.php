@@ -40,6 +40,8 @@ class FoodSeeder extends Seeder
             ['name' => 'Milk'],
             ['name' => 'Cheese'],
             ['name' => 'Oil'],
+            ['name' => 'Fish'],
+            ['name' => 'Fast food'],
         ];
         Food::insert($foodData);
         $nutritionalValuesData = [

@@ -49,7 +49,7 @@ class Diet extends Model implements HasMedia
                 'diets.id',
                 'diets.name',
                 'diets.is_free',
-            ])->with(['foods:id,name'])
+            ])->with(['foods:id,name', 'media'])
             ->when($playerId != null, function ($query) {
                 $query->leftJoin('players', 'diets.id', '=', 'players.diet_id')
                     ->where('diets.is_free', 1)

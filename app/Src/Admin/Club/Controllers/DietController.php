@@ -43,7 +43,7 @@ class DietController extends Controller
             DB::commit();
 
             return $this->createdResponse(
-                DietResource::make($diet->load('foods')),
+                DietResource::make($diet->load('foods', 'media')),
                 __('shared.response_messages.created_success')
             );
         } catch (\Throwable $th) {

@@ -3,6 +3,7 @@
 namespace App\Src\Admin\Club\Resources;
 
 use Illuminate\Http\Request;
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DietResource extends JsonResource
@@ -20,6 +21,7 @@ class DietResource extends JsonResource
             'is_free' => $this->is_free,
             'created_at' => $this->created_at,
             'foods' => DietFoodResource::collection($this->whenLoaded('foods')),
+            'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('products'))),
         ];
     }
 }
