@@ -61,9 +61,19 @@ class Plan extends Model implements HasMedia
                 'plans.name',
                 'plans.type',
                 'plans.cost',
+                'discounts.id as discount_id',
+                'discounts.value as discount_value',
+                'discounts.start_date as start_date',
+                'discounts.end_date as end_date',
             ])
+            ->leftJoin('discounts', function ($query) {
+                $query->on('discounts.plan_id', '=', 'plans.id')
+                    ->where('discounts.start_date', '<=', now())
+                    ->where('discounts.end_date', '>=', now());
+            })
             ->with('media')
             ->with('services')
+            ->orderBy('plans.id')
             ->get();
     }
 }

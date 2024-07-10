@@ -22,9 +22,11 @@ use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Tasks\Models\ScheduleTask;
 use App\Domains\Tasks\Models\Task;
-use Illuminate\Database\Seeder;
 use Database\Seeders\Domains\Club\DietSeeder;
 use Database\Seeders\Domains\Club\FoodSeeder;
+use Database\Seeders\Domains\Plans\PlanSeeder;
+use Database\Seeders\Tasks\TypeSeeder;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,7 +42,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsSeeder::class);
         $this->call(WorkSeeder::class);
 
-        // Food::factory()->count(5)->create();
         $this->call(FoodSeeder::class);
         $this->call(DietSeeder::class);
         // $diet = Diet::factory()->create();
@@ -61,8 +62,9 @@ class DatabaseSeeder extends Seeder
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create(['coach_id' => null]);
-
+        //Tasks
         Task::factory()->count(5)->create();
+        $this->call(TypeSeeder::class);
         //plans
         $this->call(PlanSeeder::class);
         $Subscriptions = Subscription::factory()

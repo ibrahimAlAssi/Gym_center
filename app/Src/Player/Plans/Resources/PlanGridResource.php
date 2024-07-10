@@ -20,6 +20,12 @@ class PlanGridResource extends JsonResource
             'name' => $this->name,
             'type' => $this->type,
             'cost' => $this->cost,
+            'discount' => $this->when($this->discount_id != null, fn () => [
+                'id' => $this->discount_id,
+                'value' => $this->discount_value,
+                'start_date' => $this->start_date,
+                'end_date' => $this->end_date,
+            ]),
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('plans'))),
             'services' => ServiceResource::collection($this->whenLoaded('services')),
         ];

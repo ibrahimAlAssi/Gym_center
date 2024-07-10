@@ -2,8 +2,8 @@
 
 namespace Database\Factories\Domains\Tasks\Models;
 
-use App\Domains\Tasks\Enums\TaskTypeEnum;
 use App\Domains\Tasks\Models\Task;
+use App\Domains\Tasks\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +22,7 @@ class TaskFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'type' => TaskTypeEnum::getRandomValue(),
+            'type_id' => Type::factory(),
             'number' => $this->faker->numberBetween(10, 20),
             'description' => $this->faker->sentence(),
         ];
