@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Domains\Plans;
 
 use App\Domains\Plans\Models\Plan;
 use App\Domains\Plans\Models\Service;

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class Task extends Model implements HasMedia
@@ -26,7 +25,7 @@ class Task extends Model implements HasMedia
         'name',
         'number',
         'description',
-        'type',
+        'type_id',
     ];
 
     public function scheduleTasks(): HasMany
@@ -59,8 +58,17 @@ class Task extends Model implements HasMedia
         return QueryBuilder::for(Task::class)
             ->allowedFilters([
                 'name',
-                AllowedFilter::exact('type'),
+                'types.name',
             ])
+            ->select([
+                'tasks.id',
+                'tasks.name',
+                'tasks.number',
+                'tasks.description',
+                'types.id as type_id',
+                'types.name as type_name',
+            ])
+            ->join('types', 'types.id', '=', 'tasks.type_id')
             ->when($random, fn ($query) => $query->inRandomOrder())
             ->with('media')
             ->paginate(request()->get('per_page'));

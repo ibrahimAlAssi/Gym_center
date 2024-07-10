@@ -10,6 +10,7 @@ use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Plans\Models\Plan;
 use App\Domains\Tasks\Models\Task;
+use App\Domains\Tasks\Models\Type;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
@@ -30,13 +31,14 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'player' => Player::class,
-            'coach'  => Coach::class,
-            'admin'  => Admin::class,
-            'plan'   => Plan::class,
-            'food'   => Food::class,
+            'coach' => Coach::class,
+            'admin' => Admin::class,
+            'plan' => Plan::class,
+            'food' => Food::class,
             'product' => Product::class,
-            'Task'   => Task::class,
-            'diet'   => Diet::class,
+            'Task' => Task::class,
+            'diet' => Diet::class,
+            'type' => Type::class,
         ]);
     }
 }

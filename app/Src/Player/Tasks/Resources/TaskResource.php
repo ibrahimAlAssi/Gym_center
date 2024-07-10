@@ -20,7 +20,10 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->type,
+            'type' => [
+                'id' => $this->type_id,
+                'name' => $this->type_name,
+            ],
             'number' => $this->number,
             'description' => $this->when($this->description != null, $this->description),
             ...$pivotData,
