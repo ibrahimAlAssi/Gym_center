@@ -30,7 +30,7 @@ class TypeController extends Controller
             DB::beginTransaction();
             $type = $this->type->create($request->validated());
             if ($request->has('image')) {
-                $type->addMedia($request->image)->toMediaCollection('type');
+                $type->addMedia($request->image)->toMediaCollection('types');
             }
             DB::commit();
 
@@ -52,8 +52,8 @@ class TypeController extends Controller
             DB::beginTransaction();
             $type->update($request->validated());
             if ($request->has('image')) {
-                $type->clearMediaCollection('type');
-                $type->addMedia($request->image)->toMediaCollection('type');
+                $type->clearMediaCollection('types');
+                $type->addMedia($request->image)->toMediaCollection('types');
             }
             DB::commit();
 

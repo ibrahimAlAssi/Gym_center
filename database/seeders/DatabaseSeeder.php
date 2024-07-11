@@ -6,8 +6,6 @@ namespace Database\Seeders;
 
 use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Contact;
-use App\Domains\Club\Models\Diet;
-use App\Domains\Club\Models\DietFood;
 use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\NutritionalValue;
 use App\Domains\Club\Models\Product;
@@ -21,10 +19,10 @@ use App\Domains\Plans\Models\Discount;
 use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Tasks\Models\ScheduleTask;
-use App\Domains\Tasks\Models\Task;
 use Database\Seeders\Domains\Club\DietSeeder;
 use Database\Seeders\Domains\Club\FoodSeeder;
 use Database\Seeders\Domains\Plans\PlanSeeder;
+use Database\Seeders\Tasks\TaskSeeder;
 use Database\Seeders\Tasks\TypeSeeder;
 use Illuminate\Database\Seeder;
 
@@ -41,13 +39,11 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call(PermissionsSeeder::class);
         $this->call(WorkSeeder::class);
-
         $this->call(FoodSeeder::class);
         $this->call(DietSeeder::class);
-        // $diet = Diet::factory()->create();
-        // DietFood::factory()->for($diet)->count(5)->create();
-        // $customDiet = Diet::factory()->create(['is_free' => 0]);
-        // DietFood::factory()->for($customDiet)->count(4)->create();
+        $this->call(TypeSeeder::class);
+        $this->call(TaskSeeder::class);
+
         $player = Player::factory()
             ->create(['email' => 'player@gmail.com']);
         Coach::factory()->count(10)->create();
@@ -62,9 +58,6 @@ class DatabaseSeeder extends Seeder
         $chats = Chat::factory()->count(3)->create();
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(5)->create(['coach_id' => null]);
-        //Tasks
-        Task::factory()->count(5)->create();
-        $this->call(TypeSeeder::class);
         //plans
         $this->call(PlanSeeder::class);
         $Subscriptions = Subscription::factory()

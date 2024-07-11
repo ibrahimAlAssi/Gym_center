@@ -40,7 +40,7 @@ class TaskController extends Controller
             DB::beginTransaction();
             $task = $this->task->create($request->validated());
             if ($request->has('image')) {
-                $task->addMedia($request->image)->toMediaCollection('task');
+                $task->addMedia($request->image)->toMediaCollection('tasks');
             }
             DB::commit();
 
@@ -62,8 +62,8 @@ class TaskController extends Controller
             DB::beginTransaction();
             $task->update($request->validated());
             if ($request->has('image')) {
-                $task->clearMediaCollection('task');
-                $task->addMedia($request->image)->toMediaCollection('task');
+                $task->clearMediaCollection('tasks');
+                $task->addMedia($request->image)->toMediaCollection('tasks');
             }
             DB::commit();
 
