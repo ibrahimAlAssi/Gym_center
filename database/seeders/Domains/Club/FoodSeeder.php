@@ -199,7 +199,7 @@ class FoodSeeder extends Seeder
                 'model_type' => 'food',
                 'model_id' => $i,
                 'uuid' => Str::uuid()->toString(),
-                'collection_name' => 'foods',
+                'collection_name' => 'food',
                 'name' => 'food_'.$i,
                 'file_name' => $i.'.jpg',
                 'mime_type' => 'jpg',

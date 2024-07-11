@@ -14,6 +14,7 @@ class DietController extends Controller
 
     public function index()
     {
+
         return $this->successResponse(
             DietGridResource::collection(
                 $this->diet->getForGrid(playerId: request()->user('player')->id)

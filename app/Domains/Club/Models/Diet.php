@@ -33,6 +33,18 @@ class Diet extends Model implements HasMedia
         return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed');
     }
 
+    public function allowedFoods(): BelongsToMany
+    {
+        return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed')
+            ->wherePivot('allowed', '1');
+    }
+
+    public function notAllowedFoods(): BelongsToMany
+    {
+        return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed')
+            ->wherePivot('allowed', '0');
+    }
+
     public function dietFood(): HasMany
     {
         return $this->hasMany(DietFood::class, 'diet_food');
@@ -40,7 +52,7 @@ class Diet extends Model implements HasMedia
 
     public function getForGrid(?int $playerId = null)
     {
-        $results = QueryBuilder::for(Diet::class)
+        return $results = QueryBuilder::for(Diet::class)
             ->allowedFilters([
                 'diets.name',
                 'diets.is_free',
@@ -49,7 +61,17 @@ class Diet extends Model implements HasMedia
                 'diets.id',
                 'diets.name',
                 'diets.is_free',
-            ])->with(['foods:id,name', 'media'])
+            ])->with(['media', 'allowedFoods' => function ($query) {
+                $query->select([
+                    'food.id',
+                    'food.name',
+                ])->with('media');
+            }, 'notAllowedFoods' => function ($query) {
+                $query->select([
+                    'food.id',
+                    'food.name',
+                ])->with('media');
+            }],)
             ->when($playerId != null, function ($query) {
                 $query->leftJoin('players', 'diets.id', '=', 'players.diet_id')
                     ->where('diets.is_free', 1)
@@ -58,26 +80,6 @@ class Diet extends Model implements HasMedia
             })
             ->with('media')
             ->paginate(request()->get('per_page'));
-
-        $allowedFoodsList = [];
-        $notAllowedFoodsList = [];
-
-        foreach ($results as $diet) {
-            foreach ($diet->foods as $food) {
-                if ($food->pivot->allowed) {
-                    $allowedFoodsList[] = $food;
-                } else {
-                    $notAllowedFoodsList[] = $food;
-                }
-            }
-            $diet->allowedFoodsList = $allowedFoodsList;
-            $diet->notAllowedFoodsList = $notAllowedFoodsList;
-            $allowedFoodsList = [];
-            $notAllowedFoodsList = [];
-            unset($diet->foods);
-        }
-
-        return $results;
     }
 
     public function registerMediaConversions(?Media $media = null): void
