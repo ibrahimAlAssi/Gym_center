@@ -50,9 +50,9 @@ class Diet extends Model implements HasMedia
         return $this->hasMany(DietFood::class, 'diet_food');
     }
 
-    public function getForGrid(?int $playerId = null)
+    public function getForGrid(?int $playerId = null, ?array $filter = null)
     {
-        return $results = QueryBuilder::for(Diet::class)
+        return QueryBuilder::for(Diet::class)
             ->allowedFilters([
                 'diets.name',
                 'diets.is_free',
@@ -61,7 +61,8 @@ class Diet extends Model implements HasMedia
                 'diets.id',
                 'diets.name',
                 'diets.is_free',
-            ])->with(['media', 'allowedFoods' => function ($query) {
+            ])
+            ->with(['media', 'allowedFoods' => function ($query) {
                 $query->select([
                     'food.id',
                     'food.name',
@@ -74,9 +75,10 @@ class Diet extends Model implements HasMedia
             }],)
             ->when($playerId != null, function ($query) {
                 $query->leftJoin('players', 'diets.id', '=', 'players.diet_id')
-                    ->where('diets.is_free', 1)
-                    ->orWhereColumn('players.diet_id', 'diets.id')
-                    ->orderBy('is_free');
+                    ->where(function ($query) {
+                        $query->where('diets.is_free', 1)
+                            ->orWhereColumn('players.diet_id', 'diets.id');
+                    })->orderBy('is_free');
             })
             ->with('media')
             ->paginate(request()->get('per_page'));
