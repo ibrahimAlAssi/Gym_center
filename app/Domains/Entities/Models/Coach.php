@@ -2,7 +2,9 @@
 
 namespace App\Domains\Entities\Models;
 
+use App\Domains\Operations\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -24,6 +26,7 @@ class Coach extends Authenticatable implements HasMedia
 
     protected $fillable = [
         'name',
+        'wallet_id',
         'email',
         'password',
         'phone',
@@ -42,6 +45,11 @@ class Coach extends Authenticatable implements HasMedia
     protected $hidden = [
         'password',
     ];
+
+    public function wallet(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class);
+    }
 
     public function chats(): HasMany
     {

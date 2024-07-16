@@ -22,6 +22,7 @@ class TaskResource extends JsonResource
                 'id' => $this->type_id,
                 'name' => $this->type_name,
             ],
+            'number' => $this->number,
             'description' => $this->when($this->description != null, $this->description),
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('tasks'))),
         ];

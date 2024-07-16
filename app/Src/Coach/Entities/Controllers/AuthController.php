@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         return $this->successResponse(
             [
-                'coach' => CoachResource::make($coach),
+                'coach' => CoachResource::make($coach->load('wallet')),
                 'token' => $coach->createToken('coach')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')

@@ -4,6 +4,7 @@ namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Diet;
+use App\Domains\Operations\Models\Wallet;
 use App\Domains\Tasks\Models\Rate;
 use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Tasks\Models\Task;
@@ -15,6 +16,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Player extends Model implements HasMedia
 {
@@ -27,6 +29,7 @@ class Player extends Model implements HasMedia
     protected $fillable = [
         'diet_id',
         'coach_id',
+        'wallet_id',
         'name',
         'email',
         'password',
@@ -72,9 +75,14 @@ class Player extends Model implements HasMedia
         return $this->hasMany(Chat::class);
     }
 
-    public function carts(): BelongsTo
+    public function carts(): HasMany
     {
-        return $this->belongsTo(Cart::class);
+        return $this->hasMany(Cart::class);
+    }
+
+    public function wallet(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class);
     }
 
     public function rates(): HasMany
@@ -100,5 +108,33 @@ class Player extends Model implements HasMedia
         return self::query()
             ->where('id', $id)
             ->first();
+    }
+
+    public function getForGrid()
+    {
+        return QueryBuilder::for(Player::class)
+            ->allowedFilters([
+                'players.name',
+                'coaches.id',
+                'coaches.name',
+            ])
+            ->select([
+                'players.id',
+                'players.diet_id',
+                'players.name',
+                'players.email',
+                'players.phone',
+                'players.gender',
+                'coaches.id as coach_id',
+                'coaches.name as coach_name',
+                'wallets.id as wallet_id',
+                'wallets.total',
+                'wallets.pending',
+                'wallets.available',
+            ])
+            ->leftJoin('coaches', 'coaches.id', '=', 'players.coach_id')
+            ->leftJoin('diets', 'diets.id', '=', 'players.diet_id')
+            ->leftJoin('wallets', 'wallets.id', '=', 'players.wallet_id')
+            ->paginate(request()->get('per_page'));
     }
 }

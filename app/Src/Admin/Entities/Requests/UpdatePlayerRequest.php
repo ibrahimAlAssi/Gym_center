@@ -2,11 +2,13 @@
 
 namespace App\Src\Admin\Entities\Requests;
 
+use App\Domains\Entities\Enums\PlayerGenderEnum;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
-class UpdateCoachRequest extends FormRequest
+class UpdatePlayerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +26,24 @@ class UpdateCoachRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => ['sometimes', Rule::exists('roles', 'id')],
             'available' => ['sometimes', 'numeric', 'min:0'],
             'pending' => ['sometimes', 'numeric', 'min:0'],
-            'specialization' => ['sometimes', 'string'],
-            'experienceYears' => ['sometimes', 'numeric'],
-            'subscribePrice' => ['sometimes', 'numeric'],
+            'coach_id' => ['sometimes', 'integer', Rule::exists('coaches', 'id')],
             'name' => ['sometimes', 'string'],
-            'email' => ['sometimes', 'string', 'unique:coaches,email,'.$this->route('coach')->id],
-            'phone' => ['sometimes', 'string', 'unique:coaches,phone,'.$this->route('coach')->id],
-            'description' => ['nullable', 'string'],
+            'email' => [
+                'sometimes', 'email', Rule::unique('players', 'email')
+                    ->ignore($this->player->id),
+            ],
+            'password' => ['sometimes', 'string', 'min:8'],
+            'phone' => ['sometimes', 'string'],
+            'avatar' => [
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048', // Maximum file size in kilobytes
+            ],
+            'gender' => ['sometimes', 'string', new EnumValue(PlayerGenderEnum::class)],
         ];
     }
 

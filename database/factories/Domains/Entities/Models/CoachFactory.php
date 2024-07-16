@@ -3,6 +3,7 @@
 namespace Database\Factories\Domains\Entities\Models;
 
 use App\Domains\Entities\Models\Coach;
+use App\Domains\Operations\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class CoachFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'wallet_id' => Wallet::factory(),
             'specialization' => fake()->jobTitle(),
             'experienceYears' => fake()->randomNumber(1),
             'subscribePrice' => fake()->randomNumber(5),

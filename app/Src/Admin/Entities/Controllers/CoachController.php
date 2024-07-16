@@ -3,6 +3,7 @@
 namespace App\Src\Admin\Entities\Controllers;
 
 use App\Domains\Entities\Models\Coach;
+use App\Domains\Operations\Models\Wallet;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\StoreCoachRequest;
 use App\Src\Admin\Entities\Requests\UpdateCoachRequest;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
-    public function __construct(protected Coach $coach)
+    public function __construct(protected Coach $coach, protected Wallet $wallet)
     {
     }
 
@@ -30,7 +31,12 @@ class CoachController extends Controller
     {
         try {
             DB::beginTransaction();
-            $coach = $this->coach->create($request->validated());
+            $wallet = $this->wallet->create([
+                'available' => $request->available, 'total' => $request->available,
+            ]);
+            $coach = $this->coach->create(
+                array_merge($request->validated(), ['wallet_id' => $wallet->id])
+            );
 
             if ($request->hasFile('avatar')) {
                 $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
@@ -55,6 +61,18 @@ class CoachController extends Controller
     {
         try {
             $coach->update($request->validated());
+            $wallet = $coach->wallet;
+            if ($request->has('available')) {
+                $this->wallet->where('id', $coach->wallet_id)->update([
+                    'available' => $request->available,
+                    'total' => $wallet->total + $request->available,
+                ]);
+            } elseif ($request->has('pending')) {
+                $this->wallet->where('id', $coach->wallet_id)->update([
+                    'pending' => $request->pending,
+                    'total' => $wallet->total - $request->pending,
+                ]);
+            }
 
             return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
         } catch (\Throwable $th) {

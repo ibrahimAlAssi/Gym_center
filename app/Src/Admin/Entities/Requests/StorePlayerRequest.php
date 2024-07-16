@@ -2,11 +2,12 @@
 
 namespace App\Src\Admin\Entities\Requests;
 
+use App\Domains\Entities\Enums\PlayerGenderEnum;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
 
-class StoreCoachRequest extends FormRequest
+class StorePlayerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +26,12 @@ class StoreCoachRequest extends FormRequest
     {
         return [
             'available' => ['nullable', 'numeric', 'min:0'],
-            'role_id' => ['required', Rule::exists('roles', 'id')],
+            'coach_id' => ['nullable', 'integer', Rule::exists('coaches', 'id')],
             'name' => ['required', 'string'],
-            'specialization' => ['required', 'string'],
-            'experienceYears' => ['required', 'numeric'],
-            'subscribePrice' => ['required', 'numeric'],
-            'email' => ['required', 'string', 'unique:coaches,email'],
-            'password' => ['required', 'string', Password::min(8)],
-            'phone' => ['required', 'string', 'unique:coaches,phone'],
+            'email' => ['required', 'email', Rule::unique('players', 'email')],
+            'password' => ['required', 'string', 'min:8'],
+            'phone' => ['required', 'string'],
+            'active' => ['required', 'boolean'],
             'avatar' => [
                 'sometimes',
                 'file',
@@ -40,7 +39,7 @@ class StoreCoachRequest extends FormRequest
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // Maximum file size in kilobytes
             ],
-            'description' => ['nullable', 'string'],
+            'gender' => ['required', 'string', new EnumValue(PlayerGenderEnum::class)],
         ];
     }
 }
