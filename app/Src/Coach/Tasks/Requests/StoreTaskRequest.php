@@ -2,10 +2,8 @@
 
 namespace App\Src\Coach\Tasks\Requests;
 
-use Illuminate\Validation\Rule;
-use BenSampo\Enum\Rules\EnumValue;
-use App\Domains\Tasks\Enums\TaskTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -26,7 +24,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('tasks', 'name')],
-            'type' => ['required', 'string', new EnumValue(TaskTypeEnum::class)],
+            'type_id' => ['required', 'string', Rule::exists('types', 'id')],
             'number' => ['required', 'integer'],
             'description' => ['nullable', 'string'],
             'image' => ['required', 'image'],

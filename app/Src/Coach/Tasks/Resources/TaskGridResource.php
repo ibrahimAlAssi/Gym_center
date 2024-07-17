@@ -6,7 +6,7 @@ use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TaskResource extends JsonResource
+class TaskGridResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,10 +18,10 @@ class TaskResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'type' => $this->whenLoaded('type', [
-                'id' => $this->type->id,
-                'name' => $this->type->name,
-            ]),
+            'type' => [
+                'id' => $this->type_id,
+                'name' => $this->type_name,
+            ],
             'number' => $this->number,
             'description' => $this->when($this->description != null, $this->description),
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('tasks'))),
