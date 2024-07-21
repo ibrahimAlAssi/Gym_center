@@ -26,7 +26,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('tasks', 'name')],
-            'type' => ['required', 'string', new EnumValue(TaskTypeEnum::class)],
+            'type' => ['required', 'string', Rule::exists('types', 'id')],
             'number' => ['required', 'integer'],
             'description' => ['nullable', 'string'],
             'image' => ['required', 'image'],

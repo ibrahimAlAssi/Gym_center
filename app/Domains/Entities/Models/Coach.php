@@ -88,7 +88,7 @@ class Coach extends Authenticatable implements HasMedia
             ->height(500);
     }
 
-    function getTotalTrainers($coach_id)
+    public function getTotalTrainers($coach_id)
     {
         return Player::where('coach_id', $coach_id)->count();
     }

@@ -24,7 +24,10 @@ class CoachGridResource extends JsonResource
             'experienceYears' => $this->when($this->experienceYears != null, $this->experienceYears),
             'subscribePrice' => $this->when($this->subscribePrice != null, $this->subscribePrice),
             'total_trainers' => $this->total_trainers,
-            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
+            'avatar' => $this->whenLoaded(
+                'media',
+                fn () => new MediaResource($this->getFirstMedia('coaches'))
+            ),
         ];
     }
 }
