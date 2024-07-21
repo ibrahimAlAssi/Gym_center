@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedDecimal('price', 10, 2);
-            $table->unsignedInteger('quantity');
+            $table->string('brand')->nullable();
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ class ProductGridResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'price' => $this->price,
+            'brand' => $this->brand,
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('products'))),
         ];
     }
