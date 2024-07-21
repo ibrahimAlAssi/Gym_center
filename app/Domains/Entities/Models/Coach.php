@@ -2,16 +2,17 @@
 
 namespace App\Domains\Entities\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Coach extends Authenticatable implements HasMedia
 {
@@ -58,6 +59,9 @@ class Coach extends Authenticatable implements HasMedia
     {
         return QueryBuilder::for(Coach::class)
             ->allowedFilters(['name'])
+            ->select('coaches.*', DB::raw('COUNT(players.id) AS total_trainers'))
+            ->leftJoin('players', 'players.coach_id', '=', 'coaches.id')
+            ->groupBy('coaches.id')
             ->when($random, fn ($query) => $query->inRandomOrder())
             ->paginate(request()->get('per_page'));
     }
@@ -82,5 +86,10 @@ class Coach extends Authenticatable implements HasMedia
         $this->addMediaConversion('lg')
             ->width(500)
             ->height(500);
+    }
+
+    function getTotalTrainers($coach_id)
+    {
+        return Player::where('coach_id', $coach_id)->count();
     }
 }

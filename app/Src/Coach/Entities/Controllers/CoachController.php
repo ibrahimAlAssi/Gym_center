@@ -28,7 +28,7 @@ class CoachController extends Controller
 
     public function show(Coach $coach)
     {
-        $coach['total_trainers'] = $this->player->where('coach_id', $coach->id)->count();
+        $coach['total_trainers'] = $this->coach->getTotalTrainers($coach->id);
 
         return $this->successResponse(new ProfileResource($coach->load('roles', 'media')), 'success');
     }

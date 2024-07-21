@@ -23,9 +23,9 @@ class ProfileResource extends JsonResource
             'specialization' => $this->when($this->specialization, $this->specialization),
             'experienceYears' => $this->when($this->experienceYears != null, $this->experienceYears),
             'subscribePrice' => $this->when($this->subscribePrice != null, $this->subscribePrice),
-            'total_trainers' => $this->when($this->total_trainers != null, $this->total_trainers, 0),
+            'total_trainers' => $this->total_trainers,
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
-            'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
+            'avatar'      => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
             'description' => $this->description,
         ];
     }
