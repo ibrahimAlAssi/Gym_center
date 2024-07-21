@@ -77,7 +77,7 @@ class Subscription extends Model
                 'subscriptions.cost',
                 'subscriptions.description',
                 'coaches.id as coach_id',
-                'coaches.name as .coach_name',
+                'coaches.name as coach_name',
                 'players.id as player_id',
                 'players.name as player_name',
                 'plans.id as plan_id',
