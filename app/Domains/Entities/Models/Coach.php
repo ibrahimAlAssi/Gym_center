@@ -11,7 +11,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\QueryBuilder\QueryBuilder;
 
@@ -75,20 +74,5 @@ class Coach extends Authenticatable implements HasMedia
         return self::query()
             ->where('email', $email)
             ->first();
-    }
-
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('sm')
-            ->width(150)
-            ->height(150);
-
-        $this->addMediaConversion('md')
-            ->width(300)
-            ->height(300);
-
-        $this->addMediaConversion('lg')
-            ->width(500)
-            ->height(500);
     }
 }
