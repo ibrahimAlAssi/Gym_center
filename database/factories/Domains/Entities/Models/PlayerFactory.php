@@ -30,7 +30,7 @@ class PlayerFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->email(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', //passport
-            'phone' => fake()->phoneNumber(),
+            'phone' => fake()->numerify('09#########'),
             'active' => true,
             'gender' => PlayerGenderEnum::getRandomValue(),
             'attendance_days' => fake()->numberBetween(3, 30),

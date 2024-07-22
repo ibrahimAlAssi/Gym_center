@@ -1,7 +1,5 @@
 <?php
 
-use App\Domains\Entities\Models\Admin;
-
 return [
 
     /*
@@ -85,12 +83,9 @@ return [
     | Livewire's standard 200ms delay.
     |
     */
-    'path' => 'admin',
     'middleware' => [
         'auth:web',
         'filament',
     ],
-    'auth_guard' => 'web',
     'livewire_loading_delay' => 'default',
-    'user_model' => Admin::class,
 ];

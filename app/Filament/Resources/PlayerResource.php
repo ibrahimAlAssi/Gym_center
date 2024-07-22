@@ -1,0 +1,96 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Domains\Entities\Models\Player;
+use App\Filament\Resources\PlayerResource\Pages;
+use App\Filament\Resources\PlayerResource\RelationManagers\WalletRelationManager;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
+
+class PlayerResource extends Resource
+{
+    protected static ?string $model = Player::class;
+
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Section::make('Profile')
+                    ->collapsible()
+                    ->schema([
+                        TextInput::make('name')->required(),
+                        TextInput::make('email')->required()->unique(ignoreRecord: true),
+                        Select::make('gender')->required()->options([
+                            'male' => 'male',
+                            'female' => 'female',
+                        ])->required(),
+                        TextInput::make('phone')->required()->numeric()->minLength(10)->maxLength(12),
+                        TextInput::make('password')->required()->password()->visibleOn('create')
+                            ->columnSpanFull(),
+                        SpatieMediaLibraryFileUpload::make('avatar')->collection('avatar')->columnSpanFull(),
+                    ])->columns(2),
+            ]);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->columns([
+                TextColumn::make('name')->searchable()->toggleable(),
+
+                TextColumn::make('email')->toggleable(),
+
+                SpatieMediaLibraryImageColumn::make('avatar')
+                    ->collection('avatar')->toggleable(),
+
+                TextColumn::make('phone')->searchable()->toggleable(),
+
+                TextColumn::make('gender')->sortable()->toggleable(),
+
+                TextColumn::make('created_at')->sortable()
+                    ->date('M d , Y')->label('Create')->toggleable(),
+
+                TextColumn::make('wallet.available')->label('available')->toggleable(),
+                TextColumn::make('wallet.pending')->label('pending')->toggleable(),
+                TextColumn::make('wallet.total')->label('total')->toggleable(),
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            WalletRelationManager::class,
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListPlayers::route('/'),
+            'create' => Pages\CreatePlayer::route('/create'),
+            'edit' => Pages\EditPlayer::route('/{record}/edit'),
+        ];
+    }
+}

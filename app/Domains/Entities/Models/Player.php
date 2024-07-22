@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -42,13 +43,25 @@ class Player extends Model implements HasMedia
     protected $casts = [
         'password' => 'hashed',
         'active' => 'boolean',
-        'gender' => 'boolean',
         'attendance_days' => 'integer',
     ];
 
     protected $hidden = [
         'password',
     ];
+
+    public static function booted()
+    {
+        static::creating(function ($player) {
+            DB::transaction(function () use ($player) {
+                $wallet = Wallet::create([
+                    'available' => 0,
+                    'pending' => 0,
+                ]);
+                $player->wallet_id = $wallet->id;
+            });
+        });
+    }
 
     public function diet(): BelongsTo
     {
