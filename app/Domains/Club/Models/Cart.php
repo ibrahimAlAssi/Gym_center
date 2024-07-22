@@ -57,6 +57,8 @@ class Cart extends Model
                 $query->select([
                     'products.id',
                     'products.name',
+                    'products.price',
+                    'products.brand',
                 ])->with('media');
             }])
             ->when($playerId != null, fn ($query) => $query->where('player_id', $playerId))
