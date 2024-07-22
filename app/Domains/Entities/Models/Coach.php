@@ -71,6 +71,7 @@ class Coach extends Authenticatable implements HasMedia
             ->select('coaches.*', DB::raw('COUNT(players.id) AS total_trainers'))
             ->leftJoin('players', 'players.coach_id', '=', 'coaches.id')
             ->groupBy('coaches.id')
+            ->with('media')
             ->when($random, fn ($query) => $query->inRandomOrder())
             ->paginate(request()->get('per_page'));
     }

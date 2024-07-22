@@ -20,6 +20,10 @@ class CoachGridResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'specialization'  => $this->when($this->specialization, $this->specialization),
+            'experienceYears' => $this->when($this->experienceYears != null, $this->experienceYears),
+            'subscribePrice' => $this->when($this->subscribePrice != null, $this->subscribePrice),
+            'total_trainers' => $this->total_trainers,
             'gym' => [
                 'id' => $this->gym_id,
                 'name' => $this->whenLoaded('gym', fn () => $this->gym->name),

@@ -28,7 +28,7 @@ class CoachController extends Controller
 
     public function show(Coach $coach)
     {
-        $coach['total_trainers'] = $this->coach->getTotalTrainers($coach->id);
+        $coach['total_trainers'] = $this->player->where('coach_id', $coach->id)->count();
 
         return $this->successResponse(new ProfileResource($coach->load('roles', 'media', 'wallet')), 'success');
     }
@@ -59,5 +59,14 @@ class CoachController extends Controller
         } catch (\Throwable $th) {
             return $this->failedResponse($th->getMessage());
         }
+    }
+
+    public function myPlayers()
+    {
+        $players = $this->player->where('coach_id', auth()->user('coach')->id)
+            ->with(['media'])
+            ->paginate(request()->get('per_page'));
+
+        return $this->successResponse($players, 'success');
     }
 }
