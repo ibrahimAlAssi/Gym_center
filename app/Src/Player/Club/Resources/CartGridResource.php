@@ -20,6 +20,8 @@ class CartGridResource extends JsonResource
             'product' => $this->whenLoaded('product', fn () => [
                 'id' => $this->product->id,
                 'name' => $this->product->name,
+                'price' => $this->product->price,
+                'brand' => $this->product->brand,
                 'image' => $this->when(
                     $this->product->relationLoaded('media'), new MediaResource($this->product->getFirstMedia('products'))),
             ]),
