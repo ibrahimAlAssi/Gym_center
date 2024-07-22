@@ -18,7 +18,7 @@ class TypeGridResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('type'))),
+            'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('types'))),
         ];
     }
 }

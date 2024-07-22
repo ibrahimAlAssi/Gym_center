@@ -2,17 +2,16 @@
 
 namespace App\Src\Admin\Club\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Domains\Club\Models\Food;
 use App\Domains\Club\Models\NutritionalValue;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Club\Requests\StoreFoodRequest;
 use App\Src\Admin\Club\Requests\UpdateFoodRequest;
-use App\Src\Admin\Club\Resources\FoodResource;
 use App\Src\Admin\Club\Resources\FoodGridResource;
+use App\Src\Admin\Club\Resources\FoodResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class FoodController extends Controller
 {
@@ -35,7 +34,7 @@ class FoodController extends Controller
         try {
             DB::beginTransaction();
             $food = $this->food->create([
-                "name" => $request->name
+                'name' => $request->name,
             ]);
 
             // Collect nutritional values for batch insertion
@@ -43,14 +42,14 @@ class FoodController extends Controller
             foreach ($request->nutritionalValues as $value) {
                 $nutritionalValuesData[] = [
                     'food_id' => $food->id,
-                    'name'    => $value["name"],
-                    'value'   => $value["value"],
+                    'name' => $value['name'],
+                    'value' => $value['value'],
                 ];
             }
             NutritionalValue::insert($nutritionalValuesData);
 
             if ($request->hasFile('image')) {
-                $food->addMediaFromRequest('image')->toMediaCollection('foods');
+                $food->addMediaFromRequest('image')->toMediaCollection('food');
             }
             DB::commit();
 
@@ -78,8 +77,8 @@ class FoodController extends Controller
             foreach ($request->nutritionalValues as $value) {
                 $nutritionalValuesData[] = [
                     'food_id' => $food->id,
-                    'name'    => $value["name"],
-                    'value'   => $value["value"],
+                    'name' => $value['name'],
+                    'value' => $value['value'],
                 ];
             }
             NutritionalValue::insert($nutritionalValuesData);
@@ -108,9 +107,9 @@ class FoodController extends Controller
         ]);
         try {
             // Remove the existing image from the media library
-            $food->clearMediaCollection('foods');
+            $food->clearMediaCollection('food');
             // Store the new image in the media library
-            $food->addMediaFromRequest('image')->toMediaCollection('foods');
+            $food->addMediaFromRequest('image')->toMediaCollection('food');
 
             return $this->successResponse(new FoodResource($food->load('media')), 'updated');
         } catch (\Throwable $th) {

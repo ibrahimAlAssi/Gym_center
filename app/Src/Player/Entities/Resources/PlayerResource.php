@@ -22,6 +22,16 @@ class PlayerResource extends JsonResource
             'phone' => $this->phone,
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
+            'wallet' => $this->whenLoaded('wallet', fn () => [
+                'id' => $this->wallet->id,
+                'total' => $this->wallet->total,
+                'pending' => $this->wallet->pending,
+                'available' => $this->wallet->available,
+            ]),
+            'coach' => $this->whenLoaded('coach', fn () => [
+                'id' => $this->coach->id,
+                'name' => $this->coach->name,
+            ]),
             'description' => $this->description,
         ];
     }

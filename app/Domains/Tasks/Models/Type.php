@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class Type extends Model implements HasMedia
@@ -34,20 +33,5 @@ class Type extends Model implements HasMedia
             ->select(['id', 'name'])
             ->with('media')
             ->get();
-    }
-
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('sm')
-            ->width(150)
-            ->height(150);
-
-        $this->addMediaConversion('md')
-            ->width(300)
-            ->height(300);
-
-        $this->addMediaConversion('lg')
-            ->width(500)
-            ->height(500);
     }
 }

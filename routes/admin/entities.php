@@ -4,6 +4,7 @@ use App\Src\Admin\Entities\Controllers\AdminController;
 use App\Src\Admin\Entities\Controllers\AuthController;
 use App\Src\Admin\Entities\Controllers\CoachController;
 use App\Src\Admin\Entities\Controllers\FeedbackController;
+use App\Src\Admin\Entities\Controllers\PlayerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:admin')->group(function () {
@@ -25,4 +26,14 @@ Route::middleware('auth:admin')->group(function () {
         'coaches' => CoachController::class,
         'feedbacks' => FeedbackController::class,
     ]);
+
+    Route::prefix('players')
+        ->name('players.')
+        ->controller(PlayerController::class)
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('', 'store')->name('store');
+            Route::post('{player}', 'update')->name('update');
+            Route::delete('{player}', 'destroy')->name('destroy');
+        });
 });

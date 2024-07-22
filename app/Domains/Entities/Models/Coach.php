@@ -2,6 +2,9 @@
 
 namespace App\Domains\Entities\Models;
 
+use App\Domains\Operations\Models\Wallet;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Support\Facades\DB;
@@ -10,7 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -25,6 +28,7 @@ class Coach extends Authenticatable implements HasMedia
 
     protected $fillable = [
         'name',
+        'wallet_id',
         'email',
         'password',
         'phone',
@@ -43,6 +47,11 @@ class Coach extends Authenticatable implements HasMedia
     protected $hidden = [
         'password',
     ];
+
+    public function wallet(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class);
+    }
 
     public function chats(): HasMany
     {
@@ -71,25 +80,5 @@ class Coach extends Authenticatable implements HasMedia
         return self::query()
             ->where('email', $email)
             ->first();
-    }
-
-    public function registerMediaConversions(?Media $media = null): void
-    {
-        $this->addMediaConversion('sm')
-            ->width(150)
-            ->height(150);
-
-        $this->addMediaConversion('md')
-            ->width(300)
-            ->height(300);
-
-        $this->addMediaConversion('lg')
-            ->width(500)
-            ->height(500);
-    }
-
-    public function getTotalTrainers($coach_id)
-    {
-        return Player::where('coach_id', $coach_id)->count();
     }
 }

@@ -20,8 +20,8 @@ class DietGridResource extends JsonResource
             'name' => $this->name,
             'is_free' => $this->is_free,
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('diet'))),
-            'allowedFoodsList' => DietFoodResource::collection($this->allowedFoodsList),
-            'notAllowedFoodsList' => DietFoodResource::collection($this->notAllowedFoodsList),
+            'allowedFoodsList' => DietFoodResource::collection($this->whenLoaded('allowedFoods')),
+            'notAllowedFoodsList' => DietFoodResource::collection($this->whenLoaded('notAllowedFoods')),
         ];
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders\Domains\Club;
 
-use Illuminate\Support\Str;
-use Illuminate\Database\Seeder;
 use App\Domains\Club\Models\Food;
 use App\Domains\Club\Models\NutritionalValue;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FoodSeeder extends Seeder
@@ -16,26 +16,26 @@ class FoodSeeder extends Seeder
     public function run(): void
     {
         $foodData = [
-            ['name' => 'Tomato',],
-            ['name' => 'Egg',],
-            ['name' => 'Carrot',],
-            ['name' => 'Spinach',],
-            ['name' => 'Broccoli',],
-            ['name' => 'Salmon',],
-            ['name' => 'Quinoa',],
-            ['name' => 'Yogurt',],
-            ['name' => 'Chicken breast',],
-            ['name' => 'Almonds',],
-            ['name' => 'Avocado',],
-            ['name' => 'Oats',],
-            ['name' => 'Berries',],
-            ['name' => 'Sweet Potato',],
-            ['name' => 'Tuna',],
-            ['name' => 'Lentils',],
-            ['name' => 'Kale',],
-            ['name' => 'Chia Seeds',],
-            ['name' => 'Bell Pepper (Red)',],
-            ['name' => 'Cottage Cheese',],
+            ['name' => 'Tomato'],
+            ['name' => 'Egg'],
+            ['name' => 'Carrot'],
+            ['name' => 'Spinach'],
+            ['name' => 'Broccoli'],
+            ['name' => 'Salmon'],
+            ['name' => 'Quinoa'],
+            ['name' => 'Yogurt'],
+            ['name' => 'Chicken breast'],
+            ['name' => 'Almonds'],
+            ['name' => 'Avocado'],
+            ['name' => 'Oats'],
+            ['name' => 'Berries'],
+            ['name' => 'Sweet Potato'],
+            ['name' => 'Tuna'],
+            ['name' => 'Lentils'],
+            ['name' => 'Kale'],
+            ['name' => 'Chia Seeds'],
+            ['name' => 'Bell Pepper (Red)'],
+            ['name' => 'Cottage Cheese'],
             ['name' => 'Rice'],
             ['name' => 'Peanuts'],
             ['name' => 'Milk'],
@@ -192,24 +192,25 @@ class FoodSeeder extends Seeder
         NutritionalValue::insert($nutritionalValuesData);
 
         for ($i = 1; $i <= 23; $i++) {
-            if ($i == 8 || $i == 17 || $i == 21 || $i == 22) continue;
-            Media::insert([
-                [
-                    'model_type' => 'food',
-                    'model_id' => $i,
-                    'uuid' => Str::uuid()->toString(),
-                    'collection_name' => 'foods',
-                    'name' => 'food_' . $i,
-                    'file_name' => $i . '.jpg',
-                    'mime_type' => 'jpg',
-                    'disk' => 'public_dir',
-                    'size' => 1200,
-                    'manipulations' => json_encode([]),
-                    'custom_properties' => json_encode([]),
-                    'generated_conversions' => json_encode([]),
-                    'responsive_images' => json_encode([]),
-                ],
-            ]);
+            if ($i == 8 || $i == 17 || $i == 21 || $i == 22) {
+                continue;
+            }
+            $dataMedia[] = [
+                'model_type' => 'food',
+                'model_id' => $i,
+                'uuid' => Str::uuid()->toString(),
+                'collection_name' => 'food',
+                'name' => 'food_'.$i,
+                'file_name' => $i.'.jpg',
+                'mime_type' => 'jpg',
+                'disk' => 'public_dir',
+                'size' => 1200,
+                'manipulations' => json_encode([]),
+                'custom_properties' => json_encode([]),
+                'generated_conversions' => json_encode([]),
+                'responsive_images' => json_encode([]),
+            ];
         }
+        Media::insert($dataMedia);
     }
 }

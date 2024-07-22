@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         return $this->successResponse(
             [
-                'player' => PlayerResource::make($player),
+                'player' => PlayerResource::make($player->load('wallet', 'coach')),
                 'token' => $player->createToken('player')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
@@ -53,7 +53,7 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return $this->successResponse(
-            PlayerResource::make($request->user()),
+            PlayerResource::make($request->user()->load('wallet', 'coach', 'media')),
             __('shared.response_messages.success')
         );
     }

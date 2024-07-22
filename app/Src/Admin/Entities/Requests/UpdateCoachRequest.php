@@ -4,6 +4,7 @@ namespace App\Src\Admin\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class UpdateCoachRequest extends FormRequest
 {
@@ -24,6 +25,8 @@ class UpdateCoachRequest extends FormRequest
     {
         return [
             'role_id' => ['sometimes', Rule::exists('roles', 'id')],
+            'available' => ['sometimes', 'numeric', 'min:0'],
+            'pending' => ['sometimes', 'numeric', 'min:0'],
             'specialization' => ['sometimes', 'string'],
             'experienceYears' => ['sometimes', 'numeric'],
             'subscribePrice' => ['sometimes', 'numeric'],
@@ -32,5 +35,17 @@ class UpdateCoachRequest extends FormRequest
             'phone' => ['sometimes', 'string', 'unique:coaches,phone,'.$this->route('coach')->id],
             'description' => ['nullable', 'string'],
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function () {
+            if ($this->filled('available') && $this->filled('pending')) {
+                throw ValidationException::withMessages([
+                    'available' => 'pending:cannot_present_same_time',
+                    'pending' => 'available:cannot_present_same_time',
+                ]);
+            }
+        });
     }
 }

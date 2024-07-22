@@ -24,6 +24,7 @@ class StoreCoachRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'available' => ['nullable', 'numeric', 'min:0'],
             'role_id' => ['required', Rule::exists('roles', 'id')],
             'name' => ['required', 'string'],
             'specialization' => ['required', 'string'],
@@ -38,7 +39,6 @@ class StoreCoachRequest extends FormRequest
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // Maximum file size in kilobytes
-                Rule::dimensions()->maxWidth(1000)->maxHeight(1000), // Maximum dimensions in pixels
             ],
             'description' => ['nullable', 'string'],
         ];

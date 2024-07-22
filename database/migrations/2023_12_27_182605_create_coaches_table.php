@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('coaches', function (Blueprint $table) {
             $table->id();
             $table->char('name', 100);
+            $table->foreignId('wallet_id');
             $table->string('specialization');
             $table->double('experienceYears');
             $table->double('subscribePrice');

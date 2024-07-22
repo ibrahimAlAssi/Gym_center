@@ -7,6 +7,7 @@ use App\Domains\Tasks\Models\Task;
 use App\Http\Controllers\Controller;
 use App\Src\Coach\Tasks\Requests\StoreTaskRequest;
 use App\Src\Coach\Tasks\Requests\UpdateTaskRequest;
+use App\Src\Coach\Tasks\Resources\TaskGridResource;
 use App\Src\Coach\Tasks\Resources\TaskResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,7 +31,7 @@ class TaskController extends Controller
 
     public function index(Request $request)
     {
-        return TaskResource::collection($this->task->getForGrid($request->random))
+        return TaskGridResource::collection($this->task->getForGrid($request->random))
             ->additional(['message' => __('shared.response_messages.success')]);
     }
 
@@ -40,12 +41,12 @@ class TaskController extends Controller
             DB::beginTransaction();
             $task = $this->task->create($request->validated());
             if ($request->has('image')) {
-                $task->addMedia($request->image)->toMediaCollection('task');
+                $task->addMedia($request->image)->toMediaCollection('tasks');
             }
             DB::commit();
 
             return $this->createdResponse(
-                TaskResource::make($task->load('media')),
+                TaskResource::make($task->load('media', 'type')),
                 __('shared.response_messages.created_success')
             );
         } catch (\Throwable $th) {
@@ -62,13 +63,13 @@ class TaskController extends Controller
             DB::beginTransaction();
             $task->update($request->validated());
             if ($request->has('image')) {
-                $task->clearMediaCollection('task');
-                $task->addMedia($request->image)->toMediaCollection('task');
+                $task->clearMediaCollection('tasks');
+                $task->addMedia($request->image)->toMediaCollection('tasks');
             }
             DB::commit();
 
             return $this->createdResponse(
-                TaskResource::make($task->load('media')),
+                TaskResource::make($task->load('media', 'type')),
                 __('shared.response_messages.success')
             );
         } catch (\Throwable $th) {

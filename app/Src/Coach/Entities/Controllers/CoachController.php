@@ -30,7 +30,7 @@ class CoachController extends Controller
     {
         $coach['total_trainers'] = $this->coach->getTotalTrainers($coach->id);
 
-        return $this->successResponse(new ProfileResource($coach->load('roles', 'media')), 'success');
+        return $this->successResponse(new ProfileResource($coach->load('roles', 'media', 'wallet')), 'success');
     }
 
     public function update(UpdateCoachRequest $request, Coach $coach)

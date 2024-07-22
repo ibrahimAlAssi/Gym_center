@@ -21,6 +21,12 @@ class CoachResource extends JsonResource
             'email' => $this->email,
             'phone' => $this->phone,
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
+            'wallet' => $this->whenLoaded('wallet', fn () => [
+                'id' => $this->wallet->id,
+                'total' => $this->wallet->total,
+                'pending' => $this->wallet->pending,
+                'available' => $this->wallet->available,
+            ]),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
         ];
     }

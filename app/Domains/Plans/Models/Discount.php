@@ -49,7 +49,7 @@ class Discount extends Model
                 'plans.name as plan_name',
             ])
             ->join('plans', 'plans.id', '=', 'discounts.plan_id')
-            ->when($active === true, fn ($query) => $query->whereDate('start_date', '>=', now())
+            ->when($active === true, fn ($query) => $query->whereDate('start_date', '<=', now())
                 ->whereDate('end_date', '>=', now()))
             ->paginate(request()->get('per_page'));
     }
