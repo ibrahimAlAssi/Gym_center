@@ -47,7 +47,8 @@ class DatabaseSeeder extends Seeder
 
         $player = Player::factory()
             ->create(['email' => 'player@gmail.com']);
-        Coach::factory()->count(10)->create();
+        Coach::factory()->count(5)->create();
+        $this->call(CoachSeeder::class);
         Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
         Player::factory()->count(4)->create(['coach_id' => 2, 'diet_id' => null]);
         $playerCart = Cart::factory()->create(['player_id' => 1, 'coach_id' => null, 'product_id' => 1]);
