@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Domains\Club;
 
 use App\Domains\Club\Models\Product;
 use Illuminate\Database\Seeder;

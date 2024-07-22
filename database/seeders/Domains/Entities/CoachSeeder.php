@@ -1,8 +1,7 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Domains\Entities;
 
-use App\Domains\Club\Models\Product;
 use App\Domains\Entities\Models\Coach;
 use Illuminate\Database\Seeder;
 

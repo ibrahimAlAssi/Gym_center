@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\Tax;
 use App\Domains\Club\Models\Cart;
-use Database\Seeders\ProductSeeder;
 use App\Domains\Club\Models\Contact;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
@@ -21,10 +20,13 @@ use App\Domains\Entities\Models\Message;
 use App\Domains\Entities\Models\Feedback;
 use App\Domains\Plans\Models\Subscription;
 use App\Domains\Tasks\Models\ScheduleTask;
-use App\Domains\Club\Models\NutritionalValue;
 use Database\Seeders\Domains\Club\DietSeeder;
 use Database\Seeders\Domains\Club\FoodSeeder;
+use Database\Seeders\Domains\Club\WorkSeeder;
 use Database\Seeders\Domains\Plans\PlanSeeder;
+use Database\Seeders\Domains\Club\ProductSeeder;
+use Database\Seeders\Domains\Entities\CoachSeeder;
+use Database\Seeders\Domains\Entities\PlayerSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,8 +51,9 @@ class DatabaseSeeder extends Seeder
             ->create(['email' => 'player@gmail.com']);
         Coach::factory()->count(5)->create();
         $this->call(CoachSeeder::class);
-        Player::factory()->count(6)->create(['coach_id' => 1, 'diet_id' => null]);
-        Player::factory()->count(4)->create(['coach_id' => 2, 'diet_id' => null]);
+        Player::factory()->count(2)->create(['coach_id' => 1, 'diet_id' => null]);
+        Player::factory()->count(1)->create(['coach_id' => 2, 'diet_id' => null]);
+        $this->call(PlayerSeeder::class);
         $playerCart = Cart::factory()->create(['player_id' => 1, 'coach_id' => null, 'product_id' => 1]);
         $coachCart = Cart::factory()->create(['coach_id' => 1, 'player_id' => null, 'product_id' => 2]);
         Contact::factory()->for($gym)->create();
