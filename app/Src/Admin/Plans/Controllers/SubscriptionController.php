@@ -50,7 +50,10 @@ class SubscriptionController extends Controller
             $data['start_date'] = Carbon::now();
             // check if wallet has the cost
             $player_wallet = getPlayerWallet($data['player_id']);
-            throw_if($data['cost'] > $player_wallet->available, new HttpClientException('Your subscription not ended yet.'));
+            throw_if(
+                $data['cost'] > $player_wallet->available,
+                new HttpClientException('Your subscription not ended yet.')
+            );
             $player_wallet->available -= $data['cost'];
             $player_wallet->pending += $data['cost'];
             $subscription = $this->subscription->create($data);
