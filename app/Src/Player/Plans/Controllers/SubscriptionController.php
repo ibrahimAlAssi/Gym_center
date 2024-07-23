@@ -37,16 +37,24 @@ class SubscriptionController extends Controller
         throw_if(empty($plan), new ValidationException(
             __('validation.exists', ['attribute' => 'plan_id'])
         ));
-        $subscription = $this->subscription->activeSubscription($request->player_id);
 
-        throw_if(! empty($subscription), new HttpClientException('Your subscription not ended yet.'));
+        // check if wallet has the cost
+        $discount = $this->discount->findActiveDiscountByPlan($plan->id);
+        $discount = $discount->value ?? 0;
+        $data['cost'] = $plan->cost * (1 - $discount / 100);
+        $player_wallet = getPlayerWallet($request['player_id']);
+        throw_if(
+            $data['cost'] > $player_wallet->available,
+            new HttpClientException('Your need to charge your wallet :)')
+        );
+
         try {
             $data = $request->validated();
-            $discount = $this->discount->findActiveDiscountByPlan($plan->id);
             $data['discount_id'] = $discount?->id;
-            $discount = $discount->value ?? 0;
-            $data['cost'] = $plan->cost * (1 - $discount / 100);
             $data['start_date'] = Carbon::now();
+            $player_wallet->available -= $data['cost'];
+            $player_wallet->pending += $data['cost'];
+            $player_wallet->save();
             $subscription = $this->subscription->create($data);
 
             return $this->createdResponse(

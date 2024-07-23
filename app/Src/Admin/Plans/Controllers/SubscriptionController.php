@@ -56,6 +56,7 @@ class SubscriptionController extends Controller
             );
             $player_wallet->available -= $data['cost'];
             $player_wallet->pending += $data['cost'];
+            $player_wallet->save();
             $subscription = $this->subscription->create($data);
 
             return $this->createdResponse(
