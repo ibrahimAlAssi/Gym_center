@@ -2,16 +2,17 @@
 
 namespace App\Src\Coach\Entities\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
-use App\Http\Controllers\Controller;
+use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Src\Coach\Entities\Resources\ProfileResource;
+use App\Src\Player\Entities\Resources\PlayerResource;
 use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
 use App\Src\Coach\Entities\Requests\UpdateImageRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
-use App\Src\Coach\Entities\Resources\CoachResource;
-use App\Src\Coach\Entities\Resources\ProfileResource;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
@@ -67,6 +68,7 @@ class CoachController extends Controller
             ->with(['media'])
             ->paginate(request()->get('per_page'));
 
-        return $this->successResponse($players, 'success');
+        return PlayerResource::collection($players)
+            ->additional(['message' => __('shared.response_messages.success')]);
     }
 }
