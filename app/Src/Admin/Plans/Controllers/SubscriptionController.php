@@ -40,7 +40,7 @@ class SubscriptionController extends Controller
         ));
         $subscription = $this->subscription->activeSubscription($request->player_id);
 
-        throw_if(! empty($subscription), new HttpClientException('Your subscription not ended yet.'));
+        // throw_if(!empty($subscription), new HttpClientException('Your subscription not ended yet.'));
         try {
             $data = $request->validated();
             $discount = $this->discount->findActiveDiscountByPlan($plan->id);
@@ -48,6 +48,11 @@ class SubscriptionController extends Controller
             $discount = $discount->value ?? 0;
             $data['cost'] = $plan->cost * (1 - $discount / 100);
             $data['start_date'] = Carbon::now();
+            // check if wallet has the cost
+            $player_wallet = getPlayerWallet($data['player_id']);
+            throw_if($data['cost'] > $player_wallet->available, new HttpClientException('Your subscription not ended yet.'));
+            $player_wallet->available -= $data['cost'];
+            $player_wallet->pending += $data['cost'];
             $subscription = $this->subscription->create($data);
 
             return $this->createdResponse(
