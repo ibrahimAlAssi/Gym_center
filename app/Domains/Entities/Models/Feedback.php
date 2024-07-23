@@ -29,6 +29,11 @@ class Feedback extends Model
         return $this->belongsTo(Player::class);
     }
 
+    public function coach(): BelongsTo
+    {
+        return $this->belongsTo(Coach::class);
+    }
+
     // Start Helper Function
     public function getForGrid(?int $playerId = null, ?int $coachId = null)
     {

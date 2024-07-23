@@ -5,17 +5,15 @@ namespace App\Domains\Entities\Models;
 use App\Domains\Operations\Models\Wallet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Support\Facades\DB;
-use Spatie\QueryBuilder\QueryBuilder;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Coach extends Authenticatable implements HasMedia
 {
@@ -47,6 +45,19 @@ class Coach extends Authenticatable implements HasMedia
     protected $hidden = [
         'password',
     ];
+
+    public static function booted()
+    {
+        static::creating(function ($coach) {
+            DB::transaction(function () use ($coach) {
+                $wallet = Wallet::create([
+                    'available' => 0,
+                    'pending' => 0,
+                ]);
+                $coach->wallet_id = $wallet->id;
+            });
+        });
+    }
 
     public function wallet(): BelongsTo
     {
