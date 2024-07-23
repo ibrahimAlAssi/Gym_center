@@ -35,9 +35,8 @@ Route::middleware('auth:coach')->group(function () {
             Route::get('', 'index')->name('index');
             Route::get('/{coach}', 'show')->name('show');
             Route::put('', 'update')->name('update');
-            Route::put('update-image', 'updateImage')->name('updateImage');
         });
-        Route::get('my-players', [CoachController::class,'myPlayers']);
+    Route::get('my-players', [CoachController::class, 'myPlayers']);
 
     // Start Chat
     Route::prefix('chats')

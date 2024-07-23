@@ -5,6 +5,7 @@ use App\Src\Player\Entities\Controllers\ChatController;
 use App\Src\Player\Entities\Controllers\CoachController;
 use App\Src\Player\Entities\Controllers\FeedbackController;
 use App\Src\Player\Entities\Controllers\MessageController;
+use App\Src\Player\Entities\Controllers\PlayerController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:player')->group(function () {
@@ -47,6 +48,13 @@ Route::middleware('auth:player')->group(function () {
             Route::post('', 'store')->name('store');
             Route::post('/{message}', 'update')->name('update');
             Route::delete('/{message}', 'destroy')->name('destroy');
+        });
+
+    Route::prefix('players')
+        ->name('players.')
+        ->controller(PlayerController::class)
+        ->group(function () {
+            Route::put('', 'update')->name('update');
         });
 
     Route::apiResources([

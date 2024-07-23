@@ -1,18 +1,11 @@
 <?php
 
-namespace App\Src\Coach\Entities\Requests;
+namespace App\Src\Player\Entities\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-/**
- * @property mixed $name
- * @property mixed $id
- * @property mixed $description
- * @property mixed $weight
- * @property mixed $quantity
- * @property mixed $status
- */
-class UpdateImageRequest extends FormRequest
+class UpdatePlayerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,8 +23,13 @@ class UpdateImageRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => ['sometimes', 'string', ''],
+            'email' => ['sometimes', 'email', Rule::unique('players', 'email')
+                ->ignore(request()->user()->id)],
+            'phone' => ['sometimes', 'string', Rule::unique('players', 'phone')
+                ->ignore(request()->user()->id), 'min_digits:10'],
             'avatar' => [
-                'required',
+                'sometimes',
                 'file',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',

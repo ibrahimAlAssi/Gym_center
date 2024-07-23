@@ -32,7 +32,6 @@ class PlayerResource extends JsonResource
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
             ]),
-            'description' => $this->description,
         ];
     }
 }

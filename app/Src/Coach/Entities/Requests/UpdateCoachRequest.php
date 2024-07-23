@@ -23,11 +23,17 @@ class UpdateCoachRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'role_id' => ['sometimes', Rule::exists('roles', 'id')],
             'name' => ['sometimes', 'string'],
             'email' => ['sometimes', 'string',  Rule::unique('coaches', 'email')->ignore(auth()->id())],
             'phone' => ['sometimes', 'string', 'unique:coaches,phone,'.auth()->user('coach')->id],
             'description' => ['nullable', 'string'],
+            'avatar' => [
+                'sometimes',
+                'file',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048', // Maximum file size in kilobytes
+            ],
         ];
     }
 }
