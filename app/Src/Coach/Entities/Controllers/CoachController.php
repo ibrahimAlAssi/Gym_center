@@ -11,7 +11,6 @@ use App\Src\Coach\Entities\Resources\CoachResource;
 use App\Src\Coach\Entities\Resources\ProfileResource;
 use App\Src\Player\Entities\Resources\PlayerResource;
 use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
-use App\Src\Coach\Entities\Requests\UpdateImageRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
 
 class CoachController extends Controller
@@ -34,31 +33,24 @@ class CoachController extends Controller
         return $this->successResponse(new ProfileResource($coach->load('roles', 'media', 'wallet')), 'success');
     }
 
-    public function update(UpdateCoachRequest $request, Coach $coach)
+    public function update(UpdateCoachRequest $request)
     {
         try {
+            $coach = $request->user();
             $coach->update($request->validated());
+            if ($request->has('avatar')) {
+                $coach->clearMediaCollection('coaches');
+                $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
+            }
 
-            return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
+            return $this->successResponse(
+                new CoachResource($coach->load('media')),
+                __('shared.response_messages.success')
+            );
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
-        }
-    }
-
-    public function updateImage(UpdateImageRequest $request)
-    {
-        try {
-            $coach = Coach::findOrFail(auth()->user('coach')->id);
-            // Remove the existing image from the media library
-            $coach->clearMediaCollection('coaches');
-            // Store the new image in the media library
-            $coach->addMediaFromRequest('avatar')->toMediaCollection('coaches');
-
-            return $this->successResponse(new CoachResource($coach->load('media')), 'updated');
-        } catch (\Throwable $th) {
-            return $this->failedResponse($th->getMessage());
         }
     }
 
