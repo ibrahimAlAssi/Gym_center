@@ -15,6 +15,8 @@ use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Support\Facades\Log;
 
+use function App\Src\Shared\getPlayerWallet;
+
 class SubscriptionController extends Controller
 {
     public function __construct(

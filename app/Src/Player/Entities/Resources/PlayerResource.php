@@ -6,6 +6,8 @@ use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use function App\Src\Shared\getActiveSubscription;
+
 class PlayerResource extends JsonResource
 {
     /**
