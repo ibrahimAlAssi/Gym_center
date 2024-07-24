@@ -23,6 +23,7 @@ class TaskGridResource extends JsonResource
                 'name' => $this->type_name,
             ],
             'number' => $this->number,
+            'url' => $this->url,
             'description' => $this->when($this->description != null, $this->description),
             'image' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('tasks'))),
         ];
