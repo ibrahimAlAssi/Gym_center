@@ -24,7 +24,6 @@ class StoreSubscriptionRequest extends FormRequest
     {
 
         return [
-            'player_id' => ['required', 'integer', Rule::exists('players', 'id')],
             'plan_id' => ['required', 'integer'],
             'coach_id' => ['nullable', 'integer', Rule::exists('coaches', 'id')],
             'description' => ['nullable', 'string'],

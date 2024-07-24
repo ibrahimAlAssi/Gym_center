@@ -6,6 +6,8 @@ use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use function App\Src\Shared\getActiveSubscription;
+
 class PlayerResource extends JsonResource
 {
     /**
@@ -33,11 +35,10 @@ class PlayerResource extends JsonResource
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
             ]),
-            'subscription' => [
+            'subscription' => $this->when(!empty($active_subscription),[
                 'active_plan' => $active_subscription?->plan->name,
                 'end_date'    => $active_subscription?->end_date,
-            ],
-            'description' => $this->description,
+            ]),
         ];
     }
 }

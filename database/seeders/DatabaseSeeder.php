@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
 
         $player = Player::factory()
-            ->create(['email' => 'player@gmail.com']);
+            ->create(['email' => 'player@gmail.com','coach_id'=>1]);
         Coach::factory()->count(5)->create();
         $this->call(CoachSeeder::class);
         Player::factory()->count(2)->create(['coach_id' => 1, 'diet_id' => null]);
