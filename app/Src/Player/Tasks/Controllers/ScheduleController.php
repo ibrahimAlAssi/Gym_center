@@ -18,8 +18,8 @@ class ScheduleController extends Controller
     public function index()
     {
         return $this->successResponse(
-            ScheduleGridResource::make(
-                $this->schedule->getForGrid(playerId: request()->user('player')->id)[0]
+            ScheduleGridResource::collection(
+                $this->schedule->getForGrid(playerId: request()->user('player')->id)
             ),
             __('shared.response_messages.success')
         );
