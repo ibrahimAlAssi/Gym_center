@@ -3,11 +3,11 @@
 namespace App\Domains\Tasks\Models;
 
 use Carbon\Carbon;
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class Schedule extends Model
 {
@@ -42,6 +42,7 @@ class Schedule extends Model
     {
 
         $currentDayOfWeek = Carbon::now()->dayOfWeek + 1;
+
         return QueryBuilder::for(Schedule::class)
             ->allowedFilters([
                 'schedules.day',
