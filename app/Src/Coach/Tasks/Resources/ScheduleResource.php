@@ -2,8 +2,8 @@
 
 namespace App\Src\Coach\Tasks\Resources;
 
-use App\Src\Player\Tasks\Resources\TaskResource;
 use Illuminate\Http\Request;
+use App\Src\Coach\Tasks\Resources\TaskResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ScheduleResource extends JsonResource

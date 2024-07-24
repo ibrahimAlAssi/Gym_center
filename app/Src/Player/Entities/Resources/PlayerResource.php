@@ -35,11 +35,10 @@ class PlayerResource extends JsonResource
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
             ]),
-            'subscription' => [
+            'subscription' => $this->when(!empty($active_subscription),[
                 'active_plan' => $active_subscription?->plan->name,
                 'end_date'    => $active_subscription?->end_date,
-            ],
-            'description' => $this->description,
+            ]),
         ];
     }
 }
