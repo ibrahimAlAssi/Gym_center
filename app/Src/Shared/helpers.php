@@ -1,4 +1,5 @@
 <?php
+namespace App\Src\Shared;
 
 use Carbon\Carbon;
 use App\Domains\Entities\Models\Player;
