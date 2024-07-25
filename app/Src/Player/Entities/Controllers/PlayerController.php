@@ -11,7 +11,6 @@ class PlayerController extends Controller
 {
     public function update(UpdatePlayerRequest $request)
     {
-        return "ok";
         try {
             $player = $request->user();
             $player->update($request->validated());
