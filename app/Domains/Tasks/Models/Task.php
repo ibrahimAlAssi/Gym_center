@@ -22,6 +22,7 @@ class Task extends Model implements HasMedia
 
     protected $fillable = [
         'name',
+        'url',
         'number',
         'description',
         'type_id',
@@ -63,6 +64,7 @@ class Task extends Model implements HasMedia
                 'tasks.id',
                 'tasks.name',
                 'tasks.number',
+                'tasks.url',
                 'tasks.description',
                 'types.id as type_id',
                 'types.name as type_name',

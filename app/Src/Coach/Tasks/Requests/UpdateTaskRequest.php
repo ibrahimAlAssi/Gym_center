@@ -27,6 +27,7 @@ class UpdateTaskRequest extends FormRequest
             'type_id' => ['sometimes', 'string', Rule::exists('types', 'id')],
             'number' => ['sometimes', 'integer'],
             'description' => ['sometimes', 'string'],
+            'url' => ['sometimes'],
             'image' => ['sometimes', 'image'],
         ];
     }
