@@ -2,7 +2,6 @@
 
 namespace App\Domains\Plans\Models;
 
-use App\Domains\Club\Models\Gym;
 use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,26 +16,24 @@ class Payment extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'gym_id',
-        'subscribe_id',
+        'subscription_id',
+        'order_id',
         'player_id',
-        'payment_method',
-        'transaction_data',
-        'transaction_id',
+        'coach_id',
+        'total',
     ];
 
-    public function subscribe(): BelongsTo
+    protected $casts = [
+        'total' => 'decimal:2',
+    ];
+
+    public function subscription(): BelongsTo
     {
-        return $this->BelongsTo(Subscribe::class);
+        return $this->BelongsTo(Subscription::class);
     }
 
     public function player(): BelongsTo
     {
         return $this->BelongsTo(Player::class);
-    }
-
-    public function gym(): BelongsTo
-    {
-        return $this->belongsTo(Gym::class);
     }
 }

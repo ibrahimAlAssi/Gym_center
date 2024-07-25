@@ -17,6 +17,7 @@ class SubscriptionGridResource extends JsonResource
         return [
             'id' => $this->id,
             'cost' => $this->cost,
+            'end_date' => $this->end_date,
             'description' => $this->when($this->description != null, $this->description),
             'coach' => $this->when($this->coach_id != null, [
                 'id' => $this->coach_id,

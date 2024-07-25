@@ -73,9 +73,11 @@ class Subscription extends Model
                 AllowedFilter::exact('plans.name'),
                 AllowedFilter::exact('plans.type'),
             ])
+            ->defaultSort('-id')
             ->select([
                 'subscriptions.id',
                 'subscriptions.cost',
+                'subscriptions.end_date',
                 'subscriptions.description',
                 'coaches.id as coach_id',
                 'coaches.name as coach_name',
