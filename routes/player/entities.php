@@ -50,7 +50,7 @@ Route::middleware('auth:player')->group(function () {
             Route::delete('/{message}', 'destroy')->name('destroy');
         });
 
-    Route::prefix('profile')
+    Route::prefix('players')
         ->name('players.')
         ->controller(PlayerController::class)
         ->group(function () {
