@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('coach_id')->nullable()->constrained();
             $table->foreignId('player_id')->nullable()->constrained();
-            $table->string('payment_type');
             $table->timestamps();
         });
     }

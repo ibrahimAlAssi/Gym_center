@@ -19,7 +19,6 @@ class Order extends Model
     protected $fillable = [
         'coach_id',
         'player_id',
-        'payment_type',
     ];
 
     public function coach(): BelongsTo
@@ -45,7 +44,6 @@ class Order extends Model
                 'orders.id',
                 'orders.player_id',
                 'orders.coach_id',
-                'orders.payment_type',
             ])
             ->with(['orderDetails' => function ($query) {
                 $query->select([
@@ -68,7 +66,6 @@ class Order extends Model
             'orders.id',
             'orders.player_id',
             'orders.coach_id',
-            'orders.payment_type',
         ])
             ->with(['orderDetails' => function ($query) {
                 $query->select([

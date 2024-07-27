@@ -16,7 +16,6 @@ class OrderResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'payment_type' => $this->payment_type,
             'details' => OrderDetailResource::collection($this->whenLoaded('orderDetails')),
         ];
     }

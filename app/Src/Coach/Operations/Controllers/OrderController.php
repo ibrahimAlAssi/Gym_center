@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Src\Player\Operations\Controllers;
+namespace App\Src\Coach\Operations\Controllers;
 
 use App\Domains\Operations\Models\Order;
 use App\Domains\Operations\Services\ProcessStoreOrderService;
 use App\Http\Controllers\Controller;
-use App\Src\Player\Operations\Requests\StoreOrderRequest;
-use App\Src\Player\Operations\Resources\OrderGridResource;
-use App\Src\Player\Operations\Resources\OrderResource;
+use App\Src\Coach\Operations\Requests\StoreOrderRequest;
+use App\Src\Coach\Operations\Resources\OrderGridResource;
+use App\Src\Coach\Operations\Resources\OrderResource;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -28,7 +28,7 @@ class OrderController extends Controller
     {
         $order = $processStoreOrderService->execute(
             data: $request->validated(),
-            playerId: $request->user()->id,
+            coachId: $request->user()->id,
         );
         throw_if(
             $order === Response::HTTP_NOT_ACCEPTABLE,

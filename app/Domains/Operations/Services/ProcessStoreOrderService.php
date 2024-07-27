@@ -3,6 +3,7 @@
 namespace App\Domains\Operations\Services;
 
 use App\Domains\Club\Models\Cart;
+use App\Domains\Operations\Enums\OrderPaymentTypeEnum;
 use App\Domains\Operations\Models\Order;
 use App\Domains\Plans\Models\Payment;
 use App\Src\Shared\Traits\ApiResponseHelper;
@@ -25,7 +26,11 @@ class ProcessStoreOrderService
 
     public function execute(array $data, ?int $coachId = null, ?int $playerId = null)
     {
-        $carts = $this->cart->getMyCart(coachId: $coachId, playerId: $playerId);
+        $carts = $this->cart->getMyCart(
+            coachId: $coachId,
+            playerId: $playerId,
+            cartsId: $data['cart_ids']
+        );
         throw_if(
             $carts->count() != count($data['cart_ids']),
             new HttpException(
@@ -42,11 +47,26 @@ class ProcessStoreOrderService
 
             $totalPrice = $this->handleOrderDetails($carts, $order);
 
-            $this->payment->insert([
+            //wallet check
+            if ($data['payment_type'] == OrderPaymentTypeEnum::POINTS) {
+                $user = $coachId != null ? request()->user('coach') : request()->user('player');
+                $wallet = $user->wallet;
+                if ($totalPrice > $wallet->available) {
+                    DB::rollBack();
+
+                    return Response::HTTP_NOT_ACCEPTABLE;
+                }
+                $wallet->available -= $totalPrice;
+                $wallet->pending += $totalPrice;
+                $wallet->save();
+            }
+
+            $this->payment->create([
                 'order_id' => $order->id,
                 'player_id' => $playerId,
                 'coach_id' => $coachId,
                 'total' => $totalPrice,
+                'payment_type' => $data['payment_type'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -76,7 +96,7 @@ class ProcessStoreOrderService
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
-            $totalPrice += $cart->price;
+            $totalPrice += $cart->price * $cart->quantity;
         }
         $order->orderDetails()->insert($detailsData);
 

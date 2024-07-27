@@ -2,6 +2,8 @@
 
 namespace App\Src\Player\Plans\Requests;
 
+use App\Domains\Plans\Enums\SubscriptionPaymentType;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,6 +30,7 @@ class StoreSubscriptionRequest extends FormRequest
             'coach_id' => ['nullable', 'integer', Rule::exists('coaches', 'id')],
             'description' => ['nullable', 'string'],
             'end_date' => ['required', 'date', 'after:now'],
+            'payment_type' => ['required', 'string', new EnumValue(SubscriptionPaymentType::class)],
         ];
     }
 }

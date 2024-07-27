@@ -78,7 +78,12 @@ class Coach extends Authenticatable implements HasMedia
     public function getForGrid(?bool $random = false)
     {
         return QueryBuilder::for(Coach::class)
-            ->allowedFilters(['name'])
+            ->allowedFilters([
+                'name',
+                'specialization',
+                'experienceYears',
+                'subscribePrice',
+            ])
             ->select('coaches.*', DB::raw('COUNT(players.id) AS total_trainers'))
             ->leftJoin('players', 'players.coach_id', '=', 'coaches.id')
             ->groupBy('coaches.id')

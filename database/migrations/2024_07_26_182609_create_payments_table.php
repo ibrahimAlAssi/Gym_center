@@ -15,6 +15,7 @@ class CreatePaymentsTable extends Migration
             $table->foreignId('player_id')->nullable()->constrained();
             $table->foreignId('coach_id')->nullable()->constrained();
             $table->decimal('total', 10, 2);
+            $table->string('payment_type');
             $table->timestamps();
         });
     }

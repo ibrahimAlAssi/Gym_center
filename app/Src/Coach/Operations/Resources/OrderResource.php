@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Src\Player\Operations\Resources;
+namespace App\Src\Coach\Operations\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class OrderGridResource extends JsonResource
+class OrderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,7 +16,7 @@ class OrderGridResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'Details' => OrderDetailResource::collection($this->whenLoaded('orderDetails')),
+            'details' => OrderDetailResource::collection($this->whenLoaded('orderDetails')),
         ];
     }
 }

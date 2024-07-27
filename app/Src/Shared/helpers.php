@@ -27,11 +27,11 @@ if (! function_exists('getPlayerWallet')) {
 }
 
 if (! function_exists('getActiveSubscription')) {
-    function getActiveSubscription($player_id)
+    function getActiveSubscription($playerId)
     {
         return Subscription::join('players', 'players.id', '=', 'subscriptions.player_id')
-            ->where('subscriptions.player_id', $player_id)
-            ->whereDate('subscriptions.end_date', '>=', Carbon::now())
+            ->where('subscriptions.player_id', $playerId)
+            // ->whereDate('subscriptions.end_date', '>=', Carbon::now())
             ->latest('subscriptions.id')
             ->first();
     }

@@ -66,7 +66,7 @@ class Cart extends Model
             ->get();
     }
 
-    public function getMyCart(?int $coachId = null, ?int $playerId = null)
+    public function getMyCart(?int $coachId, ?int $playerId, array $cartsId)
     {
         return self::select([
             'carts.id',
@@ -77,6 +77,7 @@ class Cart extends Model
             ->join('products', 'products.id', '=', 'carts.product_id')
             ->when($playerId != null, fn ($query) => $query->where('player_id', $playerId))
             ->when($coachId != null, fn ($query) => $query->where('coach_id', $coachId))
+            ->whereIn('carts.id', $cartsId)
             ->get();
     }
 }
