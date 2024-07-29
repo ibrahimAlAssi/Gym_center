@@ -13,7 +13,7 @@ class CreateScheduleTaskTable extends Migration
             $table->foreignId('schedule_id')->constrained();
             $table->foreignId('task_id')->constrained();
             $table->unsignedInteger('repeat');
-            $table->double('weight');
+            $table->double('weight')->nullable();
             $table->boolean('is_complete')->default(false);
             $table->timestamps();
         });

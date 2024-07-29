@@ -24,7 +24,9 @@ class UpdateScheduleRequest extends FormRequest
     {
         return [
             'player_id' => ['sometimes', Rule::exists('players', 'id')],
-            'day'       => ['sometimes', 'min:1', 'max:7'],
+            'day'       => [
+                'sometimes', 'min:1', 'max:7',
+            ],
 
             'schedule_tasks'           => ['sometimes', 'array', 'min:1'],
             'schedule_tasks.*.task_id' => ['sometimes', 'integer'],
@@ -38,9 +40,9 @@ class UpdateScheduleRequest extends FormRequest
 
     public function prepareForValidation()
     {
-        if ($this->filled('stores') && is_array($this->get('foods'))) {
+        if ($this->filled('stores') && is_array($this->get('schedule_tasks'))) {
             $this->merge([
-                'foods_ids' => array_column($this->get('foods'), 'id'),
+                'task_ids' => array_column($this->get('schedule_tasks'), 'task_id'),
             ]);
         }
     }
