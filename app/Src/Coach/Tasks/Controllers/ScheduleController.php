@@ -37,7 +37,7 @@ class ScheduleController extends Controller
                     'schedule_id' => $schedule->id,
                     'task_id' => $task['task_id'],
                     'repeat' => $task['repeat'],
-                    'weight' => $task['weight'],
+                    'weight' => $task['weight'] ?? null,
                 ];
             }
             $this->schedule->scheduleTasks()->insert($data);
