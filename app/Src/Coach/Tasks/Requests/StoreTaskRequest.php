@@ -27,8 +27,8 @@ class StoreTaskRequest extends FormRequest
             'type_id' => ['required', 'string', Rule::exists('types', 'id')],
             'number' => ['required', 'integer'],
             'description' => ['nullable', 'string'],
-            'url' => ['required'],
-            'image' => ['required', 'image'],
+            'url' => ['required','string'],
+            'image' => ['nullable', 'image'],
         ];
     }
 }
