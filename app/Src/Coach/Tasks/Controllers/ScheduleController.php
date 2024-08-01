@@ -2,15 +2,14 @@
 
 namespace App\Src\Coach\Tasks\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Tasks\Models\Schedule;
-use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use App\Http\Controllers\Controller;
 use App\Src\Coach\Tasks\Requests\StoreScheduleRequest;
 use App\Src\Coach\Tasks\Requests\UpdateScheduleRequest;
 use App\Src\Coach\Tasks\Resources\ScheduleGridResource;
+use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ScheduleController extends Controller
 {
@@ -33,15 +32,16 @@ class ScheduleController extends Controller
         try {
             DB::beginTransaction();
             $schedule = $this->schedule->create($request->validated());
-            foreach ($request->schedule_tasks as $task) {
+            $d = json_decode($request->schedule_tasks);
+            foreach ($d as $task) {
                 $data[] = [
-                    'schedule_id' => $schedule->id,
-                    'task_id' => $task['task_id'],
-                    'repeat' => $task['repeat'],
-                    'weight' => $task['weight'] ?? null,
+                    // 'schedule_id' => $schedule->id,
+                    // 'task_id' => $task['task_id'],
+                    // 'repeat' => $task['repeat'],
+                    // 'weight' => $task['weight'] ?? null,
                 ];
             }
-            $this->schedule->scheduleTasks()->insert($data);
+            // $this->schedule->scheduleTasks()->insert($data);
             DB::commit();
 
             return $this->createdResponse(

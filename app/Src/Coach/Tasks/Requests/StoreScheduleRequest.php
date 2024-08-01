@@ -29,6 +29,7 @@ class StoreScheduleRequest extends FormRequest
             ],
             'day' => [
                 'required',
+                'integer',
                 'min:1',
                 'max:7',
                 Rule::unique('schedules', 'day')->where('player_id', request()->player_id),
