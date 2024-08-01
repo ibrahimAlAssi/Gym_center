@@ -31,7 +31,7 @@ class ScheduleController extends Controller
     // public function store(StoreScheduleRequest $request)
     public function store(Request $request)
     {
-        return "hello";
+        return $request;
         try {
             DB::beginTransaction();
             $schedule = $this->schedule->create($request->validated());
