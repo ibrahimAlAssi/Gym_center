@@ -35,10 +35,11 @@ class TaskController extends Controller
             ->additional(['message' => __('shared.response_messages.success')]);
     }
 
-    public function store(StoreTaskRequest $request)
+    // public function store(StoreTaskRequest $request)
+    public function store(Request $request)
     {
+        return  "hello";
         try {
-            return  "hello";
             DB::beginTransaction();
             $task = $this->task->create($request->validated());
             if ($request->has('image')) {
