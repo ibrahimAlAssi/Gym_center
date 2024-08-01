@@ -35,8 +35,8 @@ class ScheduleController extends Controller
             $d = json_decode($request->schedule_tasks);
             foreach ($d as $task) {
                 $data[] = [
-                    // 'schedule_id' => $schedule->id,
-                    // 'task_id' => $task['task_id'],
+                    'schedule_id' => $schedule->id,
+                    'task_id' => $task['task_id'],
                     // 'repeat' => $task['repeat'],
                     // 'weight' => $task['weight'] ?? null,
                 ];
