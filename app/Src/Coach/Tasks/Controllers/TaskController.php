@@ -38,6 +38,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         try {
+            return  "hello";
             DB::beginTransaction();
             $task = $this->task->create($request->validated());
             if ($request->has('image')) {
