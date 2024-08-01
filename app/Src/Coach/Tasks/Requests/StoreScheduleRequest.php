@@ -34,8 +34,8 @@ class StoreScheduleRequest extends FormRequest
                 Rule::unique('schedules', 'day')->where('player_id', request()->player_id),
             ],
 
-            // 'schedule_tasks' => ['required', 'array', 'min:1'],
-            // 'schedule_tasks.*.task_id' => ['required', 'integer'],
+            'schedule_tasks' => ['required', 'array', 'min:1'],
+            'schedule_tasks.*.task_id' => ['required', 'integer'],
             // 'schedule_tasks.*.repeat' => ['required', 'integer', 'min:1'],
             // 'schedule_tasks.*.weight' => ['nullable', 'integer'],
 
