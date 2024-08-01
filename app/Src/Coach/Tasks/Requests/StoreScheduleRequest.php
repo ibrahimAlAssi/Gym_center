@@ -35,12 +35,12 @@ class StoreScheduleRequest extends FormRequest
             ],
 
             'schedule_tasks' => ['required','min:1'],
-            'schedule_tasks.*.task_id' => ['required', 'integer'],
-            'schedule_tasks.*.repeat' => ['required', 'integer', 'min:1'],
-            'schedule_tasks.*.weight' => ['nullable', 'integer'],
+            // 'schedule_tasks.*.task_id' => ['required', 'integer'],
+            // 'schedule_tasks.*.repeat' => ['required', 'integer', 'min:1'],
+            // 'schedule_tasks.*.weight' => ['nullable', 'integer'],
 
-            'task_ids' => ['sometimes', 'array', Rule::exists('tasks', 'id')],
-            'task_ids.*' => ['integer', 'distinct'],
+            // 'task_ids' => ['sometimes', 'array', Rule::exists('tasks', 'id')],
+            // 'task_ids.*' => ['integer', 'distinct'],
 
         ];
     }
