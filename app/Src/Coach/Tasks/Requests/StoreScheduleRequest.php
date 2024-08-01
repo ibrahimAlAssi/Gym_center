@@ -23,16 +23,16 @@ class StoreScheduleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'player_id' => [
-                'required',
-                Rule::exists('players', 'id')->where('players.coach_id', request()->user()->id),
-            ],
-            'day' => [
-                'required',
-                'min:1',
-                'max:7',
-                Rule::unique('schedules', 'day')->where('player_id', request()->player_id),
-            ],
+            // 'player_id' => [
+            //     'required',
+            //     Rule::exists('players', 'id')->where('players.coach_id', request()->user()->id),
+            // ],
+            // 'day' => [
+            //     'required',
+            //     'min:1',
+            //     'max:7',
+            //     Rule::unique('schedules', 'day')->where('player_id', request()->player_id),
+            // ],
 
             // 'schedule_tasks' => ['required', 'array', 'min:1'],
             // 'schedule_tasks.*.task_id' => ['required', 'integer'],
