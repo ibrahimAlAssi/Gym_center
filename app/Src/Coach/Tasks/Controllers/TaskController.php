@@ -37,7 +37,6 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-        return  "hello";
         try {
             DB::beginTransaction();
             $task = $this->task->create($request->validated());
