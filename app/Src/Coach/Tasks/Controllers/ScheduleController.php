@@ -36,8 +36,8 @@ class ScheduleController extends Controller
             foreach ($d as $task) {
                 $data[] = [
                     'schedule_id' => $schedule->id,
-                    // 'task_id' => $task['task_id'],
-                    // 'repeat' => $task['repeat'],
+                    'task_id' => $task->task_id,
+                    'repeat' => $task->repeat,
                     // 'weight' => $task['weight'] ?? null,
                 ];
             }
