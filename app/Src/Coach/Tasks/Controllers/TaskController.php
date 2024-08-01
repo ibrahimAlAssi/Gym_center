@@ -35,8 +35,7 @@ class TaskController extends Controller
             ->additional(['message' => __('shared.response_messages.success')]);
     }
 
-    // public function store(StoreTaskRequest $request)
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         return  "hello";
         try {
