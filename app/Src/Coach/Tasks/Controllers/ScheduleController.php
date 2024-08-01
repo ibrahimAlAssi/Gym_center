@@ -52,7 +52,8 @@ class ScheduleController extends Controller
             DB::rollBack();
             Log::error("error on store schedule in coach, exception: {$th->getMessage()}");
 
-            return $this->failedResponse(__('An error occurred. Please try again later.'));
+            return $this->failedResponse($th->getMessage());
+            // return $this->failedResponse(__('An error occurred. Please try again later. '));
         }
     }
 
