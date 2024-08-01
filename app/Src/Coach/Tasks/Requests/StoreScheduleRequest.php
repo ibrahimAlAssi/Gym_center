@@ -39,18 +39,18 @@ class StoreScheduleRequest extends FormRequest
             'schedule_tasks.*.repeat' => ['required', 'integer', 'min:1'],
             'schedule_tasks.*.weight' => ['nullable', 'integer'],
 
-            // 'task_ids' => ['sometimes', 'array', Rule::exists('tasks', 'id')],
-            // 'task_ids.*' => ['integer', 'distinct'],
+            'task_ids' => ['sometimes', 'array', Rule::exists('tasks', 'id')],
+            'task_ids.*' => ['integer', 'distinct'],
 
         ];
     }
 
-    // public function prepareForValidation()
-    // {
-    //     if ($this->filled('schedule_tasks') && is_array($this->get('schedule_tasks'))) {
-    //         $this->merge([
-    //             'task_ids' => array_column($this->get('schedule_tasks'), 'task_id'),
-    //         ]);
-    //     }
-    // }
+    public function prepareForValidation()
+    {
+        if ($this->filled('schedule_tasks') && is_array($this->get('schedule_tasks'))) {
+            $this->merge([
+                'task_ids' => array_column($this->get('schedule_tasks'), 'task_id'),
+            ]);
+        }
+    }
 }
