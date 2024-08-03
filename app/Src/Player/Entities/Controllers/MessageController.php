@@ -40,7 +40,6 @@ class MessageController extends Controller
 
     public function store(StoreChatRequest $request)
     {
-        return "OK";
         try {
             DB::beginTransaction();
             $playerId = $request->user('player')->id;

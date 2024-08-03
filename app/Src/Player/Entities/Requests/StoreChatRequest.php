@@ -23,7 +23,7 @@ class StoreChatRequest extends FormRequest
     {
         return [
             'message' => ['required', 'string'],
-            'coach_id' => ['required', 'string', 'exists:coaches,id'],
+            'coach_id' => ['required', 'integer', 'exists:coaches,id'],
         ];
     }
 }
