@@ -35,24 +35,22 @@ class ScheduleController extends Controller
         try {
             DB::beginTransaction();
             $schedule = $this->schedule->create($request->validated());
-
             foreach ($request->schedule_tasks as $task) {
-                $task = json_decode($task);
                 $data[] = [
                     'schedule_id' => $schedule->id,
-                    'task_id' => $task->id,
-                    'repeat' => $task->repeat,
-                    'weight' => $task->weight?? null,
+                    'task_id' => $task['id'],
+                    'repeat' => $task['repeat'],
+                    'weight' => $task['weight'] ?? null,
                 ];
             }
             $this->schedule->scheduleTasks()->insert($data);
             DB::commit();
-            Notification::send(
-                Player::find($request->player_id),
-                new NewScheduleForPlayer(
-                    'You have a new schedule by coach '.$request->use('coach')->name
-                )
-            );
+            // Notification::send(
+            //     Player::find($request->player_id),
+            //     new NewScheduleForPlayer(
+            //         'You have a new schedule by coach '.$request->use('coach')->name
+            //     )
+            // );
 
             return $this->createdResponse(
                 ScheduleResource::make($schedule->load('tasks')),
