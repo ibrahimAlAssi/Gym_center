@@ -18,12 +18,12 @@ Route::middleware('auth:coach')->group(function () {
             Route::delete('{task}', 'destroy')->name('destroy');
         });
 
-    // Route::prefix('schedules')
-    // ->name('schedules.')
-    // ->controller(ScheduleController::class)
-    // ->group(function () {
-    //     Route::get('', 'index')->name('index');
-    //     Route::post('', 'store')->name('index');
-    //     Route::post('{schedule}', 'update')->name('index');
-    // });
+    Route::prefix('schedules')
+    ->name('schedules.')
+    ->controller(ScheduleController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::post('', 'store')->name('index');
+        Route::post('{schedule}', 'update')->name('index');
+    });
 });

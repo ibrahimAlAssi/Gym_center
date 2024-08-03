@@ -47,7 +47,7 @@ class FeedbackResource extends Resource
 
                 TextColumn::make('message')->searchable(),
                 IconColumn::make('is_complaint')
-                    ->label('Type')
+                    ->label('Complaint-Suggestion')
                     ->boolean()
                     ->trueColor('danger')
                     ->falseColor('success')
