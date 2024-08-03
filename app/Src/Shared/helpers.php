@@ -27,8 +27,6 @@ if (!function_exists('getPlayerWallet')) {
 }
 
 if (!function_exists('getActiveSubscription')) {
-    function getActiveSubscription($player_id)
-if (! function_exists('getActiveSubscription')) {
     function getActiveSubscription($playerId)
     {
         return Subscription::join('players', 'players.id', '=', 'subscriptions.player_id')
