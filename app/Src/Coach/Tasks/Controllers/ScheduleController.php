@@ -37,12 +37,12 @@ class ScheduleController extends Controller
             $schedule = $this->schedule->create($request->validated());
 
             foreach ($request->schedule_tasks as $task) {
-                $task = json_decode($task, true);
+                $task = json_decode($task);
                 $data[] = [
                     'schedule_id' => $schedule->id,
-                    'task_id' => $task['id'],
-                    'repeat' => $task['repeat'],
-                    'weight' => $task['weight'] ?? null,
+                    'task_id' => $task->id,
+                    'repeat' => $task->repeat,
+                    'weight' => $task->weight?? null,
                 ];
             }
             $this->schedule->scheduleTasks()->insert($data);
