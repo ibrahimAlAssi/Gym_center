@@ -2,21 +2,21 @@
 
 namespace App\Src\Player\Entities\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Chat;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Message;
 use App\Domains\Shared\Enums\AppTypesEnum;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Auth\Access\AuthorizationException;
+use App\Http\Controllers\Controller;
 use App\Src\Player\Entities\Requests\StoreChatRequest;
-use App\Src\Player\Entities\Resources\MessageResource;
 use App\Src\Player\Entities\Requests\UpdateChatRequest;
-use App\Src\Shared\Notifications\ChatMessageWasReceived;
 use App\Src\Player\Entities\Resources\MessageGridResource;
+use App\Src\Player\Entities\Resources\MessageResource;
+use App\Src\Shared\Notifications\ChatMessageWasReceived;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class MessageController extends Controller
 {
@@ -26,7 +26,7 @@ class MessageController extends Controller
 
     public function index(Request $request, Chat $chat)
     {
-        throw_if($request->user()->id != $chat->player_id, new AuthorizationException());
+        throw_if($request->user()->id != $chat->player_id, new AuthorizationException);
 
         return $this->successResponse(
             MessageGridResource::collection(
@@ -41,6 +41,7 @@ class MessageController extends Controller
     public function store(StoreChatRequest $request)
     {
         try {
+            return $request;
             DB::beginTransaction();
             $playerId = $request->user('player')->id;
             $coachId = $request->coach_id;
@@ -78,7 +79,7 @@ class MessageController extends Controller
         throw_if(
             $request->user()->id != $message->senderable_id ||
                 $message->senderable_type != AppTypesEnum::PLAYER,
-            new AuthorizationException()
+            new AuthorizationException
         );
         try {
             $message->update($request->validated());
@@ -99,7 +100,7 @@ class MessageController extends Controller
         throw_if(
             $request->user()->id != $message->senderable_id ||
                 $message->senderable_type != AppTypesEnum::PLAYER,
-            new AuthorizationException()
+            new AuthorizationException
         );
         try {
             $message->delete();

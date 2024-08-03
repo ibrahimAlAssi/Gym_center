@@ -16,7 +16,7 @@ class Gym extends Model
 
     protected $table = 'gyms';
 
-    protected $fillable = ['name', 'location', 'description'];
+    protected $fillable = ['name', 'latitude','longitude', 'description'];
 
     public $timestamps = true;
 
@@ -50,14 +50,14 @@ class Gym extends Model
         return $this->hasMany(Service::class);
     }
 
+
     public function metaData()
     {
         return $this->query()->select([
             'id',
             'name',
             'description',
-            DB::raw('ST_X(location) AS latitude'),
-            DB::raw('ST_Y(location) AS longitude'),
+            'location',
         ])->first();
     }
 }

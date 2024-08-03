@@ -11,7 +11,8 @@ class CreateGymsTable extends Migration
         Schema::create('gyms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->point('location');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -26,7 +26,8 @@ class GymFactory extends Factory
 
         return [
             'name' => fake()->name(),
-            'location' => DB::raw("POINT($latitude, $longitude)"), // Using raw SQL to define a point
+            'latitude' => '56465456', // Using raw SQL to define a point
+            'longitude' =>'64654564', // Using raw SQL to define a point
         ];
     }
 }
