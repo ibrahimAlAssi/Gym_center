@@ -10,7 +10,7 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('plan_id');
+            $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('value');

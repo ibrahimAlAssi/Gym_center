@@ -10,10 +10,10 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subscription_id')->nullable()->constrained();
-            $table->foreignId('order_id')->nullable()->constrained();
-            $table->foreignId('player_id')->nullable()->constrained();
-            $table->foreignId('coach_id')->nullable()->constrained();
+            $table->foreignId('subscription_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('order_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('player_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
             $table->decimal('total', 10, 2);
             $table->string('payment_type');
             $table->timestamps();

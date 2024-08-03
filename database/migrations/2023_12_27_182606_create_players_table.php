@@ -10,9 +10,9 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diet_id')->nullable()->constrained();
-            $table->foreignId('coach_id')->nullable()->constrained();
-            $table->foreignId('wallet_id')->nullable()->constrained();
+            $table->foreignId('diet_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('wallet_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('name', 70);
             $table->string('email')->unique();
             $table->string('password');

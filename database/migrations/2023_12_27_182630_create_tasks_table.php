@@ -12,7 +12,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->foreignId('type_id');
+            $table->foreignId('type_id')->constrained()->cascadeOnDelete();
             $table->integer('number');
             $table->text('description')->nullable();
             $table->timestamps();

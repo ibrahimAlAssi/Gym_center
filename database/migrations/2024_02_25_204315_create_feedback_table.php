@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->nullable()->constrained();
-            $table->foreignId('coach_id')->nullable()->constrained();
+            $table->foreignId('player_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
             $table->text('message');
             $table->boolean('is_complaint'); // 0 => suggestion
             $table->timestamps();

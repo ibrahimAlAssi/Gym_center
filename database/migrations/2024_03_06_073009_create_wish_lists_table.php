@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wish_lists', function (Blueprint $table) {
-            $table->foreignId('player_id')->constrained();
-            $table->foreignId('task_id')->constrained();
+            $table->foreignId('player_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('task_id')->constrained()->cascadeOnDelete();
         });
     }
 

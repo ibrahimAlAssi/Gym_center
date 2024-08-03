@@ -10,7 +10,7 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('gym_id')->constrained()->cascadeOnDelete();
             $table->char('name', 100);
             $table->string('phone', 25)->nullable();
             $table->string('email')->unique();

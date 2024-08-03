@@ -10,7 +10,7 @@ class CreateNutritionalValuesTable extends Migration
     {
         Schema::create('nutritional_values', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('food_id');
+            $table->foreignId('food_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->double('value');
             $table->timestamps();

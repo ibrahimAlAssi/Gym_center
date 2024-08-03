@@ -27,7 +27,7 @@ class MessageController extends Controller
 
     public function index(Request $request, Chat $chat)
     {
-        throw_if($request->user()->id != $chat->coach_id, new AuthorizationException());
+        throw_if($request->user('coach')->id != $chat->coach_id, new AuthorizationException());
 
         return $this->successResponse(
             MessageGridResource::collection(

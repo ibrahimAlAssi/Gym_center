@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('order_diets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained();
-            $table->foreignId('diet_id')->nullable()->constrained();
+            $table->foreignId('player_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('diet_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('description');
             $table->integer('weight');
             $table->integer('length');

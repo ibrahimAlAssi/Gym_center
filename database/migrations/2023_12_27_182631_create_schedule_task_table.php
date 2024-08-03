@@ -10,8 +10,8 @@ class CreateScheduleTaskTable extends Migration
     {
         Schema::create('schedule_task', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('schedule_id')->constrained();
-            $table->foreignId('task_id')->constrained();
+            $table->foreignId('schedule_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('task_id')->constrained()->cascadeOnDelete();
             $table->unsignedInteger('repeat');
             $table->double('weight')->nullable();
             $table->boolean('is_complete')->default(false);

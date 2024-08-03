@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('taxes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('gym_id')->constrained();
+            $table->foreignId('gym_id')->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->decimal('value', 10, 2);
             $table->timestamps();

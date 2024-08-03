@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('coach_id')->nullable()->constrained();
-            $table->foreignId('player_id')->nullable()->constrained();
+            $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('player_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

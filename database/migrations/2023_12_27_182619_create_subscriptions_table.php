@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained();
-            $table->foreignId('coach_id')->nullable()->constrained();
-            $table->foreignId('plan_id')->constrained();
-            $table->foreignId('discount_id')->nullable()->constrained();
+            $table->foreignId('player_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('discount_id')->nullable()->constrained()->cascadeOnDelete();
             $table->decimal('cost', 10, 2);
             $table->text('description')->nullable();
             $table->date('start_date');

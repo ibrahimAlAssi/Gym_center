@@ -10,8 +10,8 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('task_id')->constrained();
-            $table->foreignId('player_id')->constrained();
+            $table->foreignId('task_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('player_id')->constrained()->cascadeOnDelete();
             $table->string('content')->nullable();
             $table->enum('rating', ['1', '2', '3', '4', '5']);
             $table->timestamps();

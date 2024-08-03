@@ -19,7 +19,6 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-
         return $this->successResponse(
             ChatGridResource::collection(
                 $this->chat->getForGrid(
@@ -33,7 +32,7 @@ class ChatController extends Controller
 
     public function destroy(Request $request, Chat $chat)
     {
-        throw_if($request->user()->id != $chat->coach_id, new AuthorizationException());
+        throw_if($request->user()->id != $chat->coach_id, new AuthorizationException);
         try {
             DB::beginTransaction();
             $this->message->where('chat_id', $chat->id)->delete();

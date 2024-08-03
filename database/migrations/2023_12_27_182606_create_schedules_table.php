@@ -10,7 +10,7 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('player_id')->constrained();
+            $table->foreignId('player_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('day')->unsigned();
             $table->boolean('is_complete')->default(false);
             $table->unique(['day', 'player_id']);
