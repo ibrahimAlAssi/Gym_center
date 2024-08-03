@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->decimal('total', 10, 2)->nullable()->default(0);
-            $table->decimal('pending', 10, 2)->nullable()->default(0);
-            $table->decimal('available', 10, 2)->nullable()->default(0);
+            $table->integer('pending')->nullable()->default(0);
+            $table->integer('available')->nullable()->default(0);
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class CreatePlayersTable extends Migration
             $table->boolean('active')->nullable()->default(1);
             $table->string('gender');
             $table->integer('attendance_days')->nullable();
+            $table->date('birthday')->nullable();
             $table->timestamps();
         });
     }

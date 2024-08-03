@@ -7,7 +7,9 @@ use App\Filament\Resources\FeedbackResource\Pages;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +23,7 @@ class FeedbackResource extends Resource
     {
         return $form
             ->schema([
+
             ]);
     }
 
@@ -28,22 +31,31 @@ class FeedbackResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('type')
+                TextColumn::make('role')
                     ->state(function (Model $record): string {
                         return $record->player_id ? 'player' : 'coach';
+                    })
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'player' => 'warning',
+                        'coach' => 'info',
                     }),
                 TextColumn::make('name')
                     ->state(function (Model $record): string {
                         return $record->player_id ? $record->player?->name : $record->coach?->name;
-                    }),
-                TextColumn::make('message'),
-                TextColumn::make('is_complaint')
-                    ->state(function (Model $record): string {
-                        return $record->is_complaint ? 'complaint' : 'suggestion';
-                    })->searchable()->sortable()->label('Feedback Type'),
+                    })->searchable()->sortable(),
+
+                TextColumn::make('message')->searchable(),
+                IconColumn::make('is_complaint')
+                    ->label('Type')
+                    ->boolean()
+                    ->trueColor('danger')
+                    ->falseColor('success')
+                    ->trueIcon('heroicon-o-x-circle')
+                    ->falseIcon('heroicon-o-check-badge')->searchable(),
             ])
             ->filters([
-                //
+                TernaryFilter::make('is_complaint'),
             ])
             ->actions([
             ])

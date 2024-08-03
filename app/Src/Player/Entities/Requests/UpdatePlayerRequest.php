@@ -35,6 +35,7 @@ class UpdatePlayerRequest extends FormRequest
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // Maximum file size in kilobytes
             ],
+            'birth_day' => ['sometimes', 'date', 'date_format:Y-m-d'],
         ];
     }
 }

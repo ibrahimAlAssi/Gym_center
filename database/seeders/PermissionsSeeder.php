@@ -84,7 +84,7 @@ class PermissionsSeeder extends Seeder
         $admin->assignRole($role2);
 
         $coach = Coach::factory()->create([
-            'name' => 'coach',
+            'name' => 'ibrahim',
             'email' => 'coach@gmail.com',
         ]);
         $coach->assignRole($role3);

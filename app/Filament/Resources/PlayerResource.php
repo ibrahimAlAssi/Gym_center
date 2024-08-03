@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Domains\Entities\Models\Player;
 use App\Filament\Resources\PlayerResource\Pages;
+use App\Filament\Resources\PlayerResource\RelationManagers\OrderDietsRelationManager;
 use App\Filament\Resources\PlayerResource\RelationManagers\WalletRelationManager;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -36,6 +38,10 @@ class PlayerResource extends Resource
                             'female' => 'female',
                         ])->required(),
                         TextInput::make('phone')->required()->numeric()->minLength(10)->maxLength(12),
+                        DatePicker::make('birthday')
+                            ->format('Y-m-d')
+                            ->required(),
+                        Select::make('coach_id')->relationship('coach', 'name')->searchable()->preload(),
                         TextInput::make('password')->required()->password()->visibleOn('create')
                             ->columnSpanFull(),
                         SpatieMediaLibraryFileUpload::make('avatar')->collection('avatar')->columnSpanFull(),
@@ -47,23 +53,50 @@ class PlayerResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->searchable()->toggleable(),
+                TextColumn::make('name')
+                    ->searchable()
+                    ->toggleable(),
 
-                TextColumn::make('email')->toggleable(),
+                TextColumn::make('email')
+                    ->toggleable(),
 
                 SpatieMediaLibraryImageColumn::make('avatar')
-                    ->collection('avatar')->toggleable(),
+                    ->collection('avatar')
+                    ->toggleable(),
 
-                TextColumn::make('phone')->searchable()->toggleable(),
+                TextColumn::make('coach.name')->label('coach')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
 
-                TextColumn::make('gender')->sortable()->toggleable(),
+                TextColumn::make('phone')
+                    ->searchable()
+                    ->toggleable(),
+
+                TextColumn::make('gender')
+                    ->sortable()
+                    ->toggleable(),
+
+                TextColumn::make('birthday')
+                    ->sortable()
+                    ->toggleable(),
 
                 TextColumn::make('created_at')->sortable()
-                    ->date('M d , Y')->label('Create')->toggleable(),
+                    ->date('M d , Y')
+                    ->label('Create')
+                    ->toggleable(),
 
-                TextColumn::make('wallet.available')->label('available')->toggleable(),
-                TextColumn::make('wallet.pending')->label('pending')->toggleable(),
-                TextColumn::make('wallet.total')->label('total')->toggleable(),
+                TextColumn::make('wallet.available')
+                    ->label('available')
+                    ->toggleable(),
+
+                TextColumn::make('wallet.pending')
+                    ->label('pending')
+                    ->toggleable(),
+
+                TextColumn::make('wallet.total')
+                    ->label('total')
+                    ->toggleable(),
             ])
             ->filters([
                 //
@@ -82,6 +115,7 @@ class PlayerResource extends Resource
     {
         return [
             WalletRelationManager::class,
+            OrderDietsRelationManager::class,
         ];
     }
 

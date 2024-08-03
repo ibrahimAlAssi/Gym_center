@@ -6,6 +6,8 @@ use App\Domains\Entities\Models\Player;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class OrderDiet extends Model
@@ -28,6 +30,21 @@ class OrderDiet extends Model
         'weight' => 'integer',
         'length' => 'integer',
     ];
+
+    protected static function booted()
+    {
+        static::updating(function ($orderDiet) {
+            try {
+                DB::beginTransaction();
+                $orderDiet->status = 1;
+                $orderDiet->player()->update(['diet_id' => $orderDiet->diet_id]);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                Log::error('Error updating player diet_id', ['message' => $e->getMessage()]);
+            }
+        });
+    }
 
     public function player(): BelongsTo
     {
