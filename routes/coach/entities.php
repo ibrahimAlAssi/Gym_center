@@ -36,8 +36,8 @@ Route::middleware('auth:coach')->group(function () {
             Route::get('/{coach}', 'show')->name('show');
             Route::post('', 'update')->name('update');
             // Notification
-            Route::post('notifications-markAsRead', 'MarkAsRead_All');
-            Route::post('notification-markAsRead/{notificationId?}', 'MarkAsRead_notification');
+            Route::post('notifications-markAsRead', 'markAsReadAll');
+            Route::post('notification-markAsRead/{notificationId?}', 'markAsReadNotification');
         });
     Route::get('my-players', [CoachController::class, 'myPlayers']);
 

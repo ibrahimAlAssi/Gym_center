@@ -30,18 +30,19 @@ class PlayerController extends Controller
         }
     }
 
-    public function MarkAsRead_All()
+    public function markAsReadAll()
     {
         auth()->user('player')->unReadNotifications->markAsRead();
         return $this->successResponse(message: "all notifications marked as read");
     }
 
     // Mark the notification as read
-    public function MarkAsRead_notification($notificationId)
+    public function markAsReadNotification($notificationId)
     {
         $notification = auth()->user('player')->unReadNotifications->find($notificationId);
-        if (!$notification)
+        if (!$notification) {
             return $this->notFoundResponse();
+        }
         $notification->markAsRead();
         return $this->successResponse(message: "success");
     }
