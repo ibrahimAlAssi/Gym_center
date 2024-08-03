@@ -45,12 +45,12 @@ class ScheduleController extends Controller
             }
             $this->schedule->scheduleTasks()->insert($data);
             DB::commit();
-            // Notification::send(
-            //     Player::find($request->player_id),
-            //     new NewScheduleForPlayer(
-            //         'You have a new schedule by coach '.$request->use('coach')->name
-            //     )
-            // );
+            Notification::send(
+                Player::find($request->player_id),
+                new NewScheduleForPlayer(
+                    'You have a new schedule by coach '.$request->user('coach')->name
+                )
+            );
 
             return $this->createdResponse(
                 ScheduleResource::make($schedule->load('tasks')),
