@@ -60,15 +60,16 @@ class ScheduleController extends Controller
     {
         try {
             DB::beginTransaction();
-            $schedule->update($request->validated());
             $schedule->scheduleTasks()->delete();
+            $schedule->update($request->validated());
             if ($request->has('schedule_tasks')) {
                 foreach ($request->schedule_tasks as $task) {
+                    $task = json_decode($task);
                     $data[] = [
                         'schedule_id' => $schedule->id,
-                        'task_id' => $task['task_id'],
-                        'repeat' => $task['repeat'],
-                        'weight' => $task['weight'],
+                        'task_id' => $task->task_id,
+                        'repeat' => $task->repeat,
+                        'weight' => $task->weight ?? null,
                     ];
                 }
                 $this->schedule->scheduleTasks()->insert($data);
