@@ -47,7 +47,6 @@ class MessageController extends Controller
 
             // Check if a chat already exists between these two users
             $existingChat = $this->chat->findChatByIds($playerId, $coachId);
-            return $request;
             if (empty($existingChat)) {
                 $existingChat = Chat::create([
                     'player_id' => $playerId,
