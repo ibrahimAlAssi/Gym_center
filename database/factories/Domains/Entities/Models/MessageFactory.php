@@ -24,7 +24,7 @@ class MessageFactory extends Factory
     {
         return [
             'chat_id' => Chat::factory(),
-            'senderable_id' => Player::inRandomOrder()->first()->id,
+            'senderable_id' => Player::first()->id,
             'senderable_type' => AppTypesEnum::PLAYER,
             'message' => fake()->title(),
             'read_at' => $this->faker->dateTime(),

@@ -59,7 +59,7 @@ class DatabaseSeeder extends Seeder
         Contact::factory()->for($gym)->create();
         // NutritionalValue::factory()->create();
         Tax::factory()->create();
-        $chats = Chat::factory()->count(1)->create(['player_id'=>1]);
+        $chats = Chat::factory()->count(1)->create(['player_id' => 1]);
         Message::factory()->for($chats[0])->count(5)->create();
         Feedback::factory()->for($player)->count(2)->create(['coach_id' => null]);
         Feedback::factory()->count(2)->create(['coach_id' => 1, 'player_id' => null]);
