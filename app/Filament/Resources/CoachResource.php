@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class CoachResource extends Resource
@@ -56,12 +57,20 @@ class CoachResource extends Resource
                 TextColumn::make('specialization')->searchable()->toggleable()->sortable(),
                 TextColumn::make('subscribePrice')->searchable()->toggleable()->sortable(),
 
+                TextColumn::make('created_at')->sortable()
+                    ->date('M d , Y')
+                    ->label('Create')
+                    ->toggleable(),
+
                 TextColumn::make('wallet.available')->label('available')->toggleable(),
                 TextColumn::make('wallet.pending')->label('pending')->toggleable(),
                 TextColumn::make('wallet.total')->label('total')->toggleable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('experienceYears')
+                    ->options(
+                        fn (): array => Coach::query()->pluck('experienceYears', 'experienceYears')->all()
+                    )->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

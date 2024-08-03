@@ -23,7 +23,6 @@ class WalletFactory extends Factory
         $available = fake()->randomNumber(2);
 
         return [
-            'total' => $pending + $available,
             'pending' => $pending,
             'available' => $available,
         ];

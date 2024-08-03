@@ -29,24 +29,25 @@ class Diet extends Model implements HasMedia
 
     public function foods(): BelongsToMany
     {
-        return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed');
+        return $this->belongsToMany(Food::class, 'diet_food')
+            ->withPivot(['allowed', 'created_at', 'updated_at']);
     }
 
     public function allowedFoods(): BelongsToMany
     {
         return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed')
-            ->wherePivot('allowed', '1');
+            ->wherePivot('allowed', 1);
     }
 
     public function notAllowedFoods(): BelongsToMany
     {
         return $this->belongsToMany(Food::class, 'diet_food')->withPivot('allowed')
-            ->wherePivot('allowed', '0');
+            ->wherePivot('allowed', 0);
     }
 
     public function dietFood(): HasMany
     {
-        return $this->hasMany(DietFood::class, 'diet_food');
+        return $this->hasMany(DietFood::class, 'diet_id');
     }
 
     public function getForGrid(?int $playerId = null, ?array $filter = null)

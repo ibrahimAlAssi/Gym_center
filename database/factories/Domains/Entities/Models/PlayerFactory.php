@@ -34,6 +34,7 @@ class PlayerFactory extends Factory
             'active' => true,
             'gender' => PlayerGenderEnum::getRandomValue(),
             'attendance_days' => fake()->numberBetween(3, 30),
+            'birthday' => fake()->date(),
         ];
     }
 }

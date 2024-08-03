@@ -5,6 +5,7 @@ namespace Database\Seeders\Domains\Club;
 use App\Domains\Club\Models\Diet;
 use App\Domains\Club\Models\DietFood;
 use App\Domains\Club\Models\Food;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -55,14 +56,26 @@ class DietSeeder extends Seeder
         foreach ($Mediterranean_allowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $allowedData[] = ['diet_id' => $Mediterranean_diet->id, 'food_id' => $foodId, 'allowed' => true];
+                $allowedData[] = [
+                    'diet_id' => $Mediterranean_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => true,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
         foreach ($Mediterranean_notAllowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $notAllowedData[] = ['diet_id' => $Mediterranean_diet->id, 'food_id' => $foodId, 'allowed' => false];
+                $notAllowedData[] = [
+                    'diet_id' => $Mediterranean_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => false,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
@@ -86,7 +99,7 @@ class DietSeeder extends Seeder
             'Peanuts',
             'Milk',
             'Cheese',
-            'Oil'
+            'Oil',
         ];
 
         // Insert diet
@@ -95,14 +108,26 @@ class DietSeeder extends Seeder
         foreach ($Paleo_allowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $allowedData[] = ['diet_id' => $Paleo_diet->id, 'food_id' => $foodId, 'allowed' => true];
+                $allowedData[] = [
+                    'diet_id' => $Paleo_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => true,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
         foreach ($Paleo_notAllowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $notAllowedData[] = ['diet_id' => $Paleo_diet->id, 'food_id' => $foodId, 'allowed' => false];
+                $notAllowedData[] = [
+                    'diet_id' => $Paleo_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => false,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
@@ -112,7 +137,7 @@ class DietSeeder extends Seeder
         ];
 
         $keto_allowedFoods = [
-            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomato', 'Tuna', 'Salmon'
+            'Egg', 'Chicken breast', 'Milk', 'Yogurt', 'Fish', 'Almond', 'Tomato', 'Tuna', 'Salmon',
         ];
         $keto_notAllowedFoods = [
             'Cake', 'Rice', 'pasta', 'Peas', 'Carrot', 'Crabs', 'Sugar',
@@ -124,24 +149,36 @@ class DietSeeder extends Seeder
         foreach ($keto_allowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $allowedData[] = ['diet_id' => $keto_diet->id, 'food_id' => $foodId, 'allowed' => true];
+                $allowedData[] = [
+                    'diet_id' => $keto_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => true,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
         foreach ($keto_notAllowedFoods as $foodName) {
             $foodId = Food::where('name', $foodName)->value('id');
             if ($foodId) {
-                $notAllowedData[] = ['diet_id' => $keto_diet->id, 'food_id' => $foodId, 'allowed' => false];
+                $notAllowedData[] = [
+                    'diet_id' => $keto_diet->id,
+                    'food_id' => $foodId,
+                    'allowed' => false,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
             }
         }
 
         // Insert allowed foods
-        if (!empty($allowedData)) {
+        if (! empty($allowedData)) {
             DietFood::insert($allowedData);
         }
 
         // Insert not allowed foods
-        if (!empty($notAllowedData)) {
+        if (! empty($notAllowedData)) {
             DietFood::insert($notAllowedData);
         }
 

@@ -12,14 +12,12 @@ class Wallet extends Model
     protected $table = 'wallets';
 
     protected $fillable = [
-        'total',
         'pending',
         'available',
     ];
 
     protected $casts = [
-        'total' => 'decimal:2',
-        'pending' => 'decimal:2',
-        'available' => 'decimal:2',
+        'pending' => 'integer',
+        'available' => 'integer',
     ];
 }

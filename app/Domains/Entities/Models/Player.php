@@ -4,6 +4,7 @@ namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Diet;
+use App\Domains\Club\Models\OrderDiet;
 use App\Domains\Operations\Models\Wallet;
 use App\Domains\Tasks\Models\Rate;
 use App\Domains\Tasks\Models\Schedule;
@@ -38,12 +39,14 @@ class Player extends Model implements HasMedia
         'active',
         'gender',
         'attendance_days',
+        'birthday',
     ];
 
     protected $casts = [
         'password' => 'hashed',
         'active' => 'boolean',
         'attendance_days' => 'integer',
+        'birthday' => 'date',
     ];
 
     protected $hidden = [
@@ -66,6 +69,11 @@ class Player extends Model implements HasMedia
     public function diet(): BelongsTo
     {
         return $this->belongsTo(Diet::class);
+    }
+
+    public function orderDiets(): HasMany
+    {
+        return $this->hasMany(OrderDiet::class);
     }
 
     public function coach(): BelongsTo
@@ -138,6 +146,7 @@ class Player extends Model implements HasMedia
                 'players.email',
                 'players.phone',
                 'players.gender',
+                'players.birthday',
                 'coaches.id as coach_id',
                 'coaches.name as coach_name',
                 'wallets.id as wallet_id',
