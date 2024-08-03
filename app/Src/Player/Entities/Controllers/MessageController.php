@@ -41,13 +41,13 @@ class MessageController extends Controller
     public function store(StoreChatRequest $request)
     {
         try {
-            return $request;
             DB::beginTransaction();
             $playerId = $request->user('player')->id;
             $coachId = $request->coach_id;
 
             // Check if a chat already exists between these two users
             $existingChat = $this->chat->findChatByIds($playerId, $coachId);
+            return $request;
             if (empty($existingChat)) {
                 $existingChat = Chat::create([
                     'player_id' => $playerId,
