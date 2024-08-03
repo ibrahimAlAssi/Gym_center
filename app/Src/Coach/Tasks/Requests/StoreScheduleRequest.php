@@ -36,7 +36,7 @@ class StoreScheduleRequest extends FormRequest
             ],
 
             'schedule_tasks' => ['required', 'min:1', 'array'],
-            'schedule_tasks.*.task_id' => ['required', 'integer'],
+            'schedule_tasks.*.id' => ['required', 'integer'],
             'schedule_tasks.*.repeat' => ['required', 'integer', 'min:1'],
             'schedule_tasks.*.weight' => ['nullable', 'integer', 'min:1'],
 
@@ -50,7 +50,7 @@ class StoreScheduleRequest extends FormRequest
     {
         if ($this->filled('schedule_tasks') && is_array($this->get('schedule_tasks'))) {
             $this->merge([
-                'task_ids' => array_column($this->get('schedule_tasks'), 'task_id'),
+                'task_ids' => array_column($this->get('schedule_tasks'), 'id'),
             ]);
         }
     }
