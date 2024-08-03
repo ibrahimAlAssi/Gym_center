@@ -2,17 +2,17 @@
 
 namespace App\Src\Coach\Tasks\Controllers;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
-use App\Domains\Tasks\Models\Schedule;
 use App\Domains\Entities\Models\Player;
-use Illuminate\Support\Facades\Notification;
-use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use App\Domains\Tasks\Models\Schedule;
+use App\Http\Controllers\Controller;
 use App\Src\Coach\Tasks\Requests\StoreScheduleRequest;
-use App\Src\Shared\Notifications\NewScheduleForPlayer;
 use App\Src\Coach\Tasks\Requests\UpdateScheduleRequest;
 use App\Src\Coach\Tasks\Resources\ScheduleGridResource;
+use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use App\Src\Shared\Notifications\NewScheduleForPlayer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class ScheduleController extends Controller
 {
@@ -35,7 +35,9 @@ class ScheduleController extends Controller
         try {
             DB::beginTransaction();
             $schedule = $this->schedule->create($request->validated());
+
             foreach ($request->schedule_tasks as $task) {
+                $task = json_decode($task, true);
                 $data[] = [
                     'schedule_id' => $schedule->id,
                     'task_id' => $task['id'],
@@ -48,7 +50,7 @@ class ScheduleController extends Controller
             Notification::send(
                 Player::find($request->player_id),
                 new NewScheduleForPlayer(
-                    "You have a new schedule by coach " . $request->use('coach')->name
+                    'You have a new schedule by coach '.$request->use('coach')->name
                 )
             );
 
@@ -87,7 +89,7 @@ class ScheduleController extends Controller
             Notification::send(
                 Player::find($request->player_id),
                 new NewScheduleForPlayer(
-                    "Your schedule has been updated by coach " . $request->use('coach')->name
+                    'Your schedule has been updated by coach '.$request->use('coach')->name
                 )
             );
 
