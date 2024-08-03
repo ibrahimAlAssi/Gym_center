@@ -2,10 +2,11 @@
 
 namespace App\Src\Player\Entities\Resources;
 
-use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use App\Src\Shared\Resources\NotificationResource;
 use function App\Src\Shared\getActiveSubscription;
 
 class PlayerResource extends JsonResource
@@ -25,6 +26,7 @@ class PlayerResource extends JsonResource
             'phone' => $this->phone,
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
+            "notifications" => NotificationResource::collection($this->unreadNotifications),
             'wallet' => $this->whenLoaded('wallet', fn () => [
                 'id' => $this->wallet->id,
                 'total' => $this->wallet->total,
@@ -35,7 +37,7 @@ class PlayerResource extends JsonResource
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
             ]),
-            'subscription' => $this->when(!empty($active_subscription),[
+            'subscription' => $this->when(!empty($active_subscription), [
                 'active_plan' => $active_subscription?->plan->name,
                 'end_date'    => $active_subscription?->end_date,
             ]),

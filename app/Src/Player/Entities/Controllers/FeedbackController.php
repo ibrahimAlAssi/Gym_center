@@ -2,14 +2,17 @@
 
 namespace App\Src\Player\Entities\Controllers;
 
-use App\Domains\Entities\Models\Feedback;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Domains\Entities\Models\Admin;
+use App\Domains\Entities\Models\Feedback;
+use App\Src\Shared\Notifications\NewReview;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Src\Player\Entities\Requests\StoreFeedbackRequest;
 use App\Src\Player\Entities\Requests\UpdateFeedBackRequest;
 use App\Src\Player\Entities\Resources\FeedbackGridResource;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class FeedbackController extends Controller
 {
@@ -36,6 +39,8 @@ class FeedbackController extends Controller
                 $request->validated(),
                 ['player_id' => $request->user('player')->id]
             ));
+            // Send notification to admin
+            Notification::send(Admin::All(), new NewReview($request->user()));
 
             return $this->createdResponse(new FeedbackGridResource($feedback), 'created');
         } catch (\Throwable $th) {

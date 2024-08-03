@@ -2,14 +2,17 @@
 
 namespace App\Src\Coach\Tasks\Controllers;
 
-use App\Domains\Tasks\Models\Schedule;
-use App\Http\Controllers\Controller;
-use App\Src\Coach\Tasks\Requests\StoreScheduleRequest;
-use App\Src\Coach\Tasks\Requests\UpdateScheduleRequest;
-use App\Src\Coach\Tasks\Resources\ScheduleGridResource;
-use App\Src\Coach\Tasks\Resources\ScheduleResource;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Domains\Tasks\Models\Schedule;
+use App\Domains\Entities\Models\Player;
+use Illuminate\Support\Facades\Notification;
+use App\Src\Coach\Tasks\Resources\ScheduleResource;
+use App\Src\Coach\Tasks\Requests\StoreScheduleRequest;
+use App\Src\Shared\Notifications\NewScheduleForPlayer;
+use App\Src\Coach\Tasks\Requests\UpdateScheduleRequest;
+use App\Src\Coach\Tasks\Resources\ScheduleGridResource;
 
 class ScheduleController extends Controller
 {
@@ -42,6 +45,12 @@ class ScheduleController extends Controller
             }
             $this->schedule->scheduleTasks()->insert($data);
             DB::commit();
+            Notification::send(
+                Player::find($request->player_id),
+                new NewScheduleForPlayer(
+                    "You have a new schedule by coach " . $request->use('coach')->name
+                )
+            );
 
             return $this->createdResponse(
                 ScheduleResource::make($schedule->load('tasks')),
@@ -75,6 +84,12 @@ class ScheduleController extends Controller
                 $this->schedule->scheduleTasks()->insert($data);
             }
             DB::commit();
+            Notification::send(
+                Player::find($request->player_id),
+                new NewScheduleForPlayer(
+                    "Your schedule has been updated by coach " . $request->use('coach')->name
+                )
+            );
 
             return $this->createdResponse(
                 ScheduleResource::make($schedule->load('tasks')),

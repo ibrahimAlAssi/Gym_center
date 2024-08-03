@@ -63,4 +63,20 @@ class CoachController extends Controller
         return PlayerResource::collection($players)
             ->additional(['message' => __('shared.response_messages.success')]);
     }
+
+    public function MarkAsRead_All()
+    {
+        auth()->user('coach')->unReadNotifications->markAsRead();
+        return $this->successResponse();
+    }
+
+    // Mark the notification as read
+    public function MarkAsRead_notification($notificationId)
+    {
+        $notification = auth()->user('coach')->unReadNotifications->find($notificationId);
+        if (!$notification)
+            return $this->notFoundResponse();
+        $notification->markAsRead();
+        return $this->successResponse();
+    }
 }

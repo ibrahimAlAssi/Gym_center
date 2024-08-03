@@ -26,6 +26,9 @@ Route::middleware('auth:admin')->group(function () {
         'coaches' => CoachController::class,
         'feedbacks' => FeedbackController::class,
     ]);
+    // Notification
+    Route::post('admins/notifications-markAsRead', [AdminController::class, 'MarkAsRead_All']);
+    Route::post('admins/notification-markAsRead/{notificationId?}', [AdminController::class, 'MarkAsRead_notification']);
 
     Route::prefix('players')
         ->name('players.')

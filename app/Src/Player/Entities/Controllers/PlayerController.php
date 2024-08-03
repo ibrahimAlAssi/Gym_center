@@ -29,4 +29,20 @@ class PlayerController extends Controller
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
     }
+
+    public function MarkAsRead_All()
+    {
+        auth()->user('player')->unReadNotifications->markAsRead();
+        return $this->successResponse(message: "all notifications marked as read");
+    }
+
+    // Mark the notification as read
+    public function MarkAsRead_notification($notificationId)
+    {
+        $notification = auth()->user('player')->unReadNotifications->find($notificationId);
+        if (!$notification)
+            return $this->notFoundResponse();
+        $notification->markAsRead();
+        return $this->successResponse(message: "success");
+    }
 }

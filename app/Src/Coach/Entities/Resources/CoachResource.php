@@ -2,9 +2,10 @@
 
 namespace App\Src\Coach\Entities\Resources;
 
-use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Src\Shared\Resources\NotificationResource;
 
 class CoachResource extends JsonResource
 {
@@ -28,6 +29,7 @@ class CoachResource extends JsonResource
                 'available' => $this->wallet->available,
             ]),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('coaches'))),
+            "notifications" => NotificationResource::collection($this->unreadNotifications),
         ];
     }
 }

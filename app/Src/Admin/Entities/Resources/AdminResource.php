@@ -2,9 +2,10 @@
 
 namespace App\Src\Admin\Entities\Resources;
 
-use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Request;
+use App\Src\Shared\Resources\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Src\Shared\Resources\NotificationResource;
 
 class AdminResource extends JsonResource
 {
@@ -23,6 +24,7 @@ class AdminResource extends JsonResource
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('admins'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
             'description' => $this->description,
+            "notifications" => NotificationResource::collection($this->unreadNotifications),
         ];
     }
 }

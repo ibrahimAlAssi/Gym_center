@@ -2,15 +2,20 @@
 
 namespace App\Src\Admin\Entities\Controllers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
 use App\Domains\Operations\Models\Wallet;
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Notification;
+use App\Src\Shared\Notifications\PlayerAdded;
+use App\Src\Shared\Notifications\NewCoachForPlayer;
+use App\Src\Admin\Entities\Resources\PlayerResource;
 use App\Src\Admin\Entities\Requests\StorePlayerRequest;
 use App\Src\Admin\Entities\Requests\UpdatePlayerRequest;
 use App\Src\Admin\Entities\Resources\PlayerGridResource;
-use App\Src\Admin\Entities\Resources\PlayerResource;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Src\Shared\Notifications\ChatMessageWasReceived;
 
 class PlayerController extends Controller
 {
@@ -41,6 +46,9 @@ class PlayerController extends Controller
                 $player->addMediaFromRequest('avatar')->toMediaCollection('players');
             }
             DB::commit();
+            $your_coach = Coach::find($request->coach_id);
+            Notification::send($your_coach, new PlayerAdded($player));
+            Notification::send($player, new NewCoachForPlayer($your_coach));
 
             return $this->successResponse(
                 PlayerResource::make($player->load('wallet', 'coach')),

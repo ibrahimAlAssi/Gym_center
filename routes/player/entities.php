@@ -55,6 +55,9 @@ Route::middleware('auth:player')->group(function () {
         ->controller(PlayerController::class)
         ->group(function () {
             Route::post('', 'update')->name('update');
+            // Notification
+            Route::post('notifications-markAsRead', 'MarkAsRead_All');
+            Route::post('notification-markAsRead/{notificationId?}', 'MarkAsRead_notification');
         });
 
     Route::apiResources([
