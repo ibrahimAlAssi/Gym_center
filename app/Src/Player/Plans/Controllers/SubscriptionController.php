@@ -34,7 +34,7 @@ class SubscriptionController extends Controller
             data: $request->validated(),
             player: $request->user()
         );
-        
+
         return $this->createdResponse(
             SubscriptionResource::make($subscription->load('player', 'coach', 'plan')),
             __('shared.response_messages.created_success')

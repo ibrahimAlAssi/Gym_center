@@ -65,4 +65,19 @@ class Cart extends Model
             ->when($coachId != null, fn ($query) => $query->where('coach_id', $coachId))
             ->get();
     }
+
+    public function getMyCart(?int $coachId, ?int $playerId, array $cartsId)
+    {
+        return self::select([
+            'carts.id',
+            'carts.quantity',
+            'carts.product_id',
+            'products.price',
+        ])
+            ->join('products', 'products.id', '=', 'carts.product_id')
+            ->when($playerId != null, fn ($query) => $query->where('player_id', $playerId))
+            ->when($coachId != null, fn ($query) => $query->where('coach_id', $coachId))
+            ->whereIn('carts.id', $cartsId)
+            ->get();
+    }
 }

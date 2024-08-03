@@ -11,10 +11,11 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('subscription_id')->nullable()->constrained();
+            $table->foreignId('order_id')->nullable()->constrained();
             $table->foreignId('player_id')->nullable()->constrained();
-            $table->string('payment_method');
-            $table->json('transaction_data');
-            $table->bigInteger('transaction_id');
+            $table->foreignId('coach_id')->nullable()->constrained();
+            $table->decimal('total', 10, 2);
+            $table->string('payment_type');
             $table->timestamps();
         });
     }

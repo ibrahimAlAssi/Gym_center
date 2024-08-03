@@ -16,7 +16,7 @@ class SubscriptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'cost' => $this->cost,
+            'cost' => (float) number_format($this->cost, 2),
             'player' => $this->whenLoaded('player', fn () => [
                 'id' => $this->player->id,
                 'name' => $this->player->name,

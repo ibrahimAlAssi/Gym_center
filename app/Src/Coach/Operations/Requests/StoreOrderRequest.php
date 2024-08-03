@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Src\Coach\Tasks\Requests;
+namespace App\Src\Coach\Operations\Requests;
 
+use App\Domains\Operations\Enums\OrderPaymentTypeEnum;
+use BenSampo\Enum\Rules\EnumValue;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreTaskRequest extends FormRequest
+class StoreOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +24,9 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('tasks', 'name')],
-            'type_id' => ['required', 'string', Rule::exists('types', 'id')],
-            'number' => ['required', 'integer'],
-            'description' => ['nullable', 'string'],
-            'url' => ['required','string'],
-            'image' => ['nullable', 'image'],
+            'cart_ids' => ['required', 'array'],
+            'cart_ids.*' => ['integer', 'distinct', 'min:1'],
+            'payment_type' => ['required', 'string', new EnumValue(OrderPaymentTypeEnum::class)],
         ];
     }
 }

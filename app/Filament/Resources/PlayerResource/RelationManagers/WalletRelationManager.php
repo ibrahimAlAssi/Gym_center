@@ -20,12 +20,10 @@ class WalletRelationManager extends RelationManager
             ->schema([
                 TextInput::make('available')
                     ->required()
-                    ->integer()
-                    ->maxLength(255),
+                    ->integer(),
                 TextInput::make('pending')
                     ->required()
-                    ->integer()
-                    ->maxLength(255),
+                    ->integer(),
             ]);
     }
 

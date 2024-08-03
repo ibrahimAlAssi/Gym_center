@@ -24,6 +24,7 @@ class ScheduleTaskResource extends JsonResource
                 'id' => $this->type->id,
                 'name' => $this->type->name,
             ],
+            'url' => $this->url,
             'number' => $this->number,
             'description' => $this->when($this->description != null, $this->description),
             ...$pivotData,
