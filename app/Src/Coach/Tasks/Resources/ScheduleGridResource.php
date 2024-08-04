@@ -17,7 +17,10 @@ class ScheduleGridResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'player_name' => $this->name,
+            'player' => [
+                'id' => $this->player_id,
+                'name' => $this->player_name,
+            ],
             'player_active' => (bool) $this->active,
             'day' => $this->day,
             'schedule_complete' => (bool) $this->schedule_complete,

@@ -20,7 +20,7 @@ class OrderController extends Controller
     public function index()
     {
         return OrderGridResource::collection(
-            $this->order->getForGrid()
+            $this->order->getForGrid(coachId: request()->user('coach')->id)
         )->additional(['message' => __('shared.response_messages.success')]);
     }
 

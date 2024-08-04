@@ -73,12 +73,11 @@ class ScheduleController extends Controller
             $schedule->update($request->validated());
             if ($request->has('schedule_tasks')) {
                 foreach ($request->schedule_tasks as $task) {
-                    $task = json_decode($task);
                     $data[] = [
                         'schedule_id' => $schedule->id,
-                        'task_id' => $task->task_id,
-                        'repeat' => $task->repeat,
-                        'weight' => $task->weight ?? null,
+                        'task_id' => $task['id'],
+                        'repeat' => $task['repeat'],
+                        'weight' => $task['weight'] ?? null,
                     ];
                 }
                 $this->schedule->scheduleTasks()->insert($data);

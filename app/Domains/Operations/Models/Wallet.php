@@ -20,4 +20,15 @@ class Wallet extends Model
         'pending' => 'integer',
         'available' => 'integer',
     ];
+
+    public function findMyWallet(int $walletId)
+    {
+        return self::select([
+            'id',
+            'pending',
+            'available',
+        ])
+            ->where('id', $walletId)
+            ->first();
+    }
 }

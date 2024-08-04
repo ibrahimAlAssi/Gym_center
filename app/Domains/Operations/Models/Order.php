@@ -39,6 +39,11 @@ class Order extends Model
     public function getForGrid(?int $coachId = null, ?int $playerId = null)
     {
         return QueryBuilder::for(Order::class)
+            ->allowedFilters([
+                'orders.id',
+                'orders.player_id',
+                'orders.coach_id',
+            ])
             ->defaultSort('-id')
             ->select([
                 'orders.id',

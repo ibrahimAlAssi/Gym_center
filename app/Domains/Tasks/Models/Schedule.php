@@ -59,8 +59,8 @@ class Schedule extends Model
             })
             ->when($coachId != null, function ($query) use ($coachId) {
                 $query->addSelect([
-                    'players.id',
-                    'players.name',
+                    'players.id as player_id',
+                    'players.name as player_name',
                     'players.active',
                     'schedules.is_complete',
                 ])
