@@ -21,7 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 class SettingResource extends Resource
 {
     protected static ?string $model = Gym::class;
-        protected static ?string $modelLabel = 'Settings';
+    protected static ?string $modelLabel = 'Settings';
 
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -31,18 +31,22 @@ class SettingResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')
-                ->required()
-                ->string(),
+                    ->required()
+                    ->string()
+                    ->rules('required|max:255'), // Ensures the name is required and no longer than 255 characters
+
                 TextInput::make('latitude')
-                ->required()
-                ->string(),
+                    ->required()
+                    ->rules('required|numeric|min:-90|max:90'), // Validates latitude as a numeric value between -90 and 90
+
                 TextInput::make('longitude')
-                ->required()
-                ->string(),
+                    ->required()
+                    ->rules('required|numeric|min:-180|max:180'), // Validates longitude as a numeric value between -180 and 180
+
                 Textarea::make('description')
-                ->required()
-                ->rows(4)
-                ->string(),
+                    ->rows(4)
+                    ->string()
+                    ->rules('nullable|max:500'), // Ensures the description is required and no longer than 500 characters
             ]);
     }
 
@@ -51,21 +55,21 @@ class SettingResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
                 TextColumn::make('latitude')
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
                 TextColumn::make('longitude')
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
                 TextColumn::make('description')
-                ->sortable()
-                ->toggleable()
-                ->searchable(),
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
             ])
             ->filters([
                 //

@@ -15,7 +15,6 @@ Route::middleware('auth:player')->group(function () {
             Route::get('', 'index')->name('index');
         });
 
-        
     Route::prefix('schedules')
         ->name('schedules.')
         ->controller(ScheduleController::class)
