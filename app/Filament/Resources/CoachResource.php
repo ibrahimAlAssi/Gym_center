@@ -37,7 +37,15 @@ class CoachResource extends Resource
                         TextInput::make('experienceYears')->required()->integer()->minValue(1)->maxValue(30),
                         TextInput::make('specialization')->required()->string(),
                         TextInput::make('subscribePrice')->required()->numeric()->minValue(0)->maxValue(1000000),
-                        SpatieMediaLibraryFileUpload::make('coaches')->collection('coaches')->columnSpanFull(),
+                        SpatieMediaLibraryFileUpload::make('coaches')
+                            ->collection('coaches')
+                            ->rule([
+                                'required',
+                                'image',
+                                'mimes:jpeg,png,jpg,gif,svg',
+                                'max:2048', // Maximum file size in kilobytes
+                            ],)
+                            ->columnSpanFull(),
                     ])->columns(2),
             ]);
     }

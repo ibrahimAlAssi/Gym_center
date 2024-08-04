@@ -32,19 +32,37 @@ class PlayerResource extends Resource
                     ->collapsible()
                     ->schema([
                         TextInput::make('name')->required(),
-                        TextInput::make('email')->required()->unique(ignoreRecord: true),
-                        Select::make('gender')->required()->options([
-                            'male' => 'male',
-                            'female' => 'female',
-                        ])->required(),
-                        TextInput::make('phone')->required()->numeric()->minLength(10)->maxLength(12),
+                        TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->unique(ignoreRecord: true),
+                        Select::make('gender')
+                            ->required()
+                            ->options([
+                                'male' => 'male',
+                                'female' => 'female',
+                            ])->required(),
+                        TextInput::make('phone')
+                            ->required()
+                            ->numeric()
+                            ->minLength(10)
+                            ->maxLength(12),
                         DatePicker::make('birthday')
                             ->format('Y-m-d')
+                            ->minDate('1/1/1940')
                             ->required(),
                         Select::make('coach_id')->relationship('coach', 'name')->searchable()->preload(),
                         TextInput::make('password')->required()->password()->visibleOn('create')
                             ->columnSpanFull(),
-                        SpatieMediaLibraryFileUpload::make('avatar')->collection('avatar')->columnSpanFull(),
+                        SpatieMediaLibraryFileUpload::make('avatar')
+                            ->collection('avatar')
+                            ->rule([
+                                'required',
+                                'image',
+                                'mimes:jpeg,png,jpg,gif,svg',
+                                'max:2048', // Maximum file size in kilobytes
+                            ],)
+                            ->columnSpanFull(),
                     ])->columns(2),
             ]);
     }

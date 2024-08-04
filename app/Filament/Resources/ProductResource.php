@@ -26,7 +26,16 @@ class ProductResource extends Resource
                 TextInput::make('name')->required()->string(),
                 TextInput::make('price')->required()->numeric()->minLength(0),
                 TextInput::make('brand')->required()->string(),
-                SpatieMediaLibraryFileUpload::make('products')->collection('products')->columnSpanFull()->required(),
+                SpatieMediaLibraryFileUpload::make('products')
+                    ->collection('products')
+                    ->columnSpanFull()
+                    ->rule([
+                        'required',
+                        'image',
+                        'mimes:jpeg,png,jpg,gif,svg',
+                        'max:2048', // Maximum file size in kilobytes
+                    ],)
+                    ->required(),
             ]);
     }
 

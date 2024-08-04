@@ -32,6 +32,12 @@ class FoodResource extends Resource
                 SpatieMediaLibraryFileUpload::make('food')
                     ->collection('food')
                     ->columnSpanFull()
+                    ->rule([
+                        'required',
+                        'image',
+                        'mimes:jpeg,png,jpg,gif,svg',
+                        'max:2048', // Maximum file size in kilobytes
+                    ],)
                     ->required(),
             ]);
     }

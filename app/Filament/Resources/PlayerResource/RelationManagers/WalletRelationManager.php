@@ -20,9 +20,12 @@ class WalletRelationManager extends RelationManager
             ->schema([
                 TextInput::make('available')
                     ->required()
+                    ->minValue(0)
                     ->integer(),
                 TextInput::make('pending')
                     ->required()
+                    ->minValue(0)
+                    ->disabled()
                     ->integer(),
             ]);
     }
