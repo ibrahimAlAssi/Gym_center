@@ -2,9 +2,10 @@
 
 namespace Database\Factories\Domains\Plans\Models;
 
+use Carbon\Carbon;
+use App\Domains\Plans\Models\Plan;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
-use App\Domains\Plans\Models\Plan;
 use App\Domains\Plans\Models\Subscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -28,7 +29,7 @@ class SubscriptionFactory extends Factory
             'coach_id' => Coach::inRandomOrder()->first()->id,
             'cost' => $this->faker->randomNumber(4, 4),
             'description' => $this->faker->paragraph(),
-            'start_date' => $this->faker->date(),
+            'start_date' => Carbon::Now(),
             'end_date' => $this->faker->date(),
         ];
     }

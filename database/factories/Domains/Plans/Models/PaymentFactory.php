@@ -4,7 +4,6 @@ namespace Database\Factories\Domains\Plans\Models;
 
 use App\Domains\Club\Models\Gym;
 use App\Domains\Plans\Models\Payment;
-use App\Domains\Plans\Models\Subscribe;
 use App\Domains\Plans\Models\Subscription;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +22,6 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
             'subscribe_id' => Subscription::inRandomOrder()->first()->id,
             'player_id' => null,
             'payment_method' => $this->faker->name(),

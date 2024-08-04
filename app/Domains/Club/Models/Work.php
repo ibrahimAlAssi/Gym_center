@@ -15,6 +15,7 @@ class Work extends Model
     public $timestamps = true;
 
     protected $fillable = [
+        'gym_id',
         'day',
         'man',
         'woman',
@@ -24,6 +25,18 @@ class Work extends Model
     protected $cast = [
         'is_working' => 'boolean',
     ];
+
+    protected static function booted()
+    {
+        static::updating(function ($gym) {
+            if ($gym->man == null || $gym->man == 'closed') {
+                $gym->man = 'CLOSED';
+            }
+            if ($gym->woman == null || $gym->woman == 'closed') {
+                $gym->woman = 'CLOSED';
+            }
+        });
+    }
 
     public function getForGrid()
     {

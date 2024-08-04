@@ -8,7 +8,8 @@ use App\Domains\Plans\Models\Service;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Config;
 
 class Gym extends Model
 {
@@ -16,9 +17,19 @@ class Gym extends Model
 
     protected $table = 'gyms';
 
-    protected $fillable = ['name', 'latitude','longitude', 'description'];
+    protected $fillable = ['name', 'latitude', 'longitude', 'description'];
 
     public $timestamps = true;
+
+    protected static function booted()
+    {
+        static::updating(function ($gym) {
+            if ($gym->isDirty('name')) {
+                // ('env.APP_NAME', $gym->name);
+                Config::set('app.name', $gym->name);
+            }
+        });
+    }
 
     public function contacts(): HasMany
     {
@@ -49,7 +60,6 @@ class Gym extends Model
     {
         return $this->hasMany(Service::class);
     }
-
 
     public function metaData()
     {

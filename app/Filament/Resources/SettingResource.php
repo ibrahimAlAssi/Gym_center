@@ -13,12 +13,16 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\SettingResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SettingResource\RelationManagers;
+use App\Filament\Resources\SettingResource\RelationManagers\WorksRelationManager;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 
 class SettingResource extends Resource
 {
     protected static ?string $model = Gym::class;
+        protected static ?string $modelLabel = 'Settings';
+
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -35,8 +39,9 @@ class SettingResource extends Resource
                 TextInput::make('longitude')
                 ->required()
                 ->string(),
-                TextInput::make('description')
+                Textarea::make('description')
                 ->required()
+                ->rows(4)
                 ->string(),
             ]);
     }
@@ -70,7 +75,7 @@ class SettingResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    // Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -78,7 +83,7 @@ class SettingResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            WorksRelationManager::class,
         ];
     }
 

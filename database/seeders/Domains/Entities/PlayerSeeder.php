@@ -22,7 +22,7 @@ class PlayerSeeder extends Seeder
             '4.png',
         ];
 
-        $players = Player::get();
+        $players = Player::get()->take(4);
         foreach ($players as $key => $player) {
             $path = public_path('images/players/' . $pictures[$key]);
             $player->addMedia($path)->preservingOriginal()

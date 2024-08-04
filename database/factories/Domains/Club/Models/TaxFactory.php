@@ -21,7 +21,7 @@ class TaxFactory extends Factory
     public function definition(): array
     {
         return [
-            'gym_id' => Gym::factory(),
+            'gym_id' => Gym::first()->id,
             'name' => fake()->name(),
             'value' => fake()->numberBetween(100, 2000),
         ];

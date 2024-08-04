@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
-use Filament\Forms\Components\Select;
 use App\Domains\Plans\Models\Discount;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DatePicker;
 use App\Filament\Resources\DiscountResource\Pages;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
 class DiscountResource extends Resource
 {
@@ -24,7 +24,7 @@ class DiscountResource extends Resource
         return $form
             ->schema([
                 Select::make('plan_id')
-                    ->relationship('plan','name')
+                    ->relationship('plan', 'name')
                     ->preload()
                     ->searchable()
                     ->required(),
@@ -54,10 +54,12 @@ class DiscountResource extends Resource
                     ->toggleable()
                     ->searchable(),
                 TextColumn::make('start_date')
+                    ->date('Y-m-d')
                     ->sortable()
                     ->toggleable()
                     ->searchable(),
                 TextColumn::make('end_date')
+                    ->date('Y-m-d')
                     ->sortable()
                     ->toggleable()
                     ->searchable(),

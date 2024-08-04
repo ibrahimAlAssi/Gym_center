@@ -3,6 +3,7 @@
 namespace Database\Factories\Domains\Club\Models;
 
 use App\Domains\Club\Enums\WorkDayEnum;
+use App\Domains\Club\Models\Gym;
 use App\Domains\Club\Models\Work;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,6 +24,7 @@ class WorkFactory extends Factory
         $day = $this->faker->unique()->dayOfWeek();
 
         return [
+            'gym_id' => Gym::first()->id,
             'day' => $day,
             'man' => $day != WorkDayEnum::FRIDAY ? '02:00 PM - 11:00 PM' : 'CLOSED',
             'woman' => $day != WorkDayEnum::FRIDAY ? '7:00 AM - 01:00 PM' : 'CLOSED',

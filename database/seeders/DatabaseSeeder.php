@@ -51,7 +51,10 @@ class DatabaseSeeder extends Seeder
             ->create(['email' => 'player@gmail.com', 'coach_id' => 1]);
         Coach::factory()->count(5)->create();
         $this->call(CoachSeeder::class);
-        Player::factory()->count(2)->create(['coach_id' => 1, 'diet_id' => null]);
+        Player::factory()->count(2)->create([
+            'coach_id' => 1,
+            'diet_id' => null,
+        ]);
         Player::factory()->count(1)->create(['coach_id' => 2, 'diet_id' => null]);
         $this->call(PlayerSeeder::class);
         $playerCart = Cart::factory()->create(['player_id' => 1, 'coach_id' => null, 'product_id' => 1]);
@@ -66,8 +69,14 @@ class DatabaseSeeder extends Seeder
         //plans
         $this->call(PlanSeeder::class);
         $Subscriptions = Subscription::factory()
-            ->count(5)
-            ->create();
+            ->count(2)
+            ->create(['plan_id' => 2]);
+        $Subscriptions = Subscription::factory()
+            ->count(1)
+            ->create(['plan_id' => 1]);
+        $Subscriptions = Subscription::factory()
+            ->count(1)
+            ->create(['plan_id' => 3]);
         $normalDiscount = Discount::factory()
             ->create(['plan_id' => 1]);
         $vipDiscount = Discount::factory()

@@ -2,11 +2,12 @@
 
 namespace App\Filament\Widgets;
 
+use App\Domains\Plans\Models\Subscription;
 use Filament\Widgets\ChartWidget;
 
 class DoughnutChartWidget extends ChartWidget
 {
-    protected static ?string $heading = 'Chart';
+    protected static ?string $heading = 'Plans';
 
     protected static ?int $sort = 2;
 
@@ -16,11 +17,18 @@ class DoughnutChartWidget extends ChartWidget
 
     protected function getData(): array
     {
+        $normal = Subscription::where('plan_id', 1)->where('start_date', '>', now()->subMonth())
+        ->count();
+        $vip = Subscription::where('plan_id', 2)->where('start_date', '>', now()->subMonth())
+        ->count();
+        $premium = Subscription::where('plan_id', 3)->where('start_date', '>', now()->subMonth())
+        ->count();
+
         return [
             'datasets' => [
                 [
                     'label' => 'My First Dataset',
-                    'data' => [300, 50, 100],
+                    'data' => [$normal, $vip, $premium],
                     'backgroundColor' => [
                         'rgb(255, 99, 132)',
                         'rgb(54, 162, 235)',
@@ -31,9 +39,9 @@ class DoughnutChartWidget extends ChartWidget
                 ],
             ],
             'labels' => [
-                'Red',
-                'Blue',
-                'Yellow',
+                'Normal',
+                'VIP',
+                'Premium',
             ],
         ];
     }

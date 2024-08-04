@@ -78,6 +78,7 @@ class PlayerResource extends Resource
                     ->toggleable(),
 
                 TextColumn::make('birthday')
+                    ->date('Y-m-d')
                     ->sortable()
                     ->toggleable(),
 

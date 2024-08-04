@@ -10,9 +10,10 @@ class CreateWorksTable extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('gym_id')->constrained()->cascadeOnDelete();
             $table->string('day');
-            $table->string('man')->nullable();
-            $table->string('woman')->nullable();
+            $table->string('man')->default('CLOSED')->nullable();
+            $table->string('woman')->default('CLOSED')->nullable();
             $table->unique('day');
             $table->timestamps();
         });
