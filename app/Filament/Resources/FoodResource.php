@@ -24,10 +24,15 @@ class FoodResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')->required()->columnSpanFull()
+                TextInput::make('name')
+                    ->required()
+                    ->columnSpanFull()
+                    ->rule('alpha')
                     ->unique(ignoreRecord: true),
-                SpatieMediaLibraryFileUpload::make('food')->collection('food')
-                    ->columnSpanFull()->required(),
+                SpatieMediaLibraryFileUpload::make('food')
+                    ->collection('food')
+                    ->columnSpanFull()
+                    ->required(),
             ]);
     }
 

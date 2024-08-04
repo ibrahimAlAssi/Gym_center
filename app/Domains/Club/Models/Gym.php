@@ -21,15 +21,15 @@ class Gym extends Model
 
     public $timestamps = true;
 
-    protected static function booted()
-    {
-        static::updating(function ($gym) {
-            if ($gym->isDirty('name')) {
-                // ('env.APP_NAME', $gym->name);
-                Config::set('app.name', $gym->name);
-            }
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::updating(function ($gym) {
+    //         if ($gym->isDirty('name')) {
+    //             // ('env.APP_NAME', $gym->name);
+    //             // Config::set('app.name', $gym->name);
+    //         }
+    //     });
+    // }
 
     public function contacts(): HasMany
     {

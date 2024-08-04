@@ -22,9 +22,7 @@ class FeedbackResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-
-            ]);
+            ->schema([]);
     }
 
     public static function table(Table $table): Table
@@ -47,7 +45,7 @@ class FeedbackResource extends Resource
 
                 TextColumn::make('message')->searchable(),
                 IconColumn::make('is_complaint')
-                    ->label('Complaint-Suggestion')
+                    ->label('Suggestion/Complaint')
                     ->boolean()
                     ->trueColor('danger')
                     ->falseColor('success')
@@ -57,8 +55,7 @@ class FeedbackResource extends Resource
             ->filters([
                 TernaryFilter::make('is_complaint'),
             ])
-            ->actions([
-            ])
+            ->actions([])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

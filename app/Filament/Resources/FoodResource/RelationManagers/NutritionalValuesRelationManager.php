@@ -20,11 +20,13 @@ class NutritionalValuesRelationManager extends RelationManager
                 TextInput::make('name')
                     ->required()
                     ->string()
+                    ->rule('alpha')
                     ->maxLength(255),
 
                 TextInput::make('value')
                     ->required()
-                    ->numeric(),
+                    ->numeric()
+                    ->minValue(1),
             ]);
     }
 

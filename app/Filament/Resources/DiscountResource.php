@@ -30,7 +30,7 @@ class DiscountResource extends Resource
                     ->required(),
                 DatePicker::make('start_date')
                     ->format('Y-m-d')
-                    ->after('now')
+                    ->after(now()->subDay())
                     ->default(now())
                     ->required(),
                 DatePicker::make('end_date')
