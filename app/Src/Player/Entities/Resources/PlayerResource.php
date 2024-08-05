@@ -28,7 +28,10 @@ class PlayerResource extends JsonResource
             'birthday' => $this->birthday->format('Y-m-d'),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
-            'notifications' => NotificationResource::collection(request()->user()->unreadNotifications),
+            'notifications' => $this->whenLoaded(
+                'notifications',
+                NotificationResource::collection($this->unreadNotifications)
+            ),
             'wallet' => $this->whenLoaded('wallet', fn () => [
                 'id' => $this->wallet->id,
                 'total' => $this->wallet->available + $this->wallet->pending,
@@ -39,7 +42,7 @@ class PlayerResource extends JsonResource
                 'id' => $this->coach->id,
                 'name' => $this->coach->name,
             ]),
-            'subscription' => $this->when(! empty($active_subscription), [
+            'subscription' => $this->when(!empty($active_subscription), [
                 'active_plan' => $active_subscription?->plan->name,
                 'end_date' => $active_subscription?->end_date,
             ]),

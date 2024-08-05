@@ -32,7 +32,9 @@ class AuthController extends Controller
 
         return $this->successResponse(
             [
-                'player' => PlayerResource::make($player->load('wallet', 'coach', 'media')),
+                'player' => PlayerResource::make(
+                    $player->load('wallet', 'coach', 'media', 'notifications')
+                ),
                 'token' => $player->createToken('player')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
@@ -86,11 +88,11 @@ class AuthController extends Controller
         try {
             $resetCode = ResetCodePassword::where('email', $request->email)
                 ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-            if (! $resetCode || $resetCode->code != $request->code) {
+            if (!$resetCode || $resetCode->code != $request->code) {
                 return $this->failedResponse(message: __('passwords.invalid_code'));
             }
 
-            if (! empty($request->password)) {
+            if (!empty($request->password)) {
                 DB::beginTransaction();
                 $this->player->where('email', $request->email)->first()
                     ->update(['password' => $request->password]);
