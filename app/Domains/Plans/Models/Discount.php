@@ -7,10 +7,11 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Discount extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $table = 'discounts';
 
@@ -41,6 +42,7 @@ class Discount extends Model
                 'discounts.start_date',
                 'discounts.end_date',
             ])
+            ->defaultSort('-id')
             ->select([
                 'discounts.id',
                 'discounts.start_date',

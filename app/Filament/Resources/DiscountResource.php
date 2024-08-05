@@ -27,6 +27,7 @@ class DiscountResource extends Resource
                     ->relationship('plan', 'name')
                     ->preload()
                     ->searchable()
+                    ->unique(ignoreRecord:true)
                     ->required(),
                 DatePicker::make('start_date')
                     ->format('Y-m-d')
@@ -50,6 +51,11 @@ class DiscountResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('plan.name')
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
+                TextColumn::make('plan.cost')
+                ->label('Cost')
                     ->sortable()
                     ->toggleable()
                     ->searchable(),
@@ -78,7 +84,7 @@ class DiscountResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])->defaultSort('id','desc');
     }
 
     public static function getRelations(): array

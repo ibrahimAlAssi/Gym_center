@@ -4,21 +4,22 @@ namespace App\Domains\Entities\Models;
 
 use App\Domains\Club\Models\Cart;
 use App\Domains\Club\Models\Diet;
-use App\Domains\Club\Models\OrderDiet;
-use App\Domains\Operations\Models\Wallet;
-use App\Domains\Tasks\Models\Rate;
-use App\Domains\Tasks\Models\Schedule;
-use App\Domains\Tasks\Models\Task;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use App\Domains\Tasks\Models\Rate;
+use App\Domains\Tasks\Models\Task;
+use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\QueryBuilder;
+use App\Domains\Club\Models\OrderDiet;
+use App\Domains\Tasks\Models\Schedule;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use App\Domains\Operations\Models\Wallet;
+use App\Domains\Plans\Models\Subscription;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Player extends Model implements HasMedia
 {
@@ -65,7 +66,10 @@ class Player extends Model implements HasMedia
             });
         });
     }
-
+    public function subscriptions():HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
     public function diet(): BelongsTo
     {
         return $this->belongsTo(Diet::class);

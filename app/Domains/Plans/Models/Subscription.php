@@ -23,9 +23,8 @@ class Subscription extends Model
     protected $fillable = [
         'discount_id',
         'player_id',
-        'coach_id',
         'plan_id',
-        'coach_Id',
+        'coach_id',
         'offer_id',
         'cost',
         'description',

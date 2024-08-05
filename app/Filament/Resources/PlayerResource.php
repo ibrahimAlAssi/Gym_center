@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Domains\Entities\Models\Player;
 use App\Filament\Resources\PlayerResource\Pages;
 use App\Filament\Resources\PlayerResource\RelationManagers\OrderDietsRelationManager;
+use App\Filament\Resources\PlayerResource\RelationManagers\SubscriptionsRelationManager;
 use App\Filament\Resources\PlayerResource\RelationManagers\WalletRelationManager;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
@@ -22,7 +23,7 @@ class PlayerResource extends Resource
 {
     protected static ?string $model = Player::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -61,7 +62,7 @@ class PlayerResource extends Resource
                                 'image',
                                 'mimes:jpeg,png,jpg,gif,svg',
                                 'max:2048', // Maximum file size in kilobytes
-                            ],)
+                            ], )
                             ->columnSpanFull(),
                     ])->columns(2),
             ]);
@@ -135,6 +136,7 @@ class PlayerResource extends Resource
         return [
             WalletRelationManager::class,
             OrderDietsRelationManager::class,
+            SubscriptionsRelationManager::class,
         ];
     }
 

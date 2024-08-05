@@ -2,11 +2,11 @@
 
 namespace App\Src\Player\Entities\Resources;
 
-use Illuminate\Http\Request;
 use App\Src\Shared\Resources\MediaResource;
+use App\Src\Shared\Resources\NotificationResource;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-use App\Src\Shared\Resources\NotificationResource;
 use function App\Src\Shared\getActiveSubscription;
 
 class PlayerResource extends JsonResource
@@ -28,10 +28,10 @@ class PlayerResource extends JsonResource
             'birthday' => $this->birthday->format('Y-m-d'),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
-            "notifications" => NotificationResource::collection($this->unreadNotifications),
+            'notifications' => NotificationResource::collection(request()->user()->unreadNotifications),
             'wallet' => $this->whenLoaded('wallet', fn () => [
                 'id' => $this->wallet->id,
-                'total' => $this->wallet->total,
+                'total' => $this->wallet->available + $this->wallet->pending,
                 'pending' => $this->wallet->pending,
                 'available' => $this->wallet->available,
             ]),
