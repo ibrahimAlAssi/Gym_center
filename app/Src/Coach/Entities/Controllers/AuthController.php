@@ -8,6 +8,7 @@ use App\Domains\Entities\Models\ResetCodePassword;
 use App\Http\Controllers\Controller;
 use App\Src\Admin\Entities\Requests\LoginRequest;
 use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Src\Coach\Entities\Resources\ProfileResource;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class AuthController extends Controller
 
         return $this->successResponse(
             [
-                'coach' => CoachResource::make($coach->load('wallet', 'media')),
+                'coach' => CoachResource::make($coach->load('wallet', 'media', 'notifications')),
                 'token' => $coach->createToken('coach')->plainTextToken,
             ],
             message: __('shared.response_messages.login_success')
@@ -79,11 +80,11 @@ class AuthController extends Controller
         try {
             $resetCode = ResetCodePassword::where('email', $request->email)
                 ->where('created_at', '>=', Carbon::now()->subMinutes(5)->toDateTimeString())->first();
-            if (! $resetCode || $resetCode->code != $request->code) {
+            if (!$resetCode || $resetCode->code != $request->code) {
                 return $this->failedResponse(message: __('passwords.invalid_code'));
             }
 
-            if (! empty($request->password)) {
+            if (!empty($request->password)) {
                 DB::beginTransaction();
                 $this->coach->where('email', $request->email)->first()
                     ->update(['password' => $request->password]);
@@ -100,5 +101,12 @@ class AuthController extends Controller
 
             return $this->failedResponse(__('An error occurred. Please try again later.'));
         }
+    }
+    public function user(Request $request)
+    {
+        return $this->successResponse(
+            ProfileResource::make($request->user()->load('roles', 'media', 'wallet', 'notifications')),
+            __('shared.response_messages.success')
+        );
     }
 }
