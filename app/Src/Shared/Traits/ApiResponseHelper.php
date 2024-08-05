@@ -127,6 +127,10 @@ trait ApiResponseHelper
 
     private function customResponse(string $message, int $code = Response::HTTP_OK, $headers = []): JsonResponse
     {
-        return response()->json($message, $code, $headers);
+        return $this->jsonResponse(
+            ['message' => $message],
+            $code,
+            $headers
+        );
     }
 }
