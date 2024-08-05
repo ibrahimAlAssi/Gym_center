@@ -2,21 +2,22 @@
 
 namespace App\Src\Coach\Entities\Controllers;
 
-use App\Domains\Entities\Mail\SendCodeResetPassword;
-use App\Domains\Entities\Models\Coach;
-use App\Domains\Entities\Models\ResetCodePassword;
-use App\Http\Controllers\Controller;
-use App\Src\Admin\Entities\Requests\LoginRequest;
-use App\Src\Coach\Entities\Resources\CoachResource;
-use App\Src\Coach\Entities\Resources\ProfileResource;
 use Carbon\Carbon;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Domains\Entities\Models\Coach;
+use App\Src\Admin\Entities\Requests\LoginRequest;
+use App\Domains\Entities\Models\ResetCodePassword;
+use App\Src\Shared\Resources\NotificationResource;
+use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Domains\Entities\Mail\SendCodeResetPassword;
+use App\Src\Coach\Entities\Resources\ProfileResource;
 
 class AuthController extends Controller
 {
@@ -106,6 +107,13 @@ class AuthController extends Controller
     {
         return $this->successResponse(
             ProfileResource::make($request->user()->load('roles', 'media', 'wallet', 'notifications')),
+            __('shared.response_messages.success')
+        );
+    }
+    public function userNotifications(Request $request)
+    {
+        return $this->successResponse(
+            NotificationResource::collection(request()->user()->unreadNotifications),
             __('shared.response_messages.success')
         );
     }
