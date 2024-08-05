@@ -27,6 +27,7 @@ class DiscountResource extends Resource
                     ->relationship('plan', 'name')
                     ->preload()
                     ->searchable()
+                    ->unique(ignoreRecord:true)
                     ->required(),
                 DatePicker::make('start_date')
                     ->format('Y-m-d')
