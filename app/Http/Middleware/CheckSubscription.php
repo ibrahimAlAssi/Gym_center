@@ -35,8 +35,9 @@ class CheckSubscription
                 // Log the user out if subscription is expired
                 $user->currentAccessToken()->delete();
 
-                return $this->successResponse(
-                    message: __('shared.response_messages.you need to subscribe in new plan')
+                return $this->customResponse(
+                    __('shared.response_messages.you need to subscribe in new plan'),
+                    499
                 );
             }
         }

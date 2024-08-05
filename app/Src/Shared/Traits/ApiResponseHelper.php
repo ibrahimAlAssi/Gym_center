@@ -124,4 +124,9 @@ trait ApiResponseHelper
     {
         return response()->json($data, $code, $headers);
     }
+
+    private function customResponse(string $message, int $code = Response::HTTP_OK, $headers = []): JsonResponse
+    {
+        return response()->json($message, $code, $headers);
+    }
 }
