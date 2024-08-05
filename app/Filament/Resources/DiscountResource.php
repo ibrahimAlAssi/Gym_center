@@ -53,6 +53,11 @@ class DiscountResource extends Resource
                     ->sortable()
                     ->toggleable()
                     ->searchable(),
+                TextColumn::make('plan.cost')
+                ->label('Cost')
+                    ->sortable()
+                    ->toggleable()
+                    ->searchable(),
                 TextColumn::make('start_date')
                     ->date('Y-m-d')
                     ->sortable()

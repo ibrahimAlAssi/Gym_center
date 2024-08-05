@@ -24,6 +24,7 @@ class PlanResource extends Resource
             ->schema([
                 TextInput::make('name')
                     ->unique(ignoreRecord: true)
+                    ->readOnly()
                     ->required(),
                 TextInput::make('cost')
                     ->numeric()
