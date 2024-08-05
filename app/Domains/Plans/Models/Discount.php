@@ -41,6 +41,7 @@ class Discount extends Model
                 'discounts.start_date',
                 'discounts.end_date',
             ])
+            ->defaultSort('-id')
             ->select([
                 'discounts.id',
                 'discounts.start_date',
