@@ -28,7 +28,7 @@ class PlayerResource extends JsonResource
             'birthday' => $this->birthday->format('Y-m-d'),
             'avatar' => $this->whenLoaded('media', fn () => new MediaResource($this->getFirstMedia('avatar'))),
             'role' => $this->whenLoaded('roles', fn () => $this->roles),
-            'notifications' => NotificationResource::collection($this->unreadNotifications),
+            'notifications' => NotificationResource::collection(request()->user()->unreadNotifications),
             'wallet' => $this->whenLoaded('wallet', fn () => [
                 'id' => $this->wallet->id,
                 'total' => $this->wallet->available + $this->wallet->pending,
