@@ -70,15 +70,9 @@ class PermissionsSeeder extends Seeder
         $role5->givePermissionTo('update diet');
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
-        // create demo users
-        $superAdmin = Admin::factory()->create([
-            'name' => 'super admin',
-            'email' => 'superadmin@example.com',
-        ]);
-        $superAdmin->assignRole($role1);
-
         $admin = Admin::factory()->create([
             'name' => 'admin',
+            'is_super_admin' => true,
             'email' => 'admin@gmail.com',
         ]);
         $admin->assignRole($role2);
@@ -91,13 +85,15 @@ class PermissionsSeeder extends Seeder
 
         $accountant = Admin::factory()->create([
             'name' => 'accountant',
+            'is_super_admin' => false,
             'email' => 'accountant@gmail.com',
         ]);
         $accountant->assignRole($role4);
 
         $specialist = Admin::factory()->create([
-            'name' => 'specialist',
-            'email' => 'specialist@gmail.com',
+            'name' => 'diet',
+            'is_super_admin' => false,
+            'email' => 'diet@gmail.com',
         ]);
         $specialist->assignRole($role5);
     }
