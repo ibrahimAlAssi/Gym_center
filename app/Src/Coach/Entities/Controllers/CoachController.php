@@ -2,16 +2,16 @@
 
 namespace App\Src\Coach\Entities\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\Controller;
 use App\Domains\Entities\Models\Coach;
 use App\Domains\Entities\Models\Player;
-use App\Src\Coach\Entities\Resources\CoachResource;
-use App\Src\Coach\Entities\Resources\ProfileResource;
-use App\Src\Player\Entities\Resources\PlayerResource;
+use App\Http\Controllers\Controller;
 use App\Src\Coach\Entities\Requests\UpdateCoachRequest;
 use App\Src\Coach\Entities\Resources\CoachGridResource;
+use App\Src\Coach\Entities\Resources\CoachResource;
+use App\Src\Coach\Entities\Resources\PlayerResource;
+use App\Src\Coach\Entities\Resources\ProfileResource;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CoachController extends Controller
 {
@@ -67,6 +67,7 @@ class CoachController extends Controller
     public function markAsReadAll()
     {
         auth()->user('coach')->unReadNotifications->markAsRead();
+
         return $this->successResponse();
     }
 
@@ -74,10 +75,11 @@ class CoachController extends Controller
     public function markAsReadNotification($notificationId)
     {
         $notification = auth()->user('coach')->unReadNotifications->find($notificationId);
-        if (!$notification) {
+        if (! $notification) {
             return $this->notFoundResponse();
         }
         $notification->markAsRead();
+
         return $this->successResponse();
     }
 }
