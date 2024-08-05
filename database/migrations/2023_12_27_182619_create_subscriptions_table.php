@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('player_id')->constrained()->cascadeOnDelete();
             $table->foreignId('coach_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('discount_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('discount_id')->nullable()->constrained();
             $table->decimal('cost', 10, 2);
             $table->text('description')->nullable();
             $table->date('start_date');
