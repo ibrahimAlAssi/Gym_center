@@ -77,6 +77,7 @@ class DatabaseSeeder extends Seeder
         $Subscriptions = Subscription::factory()
             ->count(1)
             ->create(['plan_id' => 3]);
+
         $normalDiscount = Discount::factory()
             ->create(['plan_id' => 1]);
         $vipDiscount = Discount::factory()
@@ -84,5 +85,15 @@ class DatabaseSeeder extends Seeder
 
         $schedule = Schedule::factory()->create();
         ScheduleTask::factory()->for($schedule)->count(5)->create();
+
+        ///
+        $Subscriptions = Subscription::factory()
+            ->count(3)
+            ->create(['plan_id' => 1, 'start_date' => now()->subMonths(3), 'created_at' => now()->subMonths(3),
+            ]);
+        $Subscriptions = Subscription::factory()
+            ->count(6)
+            ->create(['plan_id' => 1, 'start_date' => now()->subMonths(2), 'created_at' => now()->subMonths(2),
+            ]);
     }
 }

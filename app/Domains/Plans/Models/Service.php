@@ -2,10 +2,12 @@
 
 namespace App\Domains\Plans\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\QueryBuilder\AllowedFilter;
+use App\Domains\Plans\Models\Plan;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Service extends Model
 {
@@ -19,7 +21,10 @@ class Service extends Model
         'name',
         'description',
     ];
-
+    public function plans(): BelongsToMany
+    {
+        return $this->BelongsToMany(Plan::class);
+    }
     public function getForGrid()
     {
         return QueryBuilder::for(Service::class)
