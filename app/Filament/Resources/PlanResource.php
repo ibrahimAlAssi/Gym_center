@@ -28,6 +28,7 @@ class PlanResource extends Resource
                     ->required(),
                 TextInput::make('cost')
                     ->numeric()
+                    ->minValue(0)
                     ->required(),
             ]);
     }
