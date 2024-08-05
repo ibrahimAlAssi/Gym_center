@@ -31,7 +31,7 @@ if (!function_exists('getActiveSubscription')) {
     {
         return Subscription::join('players', 'players.id', '=', 'subscriptions.player_id')
             ->where('subscriptions.player_id', $playerId)
-            // ->whereDate('subscriptions.end_date', '>=', Carbon::now())
+            ->whereDate('subscriptions.end_date', '>=', Carbon::now())
             ->latest('subscriptions.id')
             ->first();
     }

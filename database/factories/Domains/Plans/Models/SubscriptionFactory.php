@@ -30,7 +30,7 @@ class SubscriptionFactory extends Factory
             'cost' => $this->faker->randomNumber(4, 4),
             'description' => $this->faker->paragraph(),
             'start_date' => Carbon::Now(),
-            'end_date' => $this->faker->date(),
+            'end_date' => Carbon::Now()->addMonths(rand(1, 4)),
         ];
     }
 }

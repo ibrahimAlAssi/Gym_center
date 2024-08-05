@@ -33,6 +33,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapWebRoutes();
 
             $this->mapAdminRoutes();
+            // TODO:
             $this->mapPlayerRoutes();
             $this->mapCoachRoutes();
         });
@@ -100,26 +101,28 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapPlayerRoutes(): void
     {
-        Route::prefix('players')
-            ->middleware('api')
-            ->name('players.')
-            ->group(base_path('routes/player/entities.php'));
-        Route::prefix('players')
-            ->middleware('api')
-            ->name('players.')
-            ->group(base_path('routes/player/tasks.php'));
+        Route::middleware('check.subscription')->group(function () {
+            Route::prefix('players')
+                ->middleware('api')
+                ->name('players.')
+                ->group(base_path('routes/player/entities.php'));
+            Route::prefix('players')
+                ->middleware('api')
+                ->name('players.')
+                ->group(base_path('routes/player/tasks.php'));
+            Route::prefix('players')
+                ->middleware('api')
+                ->name('players.')
+                ->group(base_path('routes/player/clubs.php'));
+            Route::prefix('players')
+                ->middleware('api')
+                ->name('players.')
+                ->group(base_path('routes/player/operations.php'));
+        });
         Route::prefix('players')
             ->middleware('api')
             ->name('players.')
             ->group(base_path('routes/player/plans.php'));
-        Route::prefix('players')
-            ->middleware('api')
-            ->name('players.')
-            ->group(base_path('routes/player/clubs.php'));
-        Route::prefix('players')
-            ->middleware('api')
-            ->name('players.')
-            ->group(base_path('routes/player/operations.php'));
     }
 
     /**
