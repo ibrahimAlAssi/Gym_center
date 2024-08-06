@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->char('name', 100);
             $table->foreignId('wallet_id');
-            $table->string('specialization');
-            $table->double('experienceYears');
-            $table->double('subscribePrice');
+            $table->string('specialization')->nullable();
+            $table->double('experienceYears')->nullable();
+            $table->double('subscribePrice')->nullable();
             $table->string('phone', 25)->nullable();
             $table->string('email')->unique();
             $table->string('password');

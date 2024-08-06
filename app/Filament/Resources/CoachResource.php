@@ -34,9 +34,9 @@ class CoachResource extends Resource
                         TextInput::make('description')->string(),
                         TextInput::make('phone')->required()->numeric()->minLength(10)->maxLength(12),
                         TextInput::make('password')->required()->password()->visibleOn('create'),
-                        // TextInput::make('experienceYears')->required()->integer()->minValue(1)->maxValue(30),
-                        // TextInput::make('specialization')->required()->string(),
-                        // TextInput::make('subscribePrice')->required()->numeric()->minValue(0)->maxValue(1000000),
+                        TextInput::make('experienceYears')->required()->integer()->minValue(1)->maxValue(30),
+                        TextInput::make('specialization')->required()->string(),
+                        TextInput::make('subscribePrice')->required()->numeric()->minValue(0)->maxValue(1000000),
                         SpatieMediaLibraryFileUpload::make('coaches')
                             ->collection('coaches')
                             ->rule([
@@ -60,10 +60,10 @@ class CoachResource extends Resource
                     ->collection('coaches')->toggleable()->label('Avatar'),
                 TextColumn::make('phone')->searchable()->toggleable(),
 
-                TextColumn::make('experienceYears')->searchable()->toggleable()->sortable(),
+                // TextColumn::make('experienceYears')->searchable()->toggleable()->sortable(),
 
-                TextColumn::make('specialization')->searchable()->toggleable()->sortable(),
-                TextColumn::make('subscribePrice')->searchable()->toggleable()->sortable(),
+                // TextColumn::make('specialization')->searchable()->toggleable()->sortable(),
+                // TextColumn::make('subscribePrice')->searchable()->toggleable()->sortable(),
 
                 TextColumn::make('created_at')->sortable()
                     ->date('M d , Y')
