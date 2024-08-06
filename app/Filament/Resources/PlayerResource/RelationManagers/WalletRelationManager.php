@@ -25,7 +25,6 @@ class WalletRelationManager extends RelationManager
                 TextInput::make('pending')
                     ->required()
                     ->minValue(0)
-                    ->disabled()
                     ->integer(),
             ]);
     }
