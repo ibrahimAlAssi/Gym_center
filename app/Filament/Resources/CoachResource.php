@@ -72,7 +72,7 @@ class CoachResource extends Resource
 
                 TextColumn::make('wallet.available')->label('available')->toggleable(),
                 TextColumn::make('wallet.pending')->label('pending')->toggleable(),
-                TextColumn::make('wallet.total')->label('total')->toggleable(),
+                // TextColumn::make('wallet.total')->label('total')->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('experienceYears')
