@@ -55,7 +55,7 @@ class AuthController extends Controller
     public function user(Request $request)
     {
         return $this->successResponse(
-            PlayerResource::make($request->user()->load('wallet', 'coach', 'media')),
+            PlayerResource::make($request->user()->load('wallet', 'coach', 'media', 'notifications')),
             __('shared.response_messages.success')
         );
     }
