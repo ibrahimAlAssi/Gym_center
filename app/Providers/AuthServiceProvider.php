@@ -4,6 +4,8 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Opcodes\LogViewer\Facades\LogViewer;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,13 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        LogViewer::auth(function ($request) {
+            $user = Auth::guard('admin-web')->user();
+
+            return $user
+               && in_array($user->email, [
+                   'admin@gmail.com',
+               ]);
+        });
     }
 }
