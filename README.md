@@ -1,7 +1,6 @@
-# Gym_center
+# Gym_center(Dashboard(admin) && Backend for app(player and coach))
 The Gym Center Management System is a comprehensive software application designed to streamline the operations of gym and fitness centers.
-## Dashboard only for admin && Backend for app GYM for player and coach
-### URL:http://127.0.0.1:8000/admin 
+####  URL:http://127.0.0.1:8000/admin 
 #### email:admin@gmail.com 
 #### password:password
 ![Dashboard img](images/dashboard.png)
